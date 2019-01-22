@@ -16,26 +16,29 @@ class GameResultHandler
   private $CONFIG = array(
       'game_maximum_scores' => [ 18000,50000,10000,10000 ],
       'function_id_character_position' => 2,
-      'params' => [
+      'settings' => [
+        
+        // [ function_id , offset, ch_positions, range_min , range_max ]
+
         "BwLwYEHFcUe1flIV7RP7HA=="=>[         // Coin Pop
-          [ 1, 0x400, [2,3,13,17,25,31,33] ],
-          [ 2, 0x356, [2,7,14,16,22,23,31] ],
-          [ 3, 0x123, [2,4,15,17,21,31,34] ],
+          [ 1, 0x400, [2,3,13,17,25,31,33], 0, 150 ],
+          [ 2, 0x356, [2,7,14,16,22,23,31], 150, 1500 ],
+          [ 3, 0x123, [2,4,15,17,21,31,34], 1500, 18000 ],
         ],
         "jSDMP8tbVEWun6w3ONPJQw=="=>[         // Crypto Match
-          [ 1, 0x2F2, [2,6,15,17,24,30,35] ],
-          [ 2, 0x3F1, [2,9,18,19,25,31,36] ],
-          [ 3, 0x35F, [2,3,12,18,23,31,32] ],
+          [ 1, 0x2F2, [2,6,15,17,24,30,35], 0, 500 ],
+          [ 2, 0x3F1, [2,9,18,19,25,31,36], 500, 3000 ],
+          [ 3, 0x35F, [2,3,12,18,23,31,32], 3000, 50000 ],
         ],
         "x4V6e6O5qUCbFNHPgofXEg=="=>[         // Fud Destroyr
-          [ 1, 0x312, [2,5,10,18,25,31,32] ],
-          [ 2, 0x1FF, [2,8,12,17,21,30,35] ],
-          [ 3, 0x2BD, [2,7,19,20,26,32,34] ],
+          [ 1, 0x312, [2,5,10,18,25,31,32], 0, 20 ],
+          [ 2, 0x1FF, [2,8,12,17,21,30,35], 20, 200 ],
+          [ 3, 0x2BD, [2,7,19,20,26,32,34], 200, 10000 ],
         ],
         "mSgEGYX/vkWFXON2LcKS2w=="=>[         // Kufox Jump
-          [ 1, 0x3E4, [2,4,16,19,24,32,33] ],
-          [ 2, 0x33C, [2,6,17,18,21,33,34] ],
-          [ 3, 0x2EE, [2,9,11,17,27,35,36] ],
+          [ 1, 0x3E4, [2,4,16,19,24,32,33], 0, 100 ],
+          [ 2, 0x33C, [2,6,17,18,21,33,34], 100, 1000 ],
+          [ 3, 0x2EE, [2,9,11,17,27,35,36], 1000, 10000 ],
         ]
       ],
   );
@@ -63,25 +66,26 @@ class GameResultHandler
       $data->score_raw = $args["score"];
       $data->score_encrypted = $args["session"];
 
-      $data->game_index = array_search( $data->game_uuid, array_keys( $config->params ) );
+      $data->game_index = array_search( $data->game_uuid, array_keys( $config->settings ) );
       
       if ( $data->game_index === false )
         return $this->on_error( "Unrecognized game uuid" );
 
-      $data->game_max_score = $config->game_maximum_scores[ $data->game_index ];
       $data->function_id_character = $data->score_encrypted[ $config->function_id_character_position ];
       $data->function_id = $this->get_function_id( $data->score_encrypted );
+      $data->settings = $this->make_settings_object( $config->settings[$data->game_uuid][$data->function_id-1] );
       
-      if ( $data->function_id === 0 )
+      if ( $data->function_id <= 0 )
         return $this->on_fake("Function id is 0");
       
-      $data->function_index = 3 * $data->game_index + $data->function_id - 1;
-      $data->score_decrypted = $this->decrypt( $data->score_encrypted, $config->params[ $data->game_uuid ] );
+      $data->score_decrypted = $this->decrypt( $data->score_encrypted, $data->settings );
 
-      if ( $data->score_raw > $data->game_max_score )
-        return $this->on_hack("The submitted score exceeds the value, deemed possible for this game.");
-      
-      if ( $data->score_raw != $data->score_decrypted )
+      $score = $data->score_raw;
+      $score_min = $data->settings->min_score;
+      $score_max = $data->settings->max_score;
+      if ( $score < $score_min || $score > $score_max )
+        return $this->on_hack("The  submitted score ($score) is outside allowed range in settings [$score_min..$score_max]");
+      if ( $score != $data->score_decrypted )
         return $this->on_hack("The score values mismatch.\n".$data->score_raw." != ".$data->score_decrypted);
 
       return $this->on_success();
@@ -92,6 +96,17 @@ class GameResultHandler
     }
   }
 
+  function make_settings_object( $settings_array )
+  {
+    return (object)[
+      "fid" => $settings_array[0],
+      "offset" => $settings_array[1],
+      "character_positions" => $settings_array[2],
+      "min_score" => $settings_array[3],
+      "max_score" => $settings_array[4],
+    ];
+  }
+
   function get_function_id( $encrypted_score )
   {
     $characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-=";
@@ -100,19 +115,17 @@ class GameResultHandler
     return $function_id;
   }
 
-  function decrypt( $value, $params )
+  function decrypt( $value, $settings )
   {
-    $offset = $params[1];
-    $character_positions = $params[2];
-    $score36 = $value[$params[2][1]].
-               $value[$params[2][2]].
-               $value[$params[2][3]].
-               $value[$params[2][4]].
-               $value[$params[2][5]].
-               $value[$params[2][6]];
+    $score36 = $value[$settings->character_positions[1]].
+               $value[$settings->character_positions[2]].
+               $value[$settings->character_positions[3]].
+               $value[$settings->character_positions[4]].
+               $value[$settings->character_positions[5]].
+               $value[$settings->character_positions[6]];
     $score36 = preg_replace('/[A-Z]+/', '', $score36);
     return base_convert($score36,36,10);
-    return (int)base_convert($score36,36,10)-$offset;
+    return (int)base_convert($score36,36,10)-$settings->offset;
   }
 
   /// RESPONSE
@@ -145,6 +158,8 @@ class GameResultHandler
       $result->ban = $this->ban;
       $result->success = $this->success;
       $result->data = $this->data;
+      // $result->data->settings->character_positions = 
+      //       '['.implode(',',$result->data->setting->character_positions).']';
       //$result->config = $this->config;
       return $this->response = json_encode($result,JSON_PRETTY_PRINT);
     }
