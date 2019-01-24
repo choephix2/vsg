@@ -117,15 +117,17 @@ class GameResultHandler
 
   function decrypt( $value, $settings )
   {
-    $score36 = $value[$settings->character_positions[1]].
-               $value[$settings->character_positions[2]].
-               $value[$settings->character_positions[3]].
-               $value[$settings->character_positions[4]].
-               $value[$settings->character_positions[5]].
-               $value[$settings->character_positions[6]];
-    $score36 = preg_replace('/[A-Z]+/', '', $score36);
-    return base_convert($score36,36,10);
-    return (int)base_convert($score36,36,10)-$settings->offset;
+    $deb = $settings->decryption_debugging = new \stdClass();
+    $deb->base36 = $value[$settings->character_positions[1]].
+                   $value[$settings->character_positions[2]]. 
+                   $value[$settings->character_positions[3]]. 
+                   $value[$settings->character_positions[4]]. 
+                   $value[$settings->character_positions[5]]. 
+                   $value[$settings->character_positions[6]]; 
+    $deb->base36_trimmed = preg_replace('/[A-Z]+/', '', $deb->base36);
+    $deb->base10 = base_convert($deb->base36_trimmed,36,10);
+    $deb->base10_no_offset = $deb->base10 - $settings->offset;
+    return $deb->base10_no_offset;
   }
 
   /// RESPONSE
@@ -158,7 +160,7 @@ class GameResultHandler
       $result->ban = $this->ban;
       $result->success = $this->success;
       $result->data = $this->data;
-      // $result->data->settings->character_positions = 
+      // $result->data->settings->character_positions = '[...]';
       //       '['.implode(',',$result->data->setting->character_positions).']';
       //$result->config = $this->config;
       return $this->response = json_encode($result,JSON_PRETTY_PRINT);
