@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="/dev/lib/config.js" crossorigin="anonymous"></script>
+  <script src="/dev/lib/decrypt.js" crossorigin="anonymous"></script>
+  <style> * { margin:0; padding:0; } #code { font-size: 9px; margin: 1em; } </style>
+</head>
+<body>
+  <div id="main"></div>
+  <pre id="code"></pre>
+  <script>
+    function trace(text,clear=false)
+    {
+      with ( div = document.getElementById("code") )
+      { div.innerText = (clear?text:(div.innerText+text))+"\n" }
+    }
+    let hashtag = window.location.hash.replace("#",'')
+    let script_dom = document.createElement('script')
+    let script_src = hashtag ? hashtag : "make-prep"
+    script_dom.src = "/dev/"+hashtag+".js"
+    document.body.appendChild(script_dom)
+  </script>
+</body>
+</html>

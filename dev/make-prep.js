@@ -51,7 +51,7 @@ function make_prep()
   let i=0
   let result=""
   result += kod_common
-  for ( let pa of config.paramss )
+  for ( let pa of config.settings )
   {
     ++i
     let fchar_possible = make_possible_function_identifier_characters(pa[0])
@@ -70,7 +70,7 @@ function make_prep()
   }
 
   result += "\n"
-  for ( let pi in config.paramss )
+  for ( let pi in config.settings )
     result += `console.log(encrypt_score_`+(++pi)+`(123546))\n`
 
   return result

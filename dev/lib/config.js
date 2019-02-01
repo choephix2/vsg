@@ -1,6 +1,6 @@
 config =
 {
-  paramss : [ // [ function_id , offset , [character_positions] ] //
+  settings : [ // [ function_id , offset , [character_positions] ] //
     // Coin Pop
     [ 1, 0x400, [2,3,13,17,25,31,33] ],
     [ 2, 0x356, [2,7,14,16,22,23,31] ],

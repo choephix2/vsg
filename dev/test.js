@@ -5,9 +5,9 @@ function run_tests()
   let test_scores =[ 0, 1, 9, 123456, 9999, 999999, 1677616, 125, 1255, 12555, 125555 ]
   for ( let score of test_scores )
   {
-    for ( let pi in config.paramss )
+    for ( let pi in config.settings )
     {
-      let p = config.paramss[pi]
+      let p = config.settings[pi]
       let encr = encrypt_score( score, p )
       let decr = decrypt( encr, p )
       console.log( pi, encr, score, "<?>", decr )
