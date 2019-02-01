@@ -1,18 +1,12 @@
 <?PHP
 
-// set to false for production //
-// set to true for dev/staging //
-// 
-// when true, response will spill out json debug data, and error data in case there was a failure
-// else "ok" will be returned, regardless of success or failure
-define( 'DEBUG', true ); 
- 
 class GameResultHandler
 {
   private $ban = false;
   private $success = false;
   private $response = "unset response";
   private $data;
+  private $DEBUG;
   private $CONFIG = array(
       'game_maximum_scores' => [ 18000,50000,10000,10000 ],
       'function_id_character_position' => 2,
@@ -42,6 +36,16 @@ class GameResultHandler
         ]
       ],
   );
+
+  // pass false for production //
+  // pass true for dev/staging //
+  // 
+  // when true, response will spill out json debug data, and error data in case there was a failure
+  // else "ok" will be returned, regardless of success or failure
+  function __construct( $debug_mode ) 
+  {
+    $this->DEBUG = $debug_mode;
+  }
 
   function handle_game_results( array $args )
   {
@@ -153,7 +157,7 @@ class GameResultHandler
 
   function respond($error=null)
   {
-    if ( DEBUG )
+    if ( $this->DEBUG )
     {
       $result = new \stdClass();
       $result->error = $error;

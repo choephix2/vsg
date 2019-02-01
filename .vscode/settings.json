@@ -24,5 +24,6 @@
     "terminal.ansiWhite": "#FFFFFF",        
     "terminal.ansiYellow": "#FFFF00",  
   },
-  "workbench.sideBar.location": "right",
+  "workbench.sideBar.location": "left",
+  "terminal.integrated.fontSize": 9
 }
