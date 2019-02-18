@@ -1,4 +1,5 @@
-var settings = {
+const BACKEND_URL = "https://8000-copybiochemicalbadger.cdr.co/back/"
+const SETTINGS = {
   "BwLwYEHFcUe1flIV7RP7HA==": [         // Coin Pop
     [1, encrypt_score_1,  send_score_1, 0, 150],
     [2, encrypt_score_2,  send_score_2, 150, 1500],
@@ -32,11 +33,11 @@ function addGame(uuid)
   let input = document.createElement('input')
   input.type = "text"
   input.name = "score1"
-  input.value = settings[uuid][0][4] - 10
+  input.value = SETTINGS[uuid][0][4] - 10
   dom.appendChild(input)
 
-  for ( let i in settings[uuid] )
-    addButton( settings[uuid][i] )
+  for ( let i in SETTINGS[uuid] )
+    addButton( SETTINGS[uuid][i] )
 
   let log = document.createElement('div')
   log.classList.add('log')
@@ -55,12 +56,11 @@ function addGame(uuid)
   function sendScore(params)
   {
     let score = input.value
-    // let string = params[1]( score )
-    let string = "jo1M1HGTa8e1sHeAcOvnrrT+uAdiodtsZhwhfEy3h4c4YGi"
+    let string = params[1]( score )
+    // let string = "jo1M1HGTa8e1sHeAcOvnrrT+uAdiodtsZhwhfEy3h4c4YGi"
     
-    let url = "https://8000-copybiochemicalbadger.cdr.co/"
     let http = new XMLHttpRequest()
-    http.open("POST", url, true);
+    http.open("POST", BACKEND_URL, true);
     http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     http.addEventListener("load", onDone);
   
@@ -89,5 +89,5 @@ function addGame(uuid)
   }
 }
 
-for (let uuid in settings)
+for (let uuid in SETTINGS)
   addGame(uuid)

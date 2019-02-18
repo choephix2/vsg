@@ -1,25 +1,3 @@
-run_tests()
-
-function run_tests()
-{
-  let test_scores =[ 0, 1, 9, 123, 123456, 9999, 999999, 1677616, 125, 1255, 12555, 125555 ]
-  let settings = config.full_settings
-  for ( let score of test_scores )
-  {
-    for ( let game in settings )
-    {
-      for ( let p of settings[game] )
-      {
-        let encr = encrypt_score( score, p )
-        let decr = decrypt_score( encr, p )
-        console.log( game+p[0], encr, score, "<?>", decr )
-      }
-    }
-  }
-}
-
-/// /// /// /// DEV ZONE /// /// /// ///
-
 /// 36^6 = 2176782336
 /// 36^4 = 1679616
 /// 36^3 = 46656
@@ -59,8 +37,8 @@ function encrypt_score( score, params )
 function pseudorandom(n,iter) 
 { for ( let i=0; i<iter; i++ ) { n = n * 0x41A7 % 2147483647 } return n }
 
-function random_char(string,seed,iter,max)
-{ return string[pseudorandom(seed,iter)%max] }
+function random_invalid_char(seed)
+{ return random_char( "AAABCDEFGHIJKLMNOPQRSTUVWXYZZZ", 0xFF + seed, 0x1F + seed, 30 ) }
 
 function randstr(len,seed)
 {
@@ -69,10 +47,10 @@ function randstr(len,seed)
   for ( let i=0x00; i<len; i++ )
     result += characters[pseudorandom( 0xFF + seed, 0x0F + i ) % 64]
   return result
-}       
+}   
 
-function random_invalid_char(seed)
-{ return random_char( "AAABCDEFGHIJKLMNOPQRSTUVWXYZZZ", 0xFF + seed, 0x1F + seed, 30 ) }
+function random_char(string,seed,iter,max)
+{ return string[pseudorandom(seed,iter)%max] }    
 
 ////
 
@@ -82,6 +60,5 @@ function make_possible_function_identifier_characters( function_id )
   let result = ""
   for (let i=0; i<16; i++)
     result += chars[i*4+function_id]
-  //console.log( function_id + ' ∙ ' + result )
   return result
 }

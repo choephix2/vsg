@@ -1,22 +1,20 @@
-run_tests()
 
 function run_tests()
 {
-  let test_scores =[ 0, 1, 9, 123, 123456, 9999, 999999, 1677616, 125, 1255, 12555, 125555 ]
-  let settings = config.full_settings
+  let test_scores =[ 0, 1, 9, 123456, 9999, 999999, 1677616, 125, 1255, 12555, 125555 ]
   for ( let score of test_scores )
   {
-    for ( let game in settings )
+    for ( let pi in config.paramss )
     {
-      for ( let p of settings[game] )
-      {
-        let encr = encrypt_score( score, p )
-        let decr = decrypt_score( encr, p )
-        console.log( game+p[0], encr, score, "<?>", decr )
-      }
+      let p = config.paramss[pi]
+      let encr = encrypt_score( score, p )
+      let decr = decrypt_score( encr, p )
+      console.log( pi, encr, score, "<?>", decr )
     }
   }
 }
+
+function tesset() { return 5 }
 
 /// /// /// /// DEV ZONE /// /// /// ///
 
@@ -28,6 +26,8 @@ function run_tests()
 function encrypt_score( score, params )
 {
   const function_id_possible_chars = make_possible_function_identifier_characters(params[0])
+
+  let function_id = params[0]
   let function_id_char = random_char(function_id_possible_chars,217+score,0x0A,16)
   let character_positions = params[2]
   let offset = params[1]
@@ -50,6 +50,7 @@ function encrypt_score( score, params )
     start = pos
   }
   result += fluff.substring( start )
+  result += "=="
   return result
   //return result + " ~~ " + score36plus  
 }
@@ -76,7 +77,7 @@ function random_invalid_char(seed)
 
 ////
 
-function make_possible_function_identifier_characters( function_id )
+function make_possible_function_identifier_characters( function_id ) // 0 to 9
 {
   let chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-="
   let result = ""

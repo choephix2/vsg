@@ -1,24 +1,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <script src="/dev/lib/config.js" crossorigin="anonymous"></script>
-  <script src="/dev/lib/decrypt.js" crossorigin="anonymous"></script>
-  <style> * { margin:0; padding:0; } #code { font-size: 9px; margin: 1em; } </style>
+  <script src="/dev/lib/config.js"></script>
+  <script src="/dev/lib/decrypt.js"></script>
+  <script src="/dev/test.js"></script>
+  <style> * { margin:0; padding:0; } span { min-width: 100px; } pre { display:inline; } </style>
 </head>
 <body>
   <div id="main"></div>
-  <pre id="code"></pre>
+  <p></p>
   <script>
-    function trace(text,clear=false)
+    let dom = document.getElementById("main");
+    let input = document.createElement('input')
+    input.type = "text"
+    input.name = "score1"
+    dom.appendChild(input)
+    let output = document.createElement('table')
+    dom.appendChild(output)
+    input.addEventListener( "input", ()=>go() )
+    
+    function go()
     {
-      with ( div = document.getElementById("code") )
-      { div.innerText = (clear?text:(div.innerText+text))+"\n" }
+      let score = input.value
+      let result = []
+      for ( let game in config.full_settings )
+      {
+        for ( let pa of config.full_settings[game] )
+        {
+          let encr = encrypt_score(score,pa)
+          let decr = decrypt_score(encr,pa)
+          result += `<b><pre>♦ ${ pa[0] }</pre></b>`
+          result += `<pre> ♦ ${ game }</pre>`
+          result += `<pre> ♦ ${ encr }</pre>`
+          result += `<pre> ♦ ${ decr }</pre>`
+          result += `<br/>`
+        }
+      }
+      output.innerHTML = result
     }
-    let hashtag = window.location.hash.replace("#",'')
-    let script_dom = document.createElement('script')
-    let script_src = hashtag ? hashtag : "make-prep"
-    script_dom.src = "/dev/"+hashtag+".js"
-    document.body.appendChild(script_dom)
+    
+    input.value = 123
+    go()
+
   </script>
 </body>
 </html>

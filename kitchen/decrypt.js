@@ -1,4 +1,4 @@
-function decrypt( v, params=undefined )
+function decrypt_score( v, params=undefined )
 {
   try
   {
