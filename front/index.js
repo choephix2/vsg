@@ -8,8 +8,8 @@ for ( let uuid in configuration.full_settings )
     game.params.push( {
       index : ++i,
       fnum : p[0],
-      encrypt_score : window["encrypt_score_"+i],
-      send_score : window["encrypt_score_"+i],
+      encrypt : window["encrypt_score_"+i],
+      send : window["send_score_"+i],
       score_min : p[3],
       score_max : p[4],
     } )
@@ -50,8 +50,8 @@ function addGame( game )
 
   function sendScore(game_uuid,params)
   {
-    let score = INPUT.value
-    let string = params.encrypt_score( score )
+    let score = parseInt( INPUT.value )
+    let string = params.encrypt( score )
      
     let http = new XMLHttpRequest()
     http.open("POST", BACKEND_URL, true);
@@ -70,7 +70,6 @@ function addGame( game )
     {
       DOM.classList.remove("busy")
       addResponseBox(http.responseText.toString())
-      addResponseBox(string)
     }
   }
 

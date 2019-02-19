@@ -28,7 +28,7 @@ function encrypt_score( score, params )
     start = pos
   }
   result += fluff.substring( start )
-  return result
+  return result+"=="
   //return result + " ~~ " + score36plus  
 }
 
