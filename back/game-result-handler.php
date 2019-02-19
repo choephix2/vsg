@@ -137,7 +137,7 @@ class GameResultHandler
 
   function on_success()
   { 
-    $this->$success = true; 
+    $this->success = true; 
     $this->respond( ); 
   }
   function on_fake($reason) 
