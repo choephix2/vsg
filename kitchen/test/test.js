@@ -58,7 +58,7 @@ function compare( score )
 }
 
 // test_prepared_with_js_decryption( 123 )
-test_prepared_with_php_decryption( 1 )
+test_prepared_with_php_decryption( 105 )
 
 // compare( 523 )
 // compare( 731 )

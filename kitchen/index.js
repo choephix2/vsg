@@ -17,3 +17,19 @@ function run_tests()
 }
 
 // run_tests()
+
+function test_one( encr )
+{
+  let game = "BwLwYEHFcUe1flIV7RP7HA=="
+  let fnum = 1
+  let score_raw = 140
+
+  let params = configuration.full_settings[game][fnum-1]
+  let decr = decrypt_score( encr, params )
+
+  console.log( score_raw, decr )
+}
+
+test_one( "SJr18T0IGil1Y4jUP0CPdDDwK15m0Ky0W2fqTWp2DBHCaM6==" )
+// test_one( "icj1fUFRkactf4hgB0\/r7079E1Snyqm0B2IkD66UzgTto2\/==" )
+// test_one( "icj1fUFRkactf4hgB0\\/r7079E1Snyqm0B2IkD66UzgTto2\\/==" )

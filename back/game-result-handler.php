@@ -12,7 +12,7 @@ class GameResultHandler
       'function_id_character_position' => 2,
       'settings' => [
         
-        // [ function_id , offset, ch_positions, range_min , range_max ]
+        /// [ function_id , offset, ch_positions, range_min , range_max ]
 
         "BwLwYEHFcUe1flIV7RP7HA=="=>[         // Coin Pop
           [ 1, 0x400, [2,3,13,17,25,31,33], 0, 150 ],
@@ -172,9 +172,6 @@ class GameResultHandler
     {
       return $this->response =  `{"success":true}`;
     }
-
-    // if ( $error )
-    //   throw new Exception( "ERROR >> ".$error );
   }
 
   public function get_response() { return $this->response; }
