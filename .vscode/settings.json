@@ -3,7 +3,7 @@
 		{
 		}
 	],
-	"workbench.colorTheme": "Sapphire",
+  "workbench.colorTheme": "Monokai Dimmed",
   "workbench.colorCustomizations" : {
     "terminal.foreground" : "#DDDDDD",
     "terminal.background" : "#111722",
