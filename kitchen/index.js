@@ -1,7 +1,6 @@
 function test_prepared()
 {
   let scores =[ 140 ]
-  let settings = configuration.full_settings
   let i = 0
 
   for ( let score of scores )
