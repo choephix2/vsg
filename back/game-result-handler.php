@@ -5,6 +5,7 @@ class GameResultHandler
   private $ban = false;
   private $success = false;
   private $response = "unset response";
+  private $error;
   private $data;
   private $DEBUG;
   private $CONFIG = array(
@@ -147,6 +148,7 @@ class GameResultHandler
   function on_hack($reason) 
   {
     $this->ban = true;
+    $this->error = (string)$reason;
     $this->respond( "Banned for game result requests for 12 hours.\n".$reason );
   }
   function on_error( $str )
@@ -175,6 +177,7 @@ class GameResultHandler
   }
 
   public function get_response() { return $this->response; }
+  public function get_success() { return $this->success; }
 
   /// PUBLIC GETTERS
 
@@ -182,4 +185,5 @@ class GameResultHandler
   public function get_user()   { return $this->data->user; }
   public function get_game()   { return $this->data->game_uuid; }
   public function get_score()  { return $this->data->score_raw; }
+  public function get_error()  { return $this->error; }
 }

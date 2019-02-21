@@ -1,7 +1,15 @@
 <?php
 define('DEFAULT_SQLITE_PATH','sqlite:/coder/mnt/choephix_bs/viral-games/sqlite/main.sqlite');
 
-class DatabaseMiddleGuy
+interface iDatabaseMiddleGuy
+{
+    public function add_user( string $username );
+    public function add_score( string $game_uuid, string $username, int $score, 
+                               string $score_encrypted=null, string $ip=null );
+    public function add_ban( string $game_uuid, string $username, string $error, string $params );
+}
+
+class DatabaseMiddleGuy implements iDatabaseMiddleGuy
 {
   private $pdo;
 
@@ -37,7 +45,3 @@ class DatabaseMiddleGuy
                              " VALUES ('$game_uuid','$username','$error','$params')");
   }
 }
-
-$db = new DatabaseMiddleGuy();
-$db->add_score( "mockgame", "auti-2", 123 );
-$db->add_ban( "mockgame", "auti-2", "FakeException: No pickles.", "args=isaynothing" );
