@@ -12,6 +12,7 @@ for ( let uuid in configuration.full_settings )
       send : window["send_score_"+i],
       score_min : p[3],
       score_max : p[4],
+      user : 'kodko.komkov.'+i
     } )
   GAMES.push( game )
 }
@@ -41,14 +42,15 @@ function addGame( game )
   function addButton( params )
   {
     let from = params.score_min , to = params.score_max
+    let user = params.user
     let button = document.createElement('button')
     button.type = "button"
     button.innerText = "SEND SCORE\n("+from+".."+to+")"
-    button.addEventListener("click", ()=>sendScore(game.uuid,params));
+    button.addEventListener("click", ()=>sendScore(game.uuid,params,user));
     DOM.appendChild(button)
   }
 
-  function sendScore(game_uuid,params)
+  function sendScore(game_uuid,params,user)
   {
     let score = parseInt( INPUT.value )
     let string = params.encrypt( score )
@@ -58,7 +60,6 @@ function addGame( game )
     http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     http.addEventListener("load", onDone);
   
-    let user = "kodko.komkov"
     let data = "game="+game_uuid
              +"&user="+user
              +"&score="+score

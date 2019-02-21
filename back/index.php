@@ -16,7 +16,7 @@ $score_arguments = $_POST;
 $handler = new GameResultHandler( DEBUG );
 $handler->handle_game_results( $score_arguments );
 
-iDatabaseMiddleGuy $db = new DatabaseMiddleGuy();
+$db = new DatabaseMiddleGuy();
 if ( $handler->get_success() )
 {
   $game_uuid = $handler->get_data()->game_uuid;
@@ -30,8 +30,10 @@ if ( $handler->get_error() )
 {
   $game_uuid = $handler->get_data()->game_uuid;
   $user = $handler->get_data()->user;
+  $score = $handler->get_data()->score_raw;
+  $score_encrypted = $handler->get_data()->score_encrypted;
   $error = $handler->get_error();
-  $db->add_ban( $game_uuid, $user, $error, implode("\n",$score_arguments) );
+  $db->add_ban( $game_uuid, $user, $score, $score_encrypted, $error );
 }
 
 echo $handler->get_response();

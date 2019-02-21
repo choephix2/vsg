@@ -5,8 +5,10 @@ interface iDatabaseMiddleGuy
 {
     public function add_user( string $username );
     public function add_score( string $game_uuid, string $username, int $score, 
-                               string $score_encrypted=null, string $ip=null );
-    public function add_ban( string $game_uuid, string $username, string $error, string $params );
+                               string $score_encrypted, string $ip );
+    
+    public function add_ban( string $game_uuid, string $username, int $score, 
+                             string $score_encrypted, string $error );      
 }
 
 class DatabaseMiddleGuy implements iDatabaseMiddleGuy
@@ -29,7 +31,7 @@ class DatabaseMiddleGuy implements iDatabaseMiddleGuy
     return $this->pdo->query("INSERT INTO users (id,username) VALUES ('$username','$username')");
   }
 
-  function add_score( string $game_uuid, string $username, int $score, string $score_encrypted=null, string $ip=null )
+  function add_score( string $game_uuid, string $username, int $score, string $score_encrypted, string $ip )
   {
     try { $this->add_user( $username ); }
     catch ( PDOException $e ) {  }
@@ -37,11 +39,11 @@ class DatabaseMiddleGuy implements iDatabaseMiddleGuy
                              " VALUES ('$game_uuid','$username',$score,'$score_encrypted','$ip')");
   }
 
-  function add_ban( string $game_uuid, string $username, string $error, string $params )
+  function add_ban( string $game_uuid, string $username, int $score, string $score_encrypted, string $error )
   {
     try { $this->add_user( $username ); }
     catch ( PDOException $e ) {  }
-    return $this->pdo->query("INSERT INTO bans (game_uuid,username,error,params)".
-                             " VALUES ('$game_uuid','$username','$error','$params')");
+    return $this->pdo->query("INSERT INTO bans (game_uuid,username,score,score_encrypted,error)".
+                             " VALUES ('$game_uuid','$username',$score,'$score_encrypted','$error')");
   }
 }
