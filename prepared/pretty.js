@@ -18,7 +18,7 @@ function random_char(string,seed,iter,max)
 
 function encrypt_score_1( score )
 {
-  let function_id_char = random_char( "bfjnrvzDHLPTX159", 138+score, 12, 16 )
+  let function_id_char = random_char( "bfjnrvzDHLPTX159", 226+score, 14, 16 )
   let character_positions = [2,3,13,17,25,31,33]
   let offset = 1024
 
@@ -43,14 +43,23 @@ function encrypt_score_1( score )
   return result + "="
 }
 
-function send_score_1( score )
+function send_score_1( score, score_encr )
 {
-  console.log( score )
+  const BACKEND_URL = "https://8000-copybiochemicalbadger.cdr.co/back"
+  const http = new XMLHttpRequest()
+  http.open("POST", BACKEND_URL, false);
+  http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  const data = "game="+game+"&user="+user+"&score="+score
+            +"&session="+encodeURIComponent(string)
+  http.send(data);
+  console.log( score, score_encr )
+  console.log( http.responseText )
+  return http.responseText
 }
 
 function encrypt_score_2( score )
 {
-  let function_id_char = random_char( "cgkoswAEIMQUY26+", 152+score, 15, 16 )
+  let function_id_char = random_char( "cgkoswAEIMQUY26+", 145+score, 8, 16 )
   let character_positions = [2,7,14,16,22,23,31]
   let offset = 854
 
@@ -75,14 +84,23 @@ function encrypt_score_2( score )
   return result + "="
 }
 
-function send_score_2( score )
+function send_score_2( score, score_encr )
 {
-  console.log( score )
+  const BACKEND_URL = "https://8000-copybiochemicalbadger.cdr.co/back"
+  const http = new XMLHttpRequest()
+  http.open("POST", BACKEND_URL, false);
+  http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  const data = "game="+game+"&user="+user+"&score="+score
+            +"&session="+encodeURIComponent(string)
+  http.send(data);
+  console.log( score, score_encr )
+  console.log( http.responseText )
+  return http.responseText
 }
 
 function encrypt_score_3( score )
 {
-  let function_id_char = random_char( "dhlptxBFJNRVZ37/", 231+score, 5, 16 )
+  let function_id_char = random_char( "dhlptxBFJNRVZ37/", 205+score, 7, 16 )
   let character_positions = [2,4,15,17,21,31,34]
   let offset = 291
 
@@ -107,14 +125,23 @@ function encrypt_score_3( score )
   return result + "="
 }
 
-function send_score_3( score )
+function send_score_3( score, score_encr )
 {
-  console.log( score )
+  const BACKEND_URL = "https://8000-copybiochemicalbadger.cdr.co/back"
+  const http = new XMLHttpRequest()
+  http.open("POST", BACKEND_URL, false);
+  http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  const data = "game="+game+"&user="+user+"&score="+score
+            +"&session="+encodeURIComponent(string)
+  http.send(data);
+  console.log( score, score_encr )
+  console.log( http.responseText )
+  return http.responseText
 }
 
 function encrypt_score_4( score )
 {
-  let function_id_char = random_char( "bfjnrvzDHLPTX159", 213+score, 9, 16 )
+  let function_id_char = random_char( "bfjnrvzDHLPTX159", 137+score, 9, 16 )
   let character_positions = [2,6,15,17,24,30,35]
   let offset = 754
 
@@ -139,14 +166,23 @@ function encrypt_score_4( score )
   return result + "="
 }
 
-function send_score_4( score )
+function send_score_4( score, score_encr )
 {
-  console.log( score )
+  const BACKEND_URL = "https://8000-copybiochemicalbadger.cdr.co/back"
+  const http = new XMLHttpRequest()
+  http.open("POST", BACKEND_URL, false);
+  http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  const data = "game="+game+"&user="+user+"&score="+score
+            +"&session="+encodeURIComponent(string)
+  http.send(data);
+  console.log( score, score_encr )
+  console.log( http.responseText )
+  return http.responseText
 }
 
 function encrypt_score_5( score )
 {
-  let function_id_char = random_char( "cgkoswAEIMQUY26+", 209+score, 5, 16 )
+  let function_id_char = random_char( "cgkoswAEIMQUY26+", 253+score, 10, 16 )
   let character_positions = [2,9,18,19,25,31,36]
   let offset = 1009
 
@@ -171,14 +207,23 @@ function encrypt_score_5( score )
   return result + "="
 }
 
-function send_score_5( score )
+function send_score_5( score, score_encr )
 {
-  console.log( score )
+  const BACKEND_URL = "https://8000-copybiochemicalbadger.cdr.co/back"
+  const http = new XMLHttpRequest()
+  http.open("POST", BACKEND_URL, false);
+  http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  const data = "game="+game+"&user="+user+"&score="+score
+            +"&session="+encodeURIComponent(string)
+  http.send(data);
+  console.log( score, score_encr )
+  console.log( http.responseText )
+  return http.responseText
 }
 
 function encrypt_score_6( score )
 {
-  let function_id_char = random_char( "dhlptxBFJNRVZ37/", 195+score, 15, 16 )
+  let function_id_char = random_char( "dhlptxBFJNRVZ37/", 156+score, 10, 16 )
   let character_positions = [2,3,12,18,23,31,32]
   let offset = 863
 
@@ -203,14 +248,23 @@ function encrypt_score_6( score )
   return result + "="
 }
 
-function send_score_6( score )
+function send_score_6( score, score_encr )
 {
-  console.log( score )
+  const BACKEND_URL = "https://8000-copybiochemicalbadger.cdr.co/back"
+  const http = new XMLHttpRequest()
+  http.open("POST", BACKEND_URL, false);
+  http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  const data = "game="+game+"&user="+user+"&score="+score
+            +"&session="+encodeURIComponent(string)
+  http.send(data);
+  console.log( score, score_encr )
+  console.log( http.responseText )
+  return http.responseText
 }
 
 function encrypt_score_7( score )
 {
-  let function_id_char = random_char( "bfjnrvzDHLPTX159", 212+score, 9, 16 )
+  let function_id_char = random_char( "bfjnrvzDHLPTX159", 143+score, 12, 16 )
   let character_positions = [2,5,10,18,25,31,32]
   let offset = 786
 
@@ -235,14 +289,23 @@ function encrypt_score_7( score )
   return result + "="
 }
 
-function send_score_7( score )
+function send_score_7( score, score_encr )
 {
-  console.log( score )
+  const BACKEND_URL = "https://8000-copybiochemicalbadger.cdr.co/back"
+  const http = new XMLHttpRequest()
+  http.open("POST", BACKEND_URL, false);
+  http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  const data = "game="+game+"&user="+user+"&score="+score
+            +"&session="+encodeURIComponent(string)
+  http.send(data);
+  console.log( score, score_encr )
+  console.log( http.responseText )
+  return http.responseText
 }
 
 function encrypt_score_8( score )
 {
-  let function_id_char = random_char( "cgkoswAEIMQUY26+", 223+score, 5, 16 )
+  let function_id_char = random_char( "cgkoswAEIMQUY26+", 230+score, 13, 16 )
   let character_positions = [2,8,12,17,21,30,35]
   let offset = 511
 
@@ -267,14 +330,23 @@ function encrypt_score_8( score )
   return result + "="
 }
 
-function send_score_8( score )
+function send_score_8( score, score_encr )
 {
-  console.log( score )
+  const BACKEND_URL = "https://8000-copybiochemicalbadger.cdr.co/back"
+  const http = new XMLHttpRequest()
+  http.open("POST", BACKEND_URL, false);
+  http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  const data = "game="+game+"&user="+user+"&score="+score
+            +"&session="+encodeURIComponent(string)
+  http.send(data);
+  console.log( score, score_encr )
+  console.log( http.responseText )
+  return http.responseText
 }
 
 function encrypt_score_9( score )
 {
-  let function_id_char = random_char( "dhlptxBFJNRVZ37/", 246+score, 13, 16 )
+  let function_id_char = random_char( "dhlptxBFJNRVZ37/", 202+score, 14, 16 )
   let character_positions = [2,7,19,20,26,32,34]
   let offset = 701
 
@@ -299,14 +371,23 @@ function encrypt_score_9( score )
   return result + "="
 }
 
-function send_score_9( score )
+function send_score_9( score, score_encr )
 {
-  console.log( score )
+  const BACKEND_URL = "https://8000-copybiochemicalbadger.cdr.co/back"
+  const http = new XMLHttpRequest()
+  http.open("POST", BACKEND_URL, false);
+  http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  const data = "game="+game+"&user="+user+"&score="+score
+            +"&session="+encodeURIComponent(string)
+  http.send(data);
+  console.log( score, score_encr )
+  console.log( http.responseText )
+  return http.responseText
 }
 
 function encrypt_score_10( score )
 {
-  let function_id_char = random_char( "bfjnrvzDHLPTX159", 199+score, 14, 16 )
+  let function_id_char = random_char( "bfjnrvzDHLPTX159", 211+score, 13, 16 )
   let character_positions = [2,4,16,19,24,32,33]
   let offset = 996
 
@@ -331,14 +412,23 @@ function encrypt_score_10( score )
   return result + "="
 }
 
-function send_score_10( score )
+function send_score_10( score, score_encr )
 {
-  console.log( score )
+  const BACKEND_URL = "https://8000-copybiochemicalbadger.cdr.co/back"
+  const http = new XMLHttpRequest()
+  http.open("POST", BACKEND_URL, false);
+  http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  const data = "game="+game+"&user="+user+"&score="+score
+            +"&session="+encodeURIComponent(string)
+  http.send(data);
+  console.log( score, score_encr )
+  console.log( http.responseText )
+  return http.responseText
 }
 
 function encrypt_score_11( score )
 {
-  let function_id_char = random_char( "cgkoswAEIMQUY26+", 186+score, 10, 16 )
+  let function_id_char = random_char( "cgkoswAEIMQUY26+", 208+score, 14, 16 )
   let character_positions = [2,6,17,18,21,33,34]
   let offset = 828
 
@@ -363,14 +453,23 @@ function encrypt_score_11( score )
   return result + "="
 }
 
-function send_score_11( score )
+function send_score_11( score, score_encr )
 {
-  console.log( score )
+  const BACKEND_URL = "https://8000-copybiochemicalbadger.cdr.co/back"
+  const http = new XMLHttpRequest()
+  http.open("POST", BACKEND_URL, false);
+  http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  const data = "game="+game+"&user="+user+"&score="+score
+            +"&session="+encodeURIComponent(string)
+  http.send(data);
+  console.log( score, score_encr )
+  console.log( http.responseText )
+  return http.responseText
 }
 
 function encrypt_score_12( score )
 {
-  let function_id_char = random_char( "dhlptxBFJNRVZ37/", 203+score, 14, 16 )
+  let function_id_char = random_char( "dhlptxBFJNRVZ37/", 166+score, 10, 16 )
   let character_positions = [2,9,11,17,27,35,36]
   let offset = 750
 
@@ -395,8 +494,17 @@ function encrypt_score_12( score )
   return result + "="
 }
 
-function send_score_12( score )
+function send_score_12( score, score_encr )
 {
-  console.log( score )
+  const BACKEND_URL = "https://8000-copybiochemicalbadger.cdr.co/back"
+  const http = new XMLHttpRequest()
+  http.open("POST", BACKEND_URL, false);
+  http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  const data = "game="+game+"&user="+user+"&score="+score
+            +"&session="+encodeURIComponent(string)
+  http.send(data);
+  console.log( score, score_encr )
+  console.log( http.responseText )
+  return http.responseText
 }
 
