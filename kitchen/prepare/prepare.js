@@ -46,6 +46,7 @@ function prepare()
       
       s = __send__
       s = s.replace( "__FUNCTION_NAME__","send_score_"+i )
+      s = s.replace( "__GAME_UUID__",game )
       result += s + '\n\n'
     }
   }

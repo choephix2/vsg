@@ -18,7 +18,7 @@ function random_char(string,seed,iter,max)
 
 function encrypt_score_1( score )
 {
-  let function_id_char = random_char( "bfjnrvzDHLPTX159", 226+score, 14, 16 )
+  let function_id_char = random_char( "bfjnrvzDHLPTX159", 148+score, 15, 16 )
   let character_positions = [2,3,13,17,25,31,33]
   let offset = 1024
 
@@ -49,8 +49,8 @@ function send_score_1( score, score_encr )
   const http = new XMLHttpRequest()
   http.open("POST", BACKEND_URL, false);
   http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  const data = "game="+game+"&user="+user+"&score="+score
-            +"&session="+encodeURIComponent(string)
+  const data = "game=BwLwYEHFcUe1flIV7RP7HA==&user="+user+"&score="+score
+            +"&session="+encodeURIComponent(score_encr)
   http.send(data);
   console.log( score, score_encr )
   console.log( http.responseText )
@@ -59,7 +59,7 @@ function send_score_1( score, score_encr )
 
 function encrypt_score_2( score )
 {
-  let function_id_char = random_char( "cgkoswAEIMQUY26+", 145+score, 8, 16 )
+  let function_id_char = random_char( "cgkoswAEIMQUY26+", 230+score, 8, 16 )
   let character_positions = [2,7,14,16,22,23,31]
   let offset = 854
 
@@ -90,8 +90,8 @@ function send_score_2( score, score_encr )
   const http = new XMLHttpRequest()
   http.open("POST", BACKEND_URL, false);
   http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  const data = "game="+game+"&user="+user+"&score="+score
-            +"&session="+encodeURIComponent(string)
+  const data = "game=BwLwYEHFcUe1flIV7RP7HA==&user="+user+"&score="+score
+            +"&session="+encodeURIComponent(score_encr)
   http.send(data);
   console.log( score, score_encr )
   console.log( http.responseText )
@@ -100,7 +100,7 @@ function send_score_2( score, score_encr )
 
 function encrypt_score_3( score )
 {
-  let function_id_char = random_char( "dhlptxBFJNRVZ37/", 205+score, 7, 16 )
+  let function_id_char = random_char( "dhlptxBFJNRVZ37/", 167+score, 6, 16 )
   let character_positions = [2,4,15,17,21,31,34]
   let offset = 291
 
@@ -131,8 +131,8 @@ function send_score_3( score, score_encr )
   const http = new XMLHttpRequest()
   http.open("POST", BACKEND_URL, false);
   http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  const data = "game="+game+"&user="+user+"&score="+score
-            +"&session="+encodeURIComponent(string)
+  const data = "game=BwLwYEHFcUe1flIV7RP7HA==&user="+user+"&score="+score
+            +"&session="+encodeURIComponent(score_encr)
   http.send(data);
   console.log( score, score_encr )
   console.log( http.responseText )
@@ -141,7 +141,7 @@ function send_score_3( score, score_encr )
 
 function encrypt_score_4( score )
 {
-  let function_id_char = random_char( "bfjnrvzDHLPTX159", 137+score, 9, 16 )
+  let function_id_char = random_char( "bfjnrvzDHLPTX159", 213+score, 6, 16 )
   let character_positions = [2,6,15,17,24,30,35]
   let offset = 754
 
@@ -172,8 +172,8 @@ function send_score_4( score, score_encr )
   const http = new XMLHttpRequest()
   http.open("POST", BACKEND_URL, false);
   http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  const data = "game="+game+"&user="+user+"&score="+score
-            +"&session="+encodeURIComponent(string)
+  const data = "game=jSDMP8tbVEWun6w3ONPJQw==&user="+user+"&score="+score
+            +"&session="+encodeURIComponent(score_encr)
   http.send(data);
   console.log( score, score_encr )
   console.log( http.responseText )
@@ -182,7 +182,7 @@ function send_score_4( score, score_encr )
 
 function encrypt_score_5( score )
 {
-  let function_id_char = random_char( "cgkoswAEIMQUY26+", 253+score, 10, 16 )
+  let function_id_char = random_char( "cgkoswAEIMQUY26+", 204+score, 11, 16 )
   let character_positions = [2,9,18,19,25,31,36]
   let offset = 1009
 
@@ -213,8 +213,8 @@ function send_score_5( score, score_encr )
   const http = new XMLHttpRequest()
   http.open("POST", BACKEND_URL, false);
   http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  const data = "game="+game+"&user="+user+"&score="+score
-            +"&session="+encodeURIComponent(string)
+  const data = "game=jSDMP8tbVEWun6w3ONPJQw==&user="+user+"&score="+score
+            +"&session="+encodeURIComponent(score_encr)
   http.send(data);
   console.log( score, score_encr )
   console.log( http.responseText )
@@ -223,7 +223,7 @@ function send_score_5( score, score_encr )
 
 function encrypt_score_6( score )
 {
-  let function_id_char = random_char( "dhlptxBFJNRVZ37/", 156+score, 10, 16 )
+  let function_id_char = random_char( "dhlptxBFJNRVZ37/", 206+score, 15, 16 )
   let character_positions = [2,3,12,18,23,31,32]
   let offset = 863
 
@@ -254,8 +254,8 @@ function send_score_6( score, score_encr )
   const http = new XMLHttpRequest()
   http.open("POST", BACKEND_URL, false);
   http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  const data = "game="+game+"&user="+user+"&score="+score
-            +"&session="+encodeURIComponent(string)
+  const data = "game=jSDMP8tbVEWun6w3ONPJQw==&user="+user+"&score="+score
+            +"&session="+encodeURIComponent(score_encr)
   http.send(data);
   console.log( score, score_encr )
   console.log( http.responseText )
@@ -264,7 +264,7 @@ function send_score_6( score, score_encr )
 
 function encrypt_score_7( score )
 {
-  let function_id_char = random_char( "bfjnrvzDHLPTX159", 143+score, 12, 16 )
+  let function_id_char = random_char( "bfjnrvzDHLPTX159", 249+score, 13, 16 )
   let character_positions = [2,5,10,18,25,31,32]
   let offset = 786
 
@@ -295,8 +295,8 @@ function send_score_7( score, score_encr )
   const http = new XMLHttpRequest()
   http.open("POST", BACKEND_URL, false);
   http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  const data = "game="+game+"&user="+user+"&score="+score
-            +"&session="+encodeURIComponent(string)
+  const data = "game=x4V6e6O5qUCbFNHPgofXEg==&user="+user+"&score="+score
+            +"&session="+encodeURIComponent(score_encr)
   http.send(data);
   console.log( score, score_encr )
   console.log( http.responseText )
@@ -305,7 +305,7 @@ function send_score_7( score, score_encr )
 
 function encrypt_score_8( score )
 {
-  let function_id_char = random_char( "cgkoswAEIMQUY26+", 230+score, 13, 16 )
+  let function_id_char = random_char( "cgkoswAEIMQUY26+", 156+score, 13, 16 )
   let character_positions = [2,8,12,17,21,30,35]
   let offset = 511
 
@@ -336,8 +336,8 @@ function send_score_8( score, score_encr )
   const http = new XMLHttpRequest()
   http.open("POST", BACKEND_URL, false);
   http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  const data = "game="+game+"&user="+user+"&score="+score
-            +"&session="+encodeURIComponent(string)
+  const data = "game=x4V6e6O5qUCbFNHPgofXEg==&user="+user+"&score="+score
+            +"&session="+encodeURIComponent(score_encr)
   http.send(data);
   console.log( score, score_encr )
   console.log( http.responseText )
@@ -346,7 +346,7 @@ function send_score_8( score, score_encr )
 
 function encrypt_score_9( score )
 {
-  let function_id_char = random_char( "dhlptxBFJNRVZ37/", 202+score, 14, 16 )
+  let function_id_char = random_char( "dhlptxBFJNRVZ37/", 182+score, 10, 16 )
   let character_positions = [2,7,19,20,26,32,34]
   let offset = 701
 
@@ -377,8 +377,8 @@ function send_score_9( score, score_encr )
   const http = new XMLHttpRequest()
   http.open("POST", BACKEND_URL, false);
   http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  const data = "game="+game+"&user="+user+"&score="+score
-            +"&session="+encodeURIComponent(string)
+  const data = "game=x4V6e6O5qUCbFNHPgofXEg==&user="+user+"&score="+score
+            +"&session="+encodeURIComponent(score_encr)
   http.send(data);
   console.log( score, score_encr )
   console.log( http.responseText )
@@ -387,7 +387,7 @@ function send_score_9( score, score_encr )
 
 function encrypt_score_10( score )
 {
-  let function_id_char = random_char( "bfjnrvzDHLPTX159", 211+score, 13, 16 )
+  let function_id_char = random_char( "bfjnrvzDHLPTX159", 137+score, 13, 16 )
   let character_positions = [2,4,16,19,24,32,33]
   let offset = 996
 
@@ -418,8 +418,8 @@ function send_score_10( score, score_encr )
   const http = new XMLHttpRequest()
   http.open("POST", BACKEND_URL, false);
   http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  const data = "game="+game+"&user="+user+"&score="+score
-            +"&session="+encodeURIComponent(string)
+  const data = "game=mSgEGYX/vkWFXON2LcKS2w==&user="+user+"&score="+score
+            +"&session="+encodeURIComponent(score_encr)
   http.send(data);
   console.log( score, score_encr )
   console.log( http.responseText )
@@ -428,7 +428,7 @@ function send_score_10( score, score_encr )
 
 function encrypt_score_11( score )
 {
-  let function_id_char = random_char( "cgkoswAEIMQUY26+", 208+score, 14, 16 )
+  let function_id_char = random_char( "cgkoswAEIMQUY26+", 177+score, 7, 16 )
   let character_positions = [2,6,17,18,21,33,34]
   let offset = 828
 
@@ -459,8 +459,8 @@ function send_score_11( score, score_encr )
   const http = new XMLHttpRequest()
   http.open("POST", BACKEND_URL, false);
   http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  const data = "game="+game+"&user="+user+"&score="+score
-            +"&session="+encodeURIComponent(string)
+  const data = "game=mSgEGYX/vkWFXON2LcKS2w==&user="+user+"&score="+score
+            +"&session="+encodeURIComponent(score_encr)
   http.send(data);
   console.log( score, score_encr )
   console.log( http.responseText )
@@ -469,7 +469,7 @@ function send_score_11( score, score_encr )
 
 function encrypt_score_12( score )
 {
-  let function_id_char = random_char( "dhlptxBFJNRVZ37/", 166+score, 10, 16 )
+  let function_id_char = random_char( "dhlptxBFJNRVZ37/", 187+score, 9, 16 )
   let character_positions = [2,9,11,17,27,35,36]
   let offset = 750
 
@@ -500,8 +500,8 @@ function send_score_12( score, score_encr )
   const http = new XMLHttpRequest()
   http.open("POST", BACKEND_URL, false);
   http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  const data = "game="+game+"&user="+user+"&score="+score
-            +"&session="+encodeURIComponent(string)
+  const data = "game=mSgEGYX/vkWFXON2LcKS2w==&user="+user+"&score="+score
+            +"&session="+encodeURIComponent(score_encr)
   http.send(data);
   console.log( score, score_encr )
   console.log( http.responseText )
