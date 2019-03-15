@@ -1,4 +1,5 @@
-const BACKEND_URL = "https://8000-copybiochemicalbadger.cdr.co/back/"
+// const BACKEND_URL = "https://8000-copybiochemicalbadger.cdr.co/back/"
+const BACKEND_URL = "https://blockch-viral-games-choephix.c9users.io/back/"
 const GAMES = []
 let i = 0
 for ( let uuid in configuration.full_settings )
@@ -16,6 +17,18 @@ for ( let uuid in configuration.full_settings )
     } )
   GAMES.push( game )
 }
+
+
+
+var devtools = /./;
+devtools.toString = function() { this.opened = true; }
+console.log('%c', devtools);
+
+var r = /./;
+r.toString = function() { document.title = 'on'; };
+console.log(r);
+
+
 
 const DOM_MAIN = document.getElementById("main");
 

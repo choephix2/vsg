@@ -45,7 +45,7 @@ function encrypt_score_1( score )
 
 function send_score_1( score, score_encr )
 {
-  const BACKEND_URL = "https://8000-copybiochemicalbadger.cdr.co/back"
+  const BACKEND_URL = "https://blockch-viral-games-choephix.c9users.io/back"
   const http = new XMLHttpRequest()
   http.open("POST", BACKEND_URL, false);
   http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -86,7 +86,7 @@ function encrypt_score_2( score )
 
 function send_score_2( score, score_encr )
 {
-  const BACKEND_URL = "https://8000-copybiochemicalbadger.cdr.co/back"
+  const BACKEND_URL = "https://blockch-viral-games-choephix.c9users.io/back"
   const http = new XMLHttpRequest()
   http.open("POST", BACKEND_URL, false);
   http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -127,7 +127,7 @@ function encrypt_score_3( score )
 
 function send_score_3( score, score_encr )
 {
-  const BACKEND_URL = "https://8000-copybiochemicalbadger.cdr.co/back"
+  const BACKEND_URL = "https://blockch-viral-games-choephix.c9users.io/back"
   const http = new XMLHttpRequest()
   http.open("POST", BACKEND_URL, false);
   http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -168,7 +168,7 @@ function encrypt_score_4( score )
 
 function send_score_4( score, score_encr )
 {
-  const BACKEND_URL = "https://8000-copybiochemicalbadger.cdr.co/back"
+  const BACKEND_URL = "https://blockch-viral-games-choephix.c9users.io/back"
   const http = new XMLHttpRequest()
   http.open("POST", BACKEND_URL, false);
   http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -209,7 +209,7 @@ function encrypt_score_5( score )
 
 function send_score_5( score, score_encr )
 {
-  const BACKEND_URL = "https://8000-copybiochemicalbadger.cdr.co/back"
+  const BACKEND_URL = "https://blockch-viral-games-choephix.c9users.io/back"
   const http = new XMLHttpRequest()
   http.open("POST", BACKEND_URL, false);
   http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -250,7 +250,7 @@ function encrypt_score_6( score )
 
 function send_score_6( score, score_encr )
 {
-  const BACKEND_URL = "https://8000-copybiochemicalbadger.cdr.co/back"
+  const BACKEND_URL = "https://blockch-viral-games-choephix.c9users.io/back"
   const http = new XMLHttpRequest()
   http.open("POST", BACKEND_URL, false);
   http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -291,7 +291,7 @@ function encrypt_score_7( score )
 
 function send_score_7( score, score_encr )
 {
-  const BACKEND_URL = "https://8000-copybiochemicalbadger.cdr.co/back"
+  const BACKEND_URL = "https://blockch-viral-games-choephix.c9users.io/back"
   const http = new XMLHttpRequest()
   http.open("POST", BACKEND_URL, false);
   http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -332,7 +332,7 @@ function encrypt_score_8( score )
 
 function send_score_8( score, score_encr )
 {
-  const BACKEND_URL = "https://8000-copybiochemicalbadger.cdr.co/back"
+  const BACKEND_URL = "https://blockch-viral-games-choephix.c9users.io/back"
   const http = new XMLHttpRequest()
   http.open("POST", BACKEND_URL, false);
   http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -373,7 +373,7 @@ function encrypt_score_9( score )
 
 function send_score_9( score, score_encr )
 {
-  const BACKEND_URL = "https://8000-copybiochemicalbadger.cdr.co/back"
+  const BACKEND_URL = "https://blockch-viral-games-choephix.c9users.io/back"
   const http = new XMLHttpRequest()
   http.open("POST", BACKEND_URL, false);
   http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -414,7 +414,7 @@ function encrypt_score_10( score )
 
 function send_score_10( score, score_encr )
 {
-  const BACKEND_URL = "https://8000-copybiochemicalbadger.cdr.co/back"
+  const BACKEND_URL = "https://blockch-viral-games-choephix.c9users.io/back"
   const http = new XMLHttpRequest()
   http.open("POST", BACKEND_URL, false);
   http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -455,7 +455,7 @@ function encrypt_score_11( score )
 
 function send_score_11( score, score_encr )
 {
-  const BACKEND_URL = "https://8000-copybiochemicalbadger.cdr.co/back"
+  const BACKEND_URL = "https://blockch-viral-games-choephix.c9users.io/back"
   const http = new XMLHttpRequest()
   http.open("POST", BACKEND_URL, false);
   http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -496,7 +496,7 @@ function encrypt_score_12( score )
 
 function send_score_12( score, score_encr )
 {
-  const BACKEND_URL = "https://8000-copybiochemicalbadger.cdr.co/back"
+  const BACKEND_URL = "https://blockch-viral-games-choephix.c9users.io/back"
   const http = new XMLHttpRequest()
   http.open("POST", BACKEND_URL, false);
   http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');

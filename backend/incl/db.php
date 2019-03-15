@@ -1,5 +1,5 @@
 <?php
-define('DEFAULT_SQLITE_PATH','sqlite:/coder/mnt/choephix_bs/viral-games/sqlite/main.sqlite');
+define('DEFAULT_SQLITE_PATH','sqlite:/home/ubuntu/workspace/blockch-viral-games/sqlite/main.sqlite');
 
 interface iDatabaseMiddleGuy
 {
@@ -46,4 +46,15 @@ class DatabaseMiddleGuy implements iDatabaseMiddleGuy
     return $this->pdo->query("INSERT INTO bans (game_uuid,username,score,score_encrypted,error)".
                              " VALUES ('$game_uuid','$username',$score,'$score_encrypted','$error')");
   }
+}
+
+class DatabaseMiddleGuy_FAKE implements iDatabaseMiddleGuy
+{
+  function get( string $table ) {}
+
+  function add_user( string $username ) {}
+
+  function add_score( string $game_uuid, string $username, int $score, string $score_encrypted, string $ip ) {}
+
+  function add_ban( string $game_uuid, string $username, int $score, string $score_encrypted, string $error ) {}
 }

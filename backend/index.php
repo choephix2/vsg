@@ -1,6 +1,13 @@
 <?PHP 
-require("game-result-handler.php");
-require("db.php");
+require("incl/game-result-handler.php");
+require("incl/db.php");
+
+if(!defined('STDOUT')) define('STDOUT', fopen('php://stdout', 'w'));
+if(!defined('STDERR')) define('STDERR', fopen('php://stderr', 'w'));
+
+function info($o)  { fwrite(STDOUT,"\e[01;96m[INFO] $o\e[0m\n"); }
+function warn($o)  { fwrite(STDOUT,"\e[01;93m[WARN] $o\e[0m\n"); }
+function error($o) { fwrite(STDERR,"\e[01;91m[ERROR] $o\e[0m\n"); }
 
 // set to false for production //
 // set to true for dev/staging //
@@ -16,7 +23,16 @@ $score_arguments = $_POST;
 $handler = new GameResultHandler( DEBUG );
 $handler->handle_game_results( $score_arguments );
 
-$db = new DatabaseMiddleGuy();
+try
+{ 
+  $db = new DatabaseMiddleGuy(); 
+}
+catch( Exception $e ) 
+{
+  error($e); 
+  $db = new DatabaseMiddleGuy_FAKE(); 
+}
+
 if ( $handler->get_success() )
 {
   $game_uuid = $handler->get_data()->game_uuid;
@@ -24,6 +40,7 @@ if ( $handler->get_success() )
   $score_raw = $handler->get_data()->score_raw;
   $score_encrypted = $handler->get_data()->score_encrypted;
   $db->add_score( $game_uuid, $user, $score_raw, $score_encrypted, $_SERVER['REMOTE_ADDR'] );
+  info( "New score: User $user got $score_raw in game '$game_uuid'" );
 }
 else
 if ( $handler->get_error() )
@@ -34,6 +51,7 @@ if ( $handler->get_error() )
   $score_encrypted = $handler->get_data()->score_encrypted;
   $error = $handler->get_error();
   $db->add_ban( $game_uuid, $user, $score, $score_encrypted, $error );
+  warn( "<!> Banned user $user. $error" );
 }
 
 echo $handler->get_response();

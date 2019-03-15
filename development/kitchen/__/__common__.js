@@ -14,4 +14,12 @@ function randstr(len,seed)
 }   
 
 function random_char(string,seed,iter,max)
-{ return string[pseudorandom(seed,iter)%max] }    
+{ return string[pseudorandom(seed,iter)%max] }
+
+function check_for_devtools()
+{
+  let threshold = 400
+  var wflag = window.outerWidth - window.innerWidth > threshold
+	var hflag = window.outerHeight - window.innerHeight > threshold
+	return wflag || hflag
+}

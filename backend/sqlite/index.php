@@ -65,8 +65,7 @@ $databases = array(
 	),
 );
 
-define('BASE_URL','https://8000-copybiochemicalbadger.cdr.co/sqlite/a
-sw');
+define('BASE_URL','https://blockch-viral-games-choephix.c9users.io/sqlite/');
 
 /* ---- Interface settings ---- */
 

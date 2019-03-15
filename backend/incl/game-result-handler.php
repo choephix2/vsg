@@ -113,8 +113,9 @@ class GameResultHandler
 
   function get_function_id( $encrypted_score )
   {
+    $config = (object)$this->CONFIG;
     $characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/";
-    $function_id_character = $encrypted_score[ $this->config->function_id_character_position ];
+    $function_id_character = $encrypted_score[ $config->function_id_character_position ];
     $function_id = strpos( $characters, $this->data->function_id_character ) % 4;
     return $function_id;
   }
