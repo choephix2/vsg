@@ -2,7 +2,7 @@
 function loadfile(name) 
 {
   let http = new XMLHttpRequest()
-  http.open("GET", `/kitchen/__/${name}.js`, false)
+  http.open("GET", `/development/kitchen/__/${name}.js`, false)
   http.send(null)
   return http.responseText
 }
@@ -10,7 +10,7 @@ function loadfile(name)
 function save(code) 
 {
   let http = new XMLHttpRequest()
-  http.open("POST", `/prepared/pretty-set.php`, false)
+  http.open("POST", `/development/prepared/pretty-set.php`, false)
   http.send(code)
   document.body.innerText = http.responseText
 }
