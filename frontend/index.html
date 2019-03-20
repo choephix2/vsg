@@ -20,29 +20,6 @@
 	<link rel="shortcut icon" sizes="256x256" href="icon-256.png" />
 	
 	<title>ViralSys Games</title>
-
-	<script type="text/javascript">
-		console.warn("test-001")
-		
-		function onGameFrameLoad()
-		{
-			var gameframe = window.frames["gameframe"].window
-			
-			gameframe.current_user_id="localhost-julie"
-			gameframe.current_user_session="aHR0cHM6Ly9ibG9ja2NoLXZpcmFsLWdhbWVzLWNob2VwaGl4LmM5dXNlcnMuaW8vYmFja2VuZA=="
-			
-			addScriptToGameFrame( gameframe, "https://blockch-viral-games-choephix.c9users.io/development/prepared/pretty.js" )
-			addScriptToGameFrame( gameframe, "https://blockch-viral-games-choephix.c9users.io/development/prepared/redirect-unpretty-to-pretty.js" )
-		}
-		
-		function addScriptToGameFrame( gameframe, src )
-		{
-			let head = gameframe.document.getElementsByTagName("head")[0];
-			let script = document.createElement('script')
-			script.src = src
-        	head.appendChild(script)
-		}
-	</script>
 	
 	<style type="text/css">
 		body
@@ -79,53 +56,58 @@
 </head> 
  
 <body>
+	
 	<script src="jquery-2.1.1.min.js"></script>
 
 	<script>
-	var side_size = 150;
-	
-	function size_iframe()
-	{
-		var w = jQuery(window).width() - side_size;
-		var h = jQuery(window).height();
-		jQuery("iframe").width(w).height(h);
-	};
-	
-	jQuery(document).ready(size_iframe);
-	jQuery(window).resize(size_iframe);
-	
-	function OnRegisterSWError(e)
-	{
-		console.warn("Failed to register service worker: ", e);
-	};
-	
-	// Runtime calls this global method when ready to start caching (i.e. after startup).
-	// This registers the service worker which caches resources for offline support.
-	window.C2_RegisterSW = function C2_RegisterSW()
-	{
-		if (!navigator.serviceWorker)
-			return;		// no SW support, ignore call
+		var side_size = 150;
 		
-		try {
-			navigator.serviceWorker.register("sw.js", { scope: "./" })
-			.then(function (reg)
-			{
-				console.log("Registered service worker on " + reg.scope);
-			})
-			.catch(OnRegisterSWError);
-		}
-		catch (e)
+		function size_iframe()
 		{
-			OnRegisterSWError(e);
-		}
-	};
+			var w = jQuery(window).width() - side_size;
+			var h = jQuery(window).height();
+			jQuery("iframe").width(w).height(h);
+		};
+		
+		jQuery(document).ready(size_iframe);
+		jQuery(window).resize(size_iframe);
+		
+		window.C2_RegisterSW = function C2_RegisterSW() {}
 	</script>
 	
 	<div id="side">
 		<p>Side content goes here. You can add any additional HTML content, e.g. an advert.</p>
 	</div>
+
+	<script type="text/javascript">
+		console.warn("test-001")
+		
+		function onGameFrameLoad()
+		{
+			var gameframe = window.frames["gameframe"].window
+			
+			gameframe.current_user_id="klaud"
+			gameframe.current_user_session="aHR0cHM6Ly9ibG9ja2NoLXZpcmFsLWdhbWVzLWNob2VwaGl4LmM5dXNlcnMuaW8vYmFja2VuZA"
+			gameframe.foo = function ( ...rest ) { console.log( "Foo--", rest ) }
+			
+			addScriptToGameFrame( gameframe, "https://blockch-viral-games-choephix.c9users.io/development/prepared/pretty.js" )
+			addScriptToGameFrame( gameframe, "https://blockch-viral-games-choephix.c9users.io/development/prepared/redirect-unpretty-to-pretty.js" )
+		}
+		
+		function addScriptToGameFrame( gameframe, src )
+		{
+			let head = gameframe.document.getElementsByTagName("head")[0];
+			let script = document.createElement('script')
+			script.src = src
+        	head.appendChild(script)
+		}
+	</script>
+	
 	<div id="main">
-		<iframe name="gameframe" allowfullscreen="true" src="crypto-match/game.html" scrolling="no" noresize="noresize"  onLoad="onGameFrameLoad()" />
+		<iframe name="gameframe" allowfullscreen="true" src="kufox-jump/game.html" scrolling="no" noresize="noresize" onLoad="onGameFrameLoad()"></iframe>
 	</div>
+	
+	<!--<script>onGameFrameLoad()</script>-->
+	
 </body> 
 </html> 
