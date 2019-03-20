@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+<?PHP
+
+$gameslug = $_GET["game"]
+
+?>
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8" />
@@ -19,7 +25,7 @@
 	<meta name="mobile-web-app-capable" content="yes" />
 	<link rel="shortcut icon" sizes="256x256" href="icon-256.png" />
 	
-	<title>ViralSys Games</title>
+	<title>ViralSys Games - <?php echo $gameslug ?></title>
 	
 	<style type="text/css">
 		body
@@ -104,10 +110,14 @@
 	</script>
 	
 	<div id="main">
-		<iframe name="gameframe" allowfullscreen="true" src="kufox-jump/game.html" scrolling="no" noresize="noresize" onLoad="onGameFrameLoad()"></iframe>
+		<iframe src="<?php echo $gameslug ?>/game.html" 
+				name="gameframe" 
+				scrolling="no" 
+				noresize="noresize" 
+				allowfullscreen="true" 
+				onLoad="onGameFrameLoad()"
+				/>
 	</div>
-	
-	<!--<script>onGameFrameLoad()</script>-->
 	
 </body> 
 </html> 
