@@ -12,19 +12,6 @@ $gameslug = $_GET["game"]
 	<!-- This ensures the canvas works on IE9+.  Don't remove it! -->
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	
-	<!-- Standardised web app manifest -->
-	<link rel="manifest" href="appmanifest.json" />
-	
-	<!-- Allow fullscreen mode on iOS devices. (These are Apple specific meta tags.) -->
-	<meta name="apple-mobile-web-app-capable" content="yes" />
-	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-	<link rel="apple-touch-icon" sizes="256x256" href="icon-256.png" />
-	<meta name="HandheldFriendly" content="true" />
-	
-	<!-- Chrome for Android web app tags -->
-	<meta name="mobile-web-app-capable" content="yes" />
-	<link rel="shortcut icon" sizes="256x256" href="icon-256.png" />
-	
 	<title>ViralSys Games - <?php echo $gameslug ?></title>
 	
 	<style type="text/css">
@@ -77,8 +64,6 @@ $gameslug = $_GET["game"]
 		
 		jQuery(document).ready(size_iframe);
 		jQuery(window).resize(size_iframe);
-		
-		window.C2_RegisterSW = function C2_RegisterSW() {}
 	</script>
 	
 	<div id="side">
