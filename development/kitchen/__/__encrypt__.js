@@ -1,6 +1,7 @@
+/* global _a */
 function __FUNCTION_NAME__( score )
 {
-  let function_id_char = random_char( "__FCHAR__", __RAND1__+score, __RAND2__, __FCHARLEN__ )
+  let function_id_char = _a.encr.random_char( "__FCHAR__", __RAND1__+score, __RAND2__, __FCHARLEN__ )
   let character_positions = [__CPOS__]
   let offset = __OFFSET__
 
@@ -8,10 +9,10 @@ function __FUNCTION_NAME__( score )
   let radix = 0x24
   let score36plus = (score+=offset).toString(radix)
   while( score36plus.length < 0x06 )
-    score36plus = random_invalid_char(++score) + score36plus
+    score36plus = _a.encr.random_invalid_char(++score) + score36plus
   score36plus = function_id_char + score36plus
 
-  let fluff = randstr( len, offset + (+new Date) )
+  let fluff = _a.encr.randstr( len, offset + (+new Date) )
   let result = ""
   let start = 0
   for ( let i=0; i<0x07; i++ )
