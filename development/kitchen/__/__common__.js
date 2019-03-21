@@ -1,5 +1,5 @@
 var _a = { globals: { window : window, debug : window.console } }
-_a.base64 = { 
+_a.globals.base64 = { 
   decode : _a.globals.window["\x61\x74\x6f\x62"] 
 }
 _a.requests = {
@@ -11,10 +11,10 @@ _a.encr = {}
 _a.encr.pseudorandom = function (n,iter)
 { for ( let i=0; i<iter; i++ ) { n = n * 0x41A7 % 2147483647 } return n }
 _a.encr.random_invalid_char = function (seed)
-{ return _a.encrrandom_char( "AAABCDEFGHIJKLMNOPQRSTUVWXYZZZ", 0xFF + seed, 0x1F + seed, 30 ) }
+{ return _a.encr.random_char( "AAABCDEFGHIJKLMNOPQRSTUVWXYZZZ", 0xFF + seed, 0x1F + seed, 30 ) }
 _a.encr.randstr = function (len,seed)
 {
-  let characters = _a.globals.base64.decode("MDEyMzQ1Njc4OWFiY2RlZmdoaWprbG1ub3BxcnN0dXZ3eHl6QUJDREVGR0hJSktMTU5PUFFSU1RVVldYWVorLw==")
+  let characters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ+/"
   let result = ""
   for ( let i=0x00; i<len; i++ )
     result += characters[_a.encr.pseudorandom( 0xFF + seed, 0x0F + i ) % 64]
