@@ -4,7 +4,6 @@ function __FUNCTION_NAME__( score )
   let character_positions = [__CPOS__]
   let offset = __OFFSET__
 
-  // 
   let len = 0x28
   let radix = 0x24
   let score36plus = (score+=offset).toString(radix)

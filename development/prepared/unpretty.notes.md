@@ -1,3 +1,6 @@
+<!-- list of function names in pairs (encrypt_score_X,send_score_X) -->
+
+
 
 _0x26af06
 _0x3c8c4d

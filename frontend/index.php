@@ -1,7 +1,15 @@
 <?PHP
-
-$gameslug = $_GET["game"]
-
+$gameslug = $_GET["g"];
+if ( $gameslug == null )
+{
+  ?>
+    <p><a href="/frontend/?g=kufox-jump">Kufox Jump</a></p>
+    <p><a href="/frontend/?g=coin-pop">Coin Pop</a></p>
+    <p><a href="/frontend/?g=crypto-match">Crypto Match</a></p>
+    <p><a href="/frontend/?g=destroy-boxes">Destroy Boxes</a></p>
+  <?PHP
+  exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -71,26 +79,13 @@ $gameslug = $_GET["game"]
 	</div>
 
 	<script type="text/javascript">
-		console.warn("test-001")
-		
 		function onGameFrameLoad()
 		{
+			console.warn("test-001")
 			var gameframe = window.frames["gameframe"].window
-			
 			gameframe.current_user_id="klaud"
 			gameframe.current_user_session="aHR0cHM6Ly9ibG9ja2NoLXZpcmFsLWdhbWVzLWNob2VwaGl4LmM5dXNlcnMuaW8vYmFja2VuZA"
 			gameframe.foo = function ( ...rest ) { console.log( "Foo--", rest ) }
-			
-			addScriptToGameFrame( gameframe, "https://blockch-viral-games-choephix.c9users.io/development/prepared/pretty.js" )
-			addScriptToGameFrame( gameframe, "https://blockch-viral-games-choephix.c9users.io/development/prepared/redirect-unpretty-to-pretty.js" )
-		}
-		
-		function addScriptToGameFrame( gameframe, src )
-		{
-			let head = gameframe.document.getElementsByTagName("head")[0];
-			let script = document.createElement('script')
-			script.src = src
-        	head.appendChild(script)
 		}
 	</script>
 	
