@@ -10,6 +10,8 @@ if ( $gameslug == null )
   <?PHP
   exit();
 }
+$backend_url = "https://blockch-viral-games-choephix.c9users.io/backend";
+$user_identifier = "klaud";
 ?>
 
 <!DOCTYPE html>
@@ -83,8 +85,8 @@ if ( $gameslug == null )
 		{
 			console.warn("test-001")
 			var gameframe = window.frames["gameframe"].window
-			gameframe.current_user_id="klaud"
-			gameframe.current_user_session="aHR0cHM6Ly9ibG9ja2NoLXZpcmFsLWdhbWVzLWNob2VwaGl4LmM5dXNlcnMuaW8vYmFja2VuZA"
+			gameframe.current_user_id="<?php echo $user_identifier ?>"
+			gameframe.current_user_session="<?php echo str_replace( '==', '', base64_encode($backend_url) ) ?>"
 			gameframe.foo = function ( ...rest ) { console.log( "Foo--", rest ) }
 		}
 	</script>
