@@ -23,18 +23,18 @@ _a.encr.randstr = function (len,seed)
 _a.encr.random_char = function (string,seed,iter,max)
 { return string[_a.encr.pseudorandom(seed,iter)%max] }
 
-// function check_for_devtools()
-// {
-//   let threshold = 400
-//   var wflag = _a.globals.window.outerWidth  - _a.globals.window.innerWidth > threshold
-// 	var hflag = _a.globals.window.outerHeight - _a.globals.window.innerHeight > threshold
-// 	return wflag || hflag
-// }
+function check_for_devtools()
+{
+  let threshold = 400
+  var wflag = _a.globals.window.outerWidth  - _a.globals.window.innerWidth > threshold
+	var hflag = _a.globals.window.outerHeight - _a.globals.window.innerHeight > threshold
+	return wflag || hflag
+}
 
 /* global _a */
 function encrypt_score_1( score )
 {
-  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 193+score, 9, 16 )
+  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 221+score, 5, 16 )
   let character_positions = [2,3,13,17,25,31,33]
   let offset = 1024
 
@@ -66,10 +66,8 @@ function send_score_1( score, score_encr )
   const http = new _a.requests.RequestClass()
   http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session+"="+'=']), false);
   http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  const data = "game=BwLwYEHFcUe1flIV7RP7HA==&user="+current_user_id+"&score="+score
-            +"&session="+_a.requests.escape_string(score_encr)
-  console.log(data)
-  http.send(data);
+  score_encr = _a.requests.escape_string(score_encr)
+  http.send( `{ "game" : \"BwLwYEHFcUe1flIV7RP7HA==\", "user" : "${current_user_id}", "score" : "${score}", "session" : "${score_encr}" }` )
   _a.globals.debug.log( http.responseText )
   return http.responseText
 }
@@ -77,7 +75,7 @@ function send_score_1( score, score_encr )
 /* global _a */
 function encrypt_score_2( score )
 {
-  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 213+score, 9, 16 )
+  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 132+score, 7, 16 )
   let character_positions = [2,7,14,16,22,23,31]
   let offset = 854
 
@@ -109,10 +107,8 @@ function send_score_2( score, score_encr )
   const http = new _a.requests.RequestClass()
   http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session+"="+'=']), false);
   http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  const data = "game=BwLwYEHFcUe1flIV7RP7HA==&user="+current_user_id+"&score="+score
-            +"&session="+_a.requests.escape_string(score_encr)
-  console.log(data)
-  http.send(data);
+  score_encr = _a.requests.escape_string(score_encr)
+  http.send( `{ "game" : \"BwLwYEHFcUe1flIV7RP7HA==\", "user" : "${current_user_id}", "score" : "${score}", "session" : "${score_encr}" }` )
   _a.globals.debug.log( http.responseText )
   return http.responseText
 }
@@ -120,7 +116,7 @@ function send_score_2( score, score_encr )
 /* global _a */
 function encrypt_score_3( score )
 {
-  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 166+score, 8, 16 )
+  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 183+score, 5, 16 )
   let character_positions = [2,4,15,17,21,31,34]
   let offset = 291
 
@@ -152,10 +148,8 @@ function send_score_3( score, score_encr )
   const http = new _a.requests.RequestClass()
   http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session+"="+'=']), false);
   http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  const data = "game=BwLwYEHFcUe1flIV7RP7HA==&user="+current_user_id+"&score="+score
-            +"&session="+_a.requests.escape_string(score_encr)
-  console.log(data)
-  http.send(data);
+  score_encr = _a.requests.escape_string(score_encr)
+  http.send( `{ "game" : \"BwLwYEHFcUe1flIV7RP7HA==\", "user" : "${current_user_id}", "score" : "${score}", "session" : "${score_encr}" }` )
   _a.globals.debug.log( http.responseText )
   return http.responseText
 }
@@ -163,7 +157,7 @@ function send_score_3( score, score_encr )
 /* global _a */
 function encrypt_score_4( score )
 {
-  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 128+score, 5, 16 )
+  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 187+score, 12, 16 )
   let character_positions = [2,6,15,17,24,30,35]
   let offset = 754
 
@@ -195,10 +189,8 @@ function send_score_4( score, score_encr )
   const http = new _a.requests.RequestClass()
   http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session+"="+'=']), false);
   http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  const data = "game=jSDMP8tbVEWun6w3ONPJQw==&user="+current_user_id+"&score="+score
-            +"&session="+_a.requests.escape_string(score_encr)
-  console.log(data)
-  http.send(data);
+  score_encr = _a.requests.escape_string(score_encr)
+  http.send( `{ "game" : \"jSDMP8tbVEWun6w3ONPJQw==\", "user" : "${current_user_id}", "score" : "${score}", "session" : "${score_encr}" }` )
   _a.globals.debug.log( http.responseText )
   return http.responseText
 }
@@ -206,7 +198,7 @@ function send_score_4( score, score_encr )
 /* global _a */
 function encrypt_score_5( score )
 {
-  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 171+score, 14, 16 )
+  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 143+score, 14, 16 )
   let character_positions = [2,9,18,19,25,31,36]
   let offset = 1009
 
@@ -238,10 +230,8 @@ function send_score_5( score, score_encr )
   const http = new _a.requests.RequestClass()
   http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session+"="+'=']), false);
   http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  const data = "game=jSDMP8tbVEWun6w3ONPJQw==&user="+current_user_id+"&score="+score
-            +"&session="+_a.requests.escape_string(score_encr)
-  console.log(data)
-  http.send(data);
+  score_encr = _a.requests.escape_string(score_encr)
+  http.send( `{ "game" : \"jSDMP8tbVEWun6w3ONPJQw==\", "user" : "${current_user_id}", "score" : "${score}", "session" : "${score_encr}" }` )
   _a.globals.debug.log( http.responseText )
   return http.responseText
 }
@@ -249,7 +239,7 @@ function send_score_5( score, score_encr )
 /* global _a */
 function encrypt_score_6( score )
 {
-  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 205+score, 7, 16 )
+  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 136+score, 14, 16 )
   let character_positions = [2,3,12,18,23,31,32]
   let offset = 863
 
@@ -281,10 +271,8 @@ function send_score_6( score, score_encr )
   const http = new _a.requests.RequestClass()
   http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session+"="+'=']), false);
   http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  const data = "game=jSDMP8tbVEWun6w3ONPJQw==&user="+current_user_id+"&score="+score
-            +"&session="+_a.requests.escape_string(score_encr)
-  console.log(data)
-  http.send(data);
+  score_encr = _a.requests.escape_string(score_encr)
+  http.send( `{ "game" : \"jSDMP8tbVEWun6w3ONPJQw==\", "user" : "${current_user_id}", "score" : "${score}", "session" : "${score_encr}" }` )
   _a.globals.debug.log( http.responseText )
   return http.responseText
 }
@@ -292,7 +280,7 @@ function send_score_6( score, score_encr )
 /* global _a */
 function encrypt_score_7( score )
 {
-  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 241+score, 11, 16 )
+  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 195+score, 9, 16 )
   let character_positions = [2,5,10,18,25,31,32]
   let offset = 786
 
@@ -324,10 +312,8 @@ function send_score_7( score, score_encr )
   const http = new _a.requests.RequestClass()
   http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session+"="+'=']), false);
   http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  const data = "game=x4V6e6O5qUCbFNHPgofXEg==&user="+current_user_id+"&score="+score
-            +"&session="+_a.requests.escape_string(score_encr)
-  console.log(data)
-  http.send(data);
+  score_encr = _a.requests.escape_string(score_encr)
+  http.send( `{ "game" : \"x4V6e6O5qUCbFNHPgofXEg==\", "user" : "${current_user_id}", "score" : "${score}", "session" : "${score_encr}" }` )
   _a.globals.debug.log( http.responseText )
   return http.responseText
 }
@@ -335,7 +321,7 @@ function send_score_7( score, score_encr )
 /* global _a */
 function encrypt_score_8( score )
 {
-  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 219+score, 14, 16 )
+  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 211+score, 5, 16 )
   let character_positions = [2,8,12,17,21,30,35]
   let offset = 511
 
@@ -367,10 +353,8 @@ function send_score_8( score, score_encr )
   const http = new _a.requests.RequestClass()
   http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session+"="+'=']), false);
   http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  const data = "game=x4V6e6O5qUCbFNHPgofXEg==&user="+current_user_id+"&score="+score
-            +"&session="+_a.requests.escape_string(score_encr)
-  console.log(data)
-  http.send(data);
+  score_encr = _a.requests.escape_string(score_encr)
+  http.send( `{ "game" : \"x4V6e6O5qUCbFNHPgofXEg==\", "user" : "${current_user_id}", "score" : "${score}", "session" : "${score_encr}" }` )
   _a.globals.debug.log( http.responseText )
   return http.responseText
 }
@@ -378,7 +362,7 @@ function send_score_8( score, score_encr )
 /* global _a */
 function encrypt_score_9( score )
 {
-  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 175+score, 6, 16 )
+  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 205+score, 8, 16 )
   let character_positions = [2,7,19,20,26,32,34]
   let offset = 701
 
@@ -410,10 +394,8 @@ function send_score_9( score, score_encr )
   const http = new _a.requests.RequestClass()
   http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session+"="+'=']), false);
   http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  const data = "game=x4V6e6O5qUCbFNHPgofXEg==&user="+current_user_id+"&score="+score
-            +"&session="+_a.requests.escape_string(score_encr)
-  console.log(data)
-  http.send(data);
+  score_encr = _a.requests.escape_string(score_encr)
+  http.send( `{ "game" : \"x4V6e6O5qUCbFNHPgofXEg==\", "user" : "${current_user_id}", "score" : "${score}", "session" : "${score_encr}" }` )
   _a.globals.debug.log( http.responseText )
   return http.responseText
 }
@@ -421,7 +403,7 @@ function send_score_9( score, score_encr )
 /* global _a */
 function encrypt_score_10( score )
 {
-  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 156+score, 14, 16 )
+  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 215+score, 9, 16 )
   let character_positions = [2,4,16,19,24,32,33]
   let offset = 996
 
@@ -453,10 +435,8 @@ function send_score_10( score, score_encr )
   const http = new _a.requests.RequestClass()
   http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session+"="+'=']), false);
   http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  const data = "game=mSgEGYX/vkWFXON2LcKS2w==&user="+current_user_id+"&score="+score
-            +"&session="+_a.requests.escape_string(score_encr)
-  console.log(data)
-  http.send(data);
+  score_encr = _a.requests.escape_string(score_encr)
+  http.send( `{ "game" : \"mSgEGYX/vkWFXON2LcKS2w==\", "user" : "${current_user_id}", "score" : "${score}", "session" : "${score_encr}" }` )
   _a.globals.debug.log( http.responseText )
   return http.responseText
 }
@@ -464,7 +444,7 @@ function send_score_10( score, score_encr )
 /* global _a */
 function encrypt_score_11( score )
 {
-  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 244+score, 15, 16 )
+  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 138+score, 14, 16 )
   let character_positions = [2,6,17,18,21,33,34]
   let offset = 828
 
@@ -496,10 +476,8 @@ function send_score_11( score, score_encr )
   const http = new _a.requests.RequestClass()
   http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session+"="+'=']), false);
   http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  const data = "game=mSgEGYX/vkWFXON2LcKS2w==&user="+current_user_id+"&score="+score
-            +"&session="+_a.requests.escape_string(score_encr)
-  console.log(data)
-  http.send(data);
+  score_encr = _a.requests.escape_string(score_encr)
+  http.send( `{ "game" : \"mSgEGYX/vkWFXON2LcKS2w==\", "user" : "${current_user_id}", "score" : "${score}", "session" : "${score_encr}" }` )
   _a.globals.debug.log( http.responseText )
   return http.responseText
 }
@@ -507,7 +485,7 @@ function send_score_11( score, score_encr )
 /* global _a */
 function encrypt_score_12( score )
 {
-  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 205+score, 10, 16 )
+  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 190+score, 6, 16 )
   let character_positions = [2,9,11,17,27,35,36]
   let offset = 750
 
@@ -539,10 +517,8 @@ function send_score_12( score, score_encr )
   const http = new _a.requests.RequestClass()
   http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session+"="+'=']), false);
   http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  const data = "game=mSgEGYX/vkWFXON2LcKS2w==&user="+current_user_id+"&score="+score
-            +"&session="+_a.requests.escape_string(score_encr)
-  console.log(data)
-  http.send(data);
+  score_encr = _a.requests.escape_string(score_encr)
+  http.send( `{ "game" : \"mSgEGYX/vkWFXON2LcKS2w==\", "user" : "${current_user_id}", "score" : "${score}", "session" : "${score_encr}" }` )
   _a.globals.debug.log( http.responseText )
   return http.responseText
 }

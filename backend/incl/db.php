@@ -1,5 +1,5 @@
 <?php
-define('DEFAULT_SQLITE_PATH','sqlite:/home/ubuntu/workspace/blockch-viral-games/sqlite/main.sqlite');
+define('DEFAULT_SQLITE_PATH','sqlite:/home/ubuntu/workspace/blockch-viral-games/backend/sqlite/main.sqlite');
 
 interface iDatabaseMiddleGuy
 {

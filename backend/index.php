@@ -19,9 +19,11 @@ define( 'DEBUG', true );
 header('Access-Control-Allow-Origin: *');
 header("Content-Type: application/json");
 
-$score_arguments = $_POST;
+$score_arguments = (array)json_decode( file_get_contents( 'php://input' ) );
 $handler = new GameResultHandler( DEBUG );
 $handler->handle_game_results( $score_arguments );
+
+info("incame request with data: ".var_export($score_arguments,true));
 
 try
 { 
