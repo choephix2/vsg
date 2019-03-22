@@ -6,7 +6,7 @@ if ( $gameslug == null )
     <p><a href="/frontend/?g=kufox-jump">Kufox Jump</a></p>
     <p><a href="/frontend/?g=coin-pop">Coin Pop</a></p>
     <p><a href="/frontend/?g=crypto-match">Crypto Match</a></p>
-    <p><a href="/frontend/?g=destroy-boxes">Destroy Boxes</a></p>
+    <p><a href="/frontend/?g=fud-destroyer">FUD Destroyer</a></p>
   <?PHP
   exit();
 }

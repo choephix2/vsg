@@ -5,6 +5,7 @@ require("incl/db.php");
 if(!defined('STDOUT')) define('STDOUT', fopen('php://stdout', 'w'));
 if(!defined('STDERR')) define('STDERR', fopen('php://stderr', 'w'));
 
+function debug($o) { fwrite(STDOUT,"\e[01;34m[DEBUG] $o\e[0m\n"); }
 function info($o)  { fwrite(STDOUT,"\e[01;96m[INFO] $o\e[0m\n"); }
 function warn($o)  { fwrite(STDOUT,"\e[01;93m[WARN] $o\e[0m\n"); }
 function error($o) { fwrite(STDERR,"\e[01;91m[ERROR] $o\e[0m\n"); }
@@ -23,7 +24,7 @@ $score_arguments = (array)json_decode( file_get_contents( 'php://input' ) );
 $handler = new GameResultHandler( DEBUG );
 $handler->handle_game_results( $score_arguments );
 
-info("incame request with data: ".var_export($score_arguments,true));
+debug("incame request with data: ".var_export($score_arguments,true));
 
 try
 { 
@@ -31,7 +32,7 @@ try
 }
 catch( Exception $e ) 
 {
-  error($e); 
+  // error($e); 
   $db = new DatabaseMiddleGuy_FAKE(); 
 }
 
@@ -54,6 +55,10 @@ if ( $handler->get_error() )
   $error = $handler->get_error();
   $db->add_ban( $game_uuid, $user, $score, $score_encrypted, $error );
   warn( "<!> Banned user $user. $error" );
+}
+else
+{
+  warn( "// IGNORED //" );
 }
 
 echo $handler->get_response();
