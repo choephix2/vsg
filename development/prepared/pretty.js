@@ -34,7 +34,7 @@ function check_for_devtools()
 /* global _a */
 function encrypt_score_1( score )
 {
-  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 207+score, 15, 16 )
+  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 239+score, 10, 16 )
   let character_positions = [2,3,13,17,25,31,33]
   let offset = 1024
 
@@ -75,7 +75,7 @@ function send_score_1( score, score_encr )
 /* global _a */
 function encrypt_score_2( score )
 {
-  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 154+score, 12, 16 )
+  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 223+score, 9, 16 )
   let character_positions = [2,7,14,16,22,23,31]
   let offset = 854
 
@@ -116,7 +116,7 @@ function send_score_2( score, score_encr )
 /* global _a */
 function encrypt_score_3( score )
 {
-  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 136+score, 7, 16 )
+  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 198+score, 13, 16 )
   let character_positions = [2,4,15,17,21,31,34]
   let offset = 291
 
@@ -157,7 +157,7 @@ function send_score_3( score, score_encr )
 /* global _a */
 function encrypt_score_4( score )
 {
-  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 213+score, 13, 16 )
+  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 176+score, 5, 16 )
   let character_positions = [2,6,15,17,24,30,35]
   let offset = 754
 
@@ -198,7 +198,7 @@ function send_score_4( score, score_encr )
 /* global _a */
 function encrypt_score_5( score )
 {
-  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 230+score, 11, 16 )
+  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 223+score, 9, 16 )
   let character_positions = [2,9,18,19,25,31,36]
   let offset = 1009
 
@@ -239,7 +239,7 @@ function send_score_5( score, score_encr )
 /* global _a */
 function encrypt_score_6( score )
 {
-  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 128+score, 14, 16 )
+  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 217+score, 13, 16 )
   let character_positions = [2,3,12,18,23,31,32]
   let offset = 863
 
@@ -280,7 +280,7 @@ function send_score_6( score, score_encr )
 /* global _a */
 function encrypt_score_7( score )
 {
-  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 159+score, 5, 16 )
+  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 186+score, 7, 16 )
   let character_positions = [2,5,10,18,25,31,32]
   let offset = 786
 
@@ -321,7 +321,7 @@ function send_score_7( score, score_encr )
 /* global _a */
 function encrypt_score_8( score )
 {
-  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 245+score, 7, 16 )
+  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 156+score, 5, 16 )
   let character_positions = [2,8,12,17,21,30,35]
   let offset = 511
 
@@ -362,7 +362,7 @@ function send_score_8( score, score_encr )
 /* global _a */
 function encrypt_score_9( score )
 {
-  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 245+score, 7, 16 )
+  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 191+score, 15, 16 )
   let character_positions = [2,7,19,20,26,32,34]
   let offset = 701
 
@@ -403,7 +403,7 @@ function send_score_9( score, score_encr )
 /* global _a */
 function encrypt_score_10( score )
 {
-  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 250+score, 8, 16 )
+  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 194+score, 15, 16 )
   let character_positions = [2,4,16,19,24,32,33]
   let offset = 996
 
@@ -444,7 +444,7 @@ function send_score_10( score, score_encr )
 /* global _a */
 function encrypt_score_11( score )
 {
-  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 128+score, 6, 16 )
+  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 138+score, 13, 16 )
   let character_positions = [2,6,17,18,21,33,34]
   let offset = 828
 
@@ -485,7 +485,7 @@ function send_score_11( score, score_encr )
 /* global _a */
 function encrypt_score_12( score )
 {
-  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 188+score, 8, 16 )
+  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 173+score, 10, 16 )
   let character_positions = [2,9,11,17,27,35,36]
   let offset = 750
 
