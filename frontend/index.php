@@ -83,7 +83,6 @@ $user_identifier = "klaud";
 	<script type="text/javascript">
 		function onGameFrameLoad()
 		{
-			console.warn("test-001")
 			var gameframe = window.frames["gameframe"].window
 			gameframe.current_user_id="<?php echo $user_identifier ?>"
 			gameframe.current_user_session="<?php echo str_replace( '==', '', base64_encode($backend_url) ) ?>"

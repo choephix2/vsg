@@ -1,11 +1,6 @@
-## How to run PHP server
+## Docs
 
-php -S 0.0.0.0:8080
-
-or
-
-bash serve.sh
-
+- https://docs.google.com/document/d/18QHF3xlyWetaG5LN5iu4MfZHeM59DcPBIA7Ef6RwKeo/edit
 
 ## Notes
 
