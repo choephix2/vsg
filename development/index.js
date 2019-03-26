@@ -1,5 +1,4 @@
-// const BACKEND_URL = "https://8000-copybiochemicalbadger.cdr.co/back/"
-const BACKEND_URL = "https://blockch-viral-games-choephix.c9users.io/back/"
+const BACKEND_URL = "/backend/"
 const GAMES = []
 let i = 0
 for ( let uuid in configuration.full_settings )
