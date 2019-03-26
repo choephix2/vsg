@@ -65,7 +65,7 @@ $databases = array(
 	),
 );
 
-define('BASE_URL','https://blockch-viral-games-choephix.c9users.io/sqlite/');
+define('BASE_URL','https://blockch-viral-games-choephix.c9users.io/backend/sqlite/');
 
 /* ---- Interface settings ---- */
 

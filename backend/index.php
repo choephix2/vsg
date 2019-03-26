@@ -29,10 +29,11 @@ debug("incame request with data: ".var_export($score_arguments,true));
 try
 { 
   $db = new DatabaseMiddleGuy(); 
+  info("Connected to database");
 }
 catch( Exception $e ) 
 {
-  // error($e); 
+  error($e); 
   $db = new DatabaseMiddleGuy_FAKE(); 
 }
 
