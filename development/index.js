@@ -69,13 +69,8 @@ function addGame( game )
      
     let http = new XMLHttpRequest()
     http.open("POST", BACKEND_URL, true);
-    http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     http.addEventListener("load", onDone);
-  
-    let data = "game="+game_uuid
-             +"&user="+user
-             +"&score="+score
-             +"&session="+encodeURIComponent(string)
+    let data = `{ "game" : \"${game_uuid}\", "user" : "${user}", "score" : "${score}", "session" : "${string}" }`
     DOM.classList.add("busy")
     http.send(data);
 
@@ -83,6 +78,7 @@ function addGame( game )
     {
       DOM.classList.remove("busy")
       addResponseBox(http.responseText.toString())
+      console.log(http.responseURL);
     }
   }
 

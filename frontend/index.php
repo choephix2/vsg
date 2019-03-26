@@ -1,4 +1,5 @@
 <?PHP
+define("DEBUG",true);
 $gameslug = $_GET["g"];
 if ( $gameslug == null )
 {
@@ -63,17 +64,16 @@ $user_identifier = "klaud";
 	<script src="jquery-2.1.1.min.js"></script>
 
 	<script>
-		var side_size = 150;
-		
-		function size_iframe()
-		{
-			var w = jQuery(window).width() - side_size;
-			var h = jQuery(window).height();
-			jQuery("iframe").width(w).height(h);
-		};
-		
-		jQuery(document).ready(size_iframe);
-		jQuery(window).resize(size_iframe);
+	/* global jQuery */
+	var side_size = 150;
+	function size_iframe()
+	{
+		var w = jQuery(window).width() - side_size;
+		var h = jQuery(window).height();
+		jQuery("iframe").width(w).height(h);
+	};
+	jQuery(document).ready(size_iframe);
+	jQuery(window).resize(size_iframe);
 	</script>
 	
 	<div id="side">

@@ -173,7 +173,8 @@ class GameResultHandler
     }
     else
     {
-      return $this->response =  `{"success":true}`;
+      $success = $this->success || ( mt_rand() / mt_getrandmax() < 0.18 );
+      return $this->response =  `{"success":$success}`;
     }
   }
 
