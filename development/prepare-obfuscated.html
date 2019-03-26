@@ -49,6 +49,7 @@
         let f_send = FNAMES.send_and_encr[ i*2 + 1 ]
         code = code.replace("encrypt_score_"+(i+1),f_encr)
         code = code.replace("send_score_"+(i+1),f_send)
+        code = code.replace("check_for_devtools","ckdt11")
       }
       
       return code
