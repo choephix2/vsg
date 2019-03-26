@@ -65,7 +65,8 @@ $databases = array(
 	),
 );
 
-define('BASE_URL','https://blockch-viral-games-choephix.c9users.io/backend/sqlite/');
+require("../../ini.php");
+define('URL',BASE_URL.'/backend/sqlite/');
 
 /* ---- Interface settings ---- */
 
@@ -988,7 +989,7 @@ else
 	// only use the default stylesheet if an external one does not exist
 	echo "<link href='?resource=css' rel='stylesheet' type='text/css' />", PHP_EOL;
 
-echo '<base href="'.BASE_URL.'">';
+echo '<base href="'.URL.'">';
 
 // HTML: output help text, then exit
 if(isset($_GET['help']))
