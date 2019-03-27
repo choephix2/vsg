@@ -1,11 +1,5 @@
 <?PHP
 require("../ini.php");
-define("DEBUG",true);
-
-if(!defined('STDOUT')) define('STDOUT', fopen('php://stdout', 'w'));
-if(!defined('STDERR')) define('STDERR', fopen('php://stderr', 'w'));
-function debug($o) { fwrite(STDOUT,"\e[01;34m[DEBUG] $o\e[0m\n"); }
-function info($o)  { fwrite(STDOUT,"\e[01;96m[INFO] $o\e[0m\n"); }
 
 $gameslug = $_GET["g"];
 if ( $gameslug == null )
@@ -27,8 +21,6 @@ function make_jumbled_backend_url()
 	$chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	$r = substr(str_shuffle(str_repeat($chars, 11)), 0, 100);
 	$r .= str_replace( '==', '', base64_encode($backend_url) );
-	info(str_replace( '==', '', base64_encode($backend_url) ));
-	debug( "Backend Url = ".$backend_url." = \n".$r."\n(first 100 symbols are fake, the rest is a valid base64 encoded url, sans the '==')" );
 	return $r;
 }
 ?>
@@ -104,6 +96,10 @@ function make_jumbled_backend_url()
 			var gameframe = window.frames["gameframe"].window
 			gameframe.current_user_id="<?php echo $user_identifier ?>"
 			gameframe.current_user_session="<?php echo make_jumbled_backend_url() ?>"
+			<?PHP if (true) { ?>
+			gameframe.lj_ = "<?PHP echo $backend_url ?>/"
+			gameframe.l1 = function (res) { console.warn(res) }
+			<?php } ?>
 			gameframe.foo = function ( ...rest ) { }
 		}
 	</script>

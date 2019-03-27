@@ -43,6 +43,8 @@ class DatabaseMiddleGuy implements iDatabaseMiddleGuy
   {
     try { $this->add_user( $username ); }
     catch ( PDOException $e ) {  }
+    
+    
     return $this->pdo->query("INSERT INTO bans (game_uuid,username,score,score_encrypted,error)".
                              " VALUES ('$game_uuid','$username',$score,'$score_encrypted','$error')");
   }
