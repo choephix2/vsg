@@ -1,5 +1,12 @@
 <?PHP
+require("../ini.php");
 define("DEBUG",true);
+
+if(!defined('STDOUT')) define('STDOUT', fopen('php://stdout', 'w'));
+if(!defined('STDERR')) define('STDERR', fopen('php://stderr', 'w'));
+function debug($o) { fwrite(STDOUT,"\e[01;34m[DEBUG] $o\e[0m\n"); }
+function info($o)  { fwrite(STDOUT,"\e[01;96m[INFO] $o\e[0m\n"); }
+
 $gameslug = $_GET["g"];
 if ( $gameslug == null )
 {
@@ -11,8 +18,19 @@ if ( $gameslug == null )
   <?PHP
   exit();
 }
-$backend_url = "https://blockch-viral-games-choephix.c9users.io/backend";
+$backend_url = BASE_URL."/backend";
 $user_identifier = "klaud";
+
+function make_jumbled_backend_url()
+{
+	global $backend_url;
+	$chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	$r = substr(str_shuffle(str_repeat($chars, 11)), 0, 100);
+	$r .= str_replace( '==', '', base64_encode($backend_url) );
+	info(str_replace( '==', '', base64_encode($backend_url) ));
+	debug( "Backend Url = ".$backend_url." = \n".$r."\n(first 100 symbols are fake, the rest is a valid base64 encoded url, sans the '==')" );
+	return $r;
+}
 ?>
 
 <!DOCTYPE html>
@@ -85,8 +103,8 @@ $user_identifier = "klaud";
 		{
 			var gameframe = window.frames["gameframe"].window
 			gameframe.current_user_id="<?php echo $user_identifier ?>"
-			gameframe.current_user_session="<?php echo str_replace( '==', '', base64_encode($backend_url) ) ?>"
-			gameframe.foo = function ( ...rest ) { console.log( "Foo--", rest ) }
+			gameframe.current_user_session="<?php echo make_jumbled_backend_url() ?>"
+			gameframe.foo = function ( ...rest ) { }
 		}
 	</script>
 	

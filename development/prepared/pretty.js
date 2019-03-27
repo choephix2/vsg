@@ -4,7 +4,7 @@ _a.globals.base64 = {
 }
 _a.requests = {
   RequestClass : _a.globals.window['\x58\x4d\x4c\x48\x74\x74\x70\x52\x65\x71\x75\x65\x73\x74'], /// XMLHttpRequest
-  escape_string : _a.globals.window[`\x65\x6e\x63\x6f\x64\x65\x55\x52\x49\x43\x6f\x6d\x70\x6f\x6e\x65\x6e\x74`] /// encodeURIComponent
+  escape_string : _a.globals.window[`\x65\x6e\x63\x6f\x64\x65\x55\x52\x49\x43\x6f\x6d\x70\x6f\x6e\x65\x6e\x74`], /// encodeURIComponent
 }
 
 _a.encr = {}
@@ -34,7 +34,7 @@ function check_for_devtools()
 /* global _a */
 function encrypt_score_1( score )
 {
-  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 197+score, 15, 16 )
+  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 207+score, 7, 16 )
   let character_positions = [2,3,13,17,25,31,33]
   let offset = 1024
 
@@ -64,17 +64,21 @@ function encrypt_score_1( score )
 function send_score_1( score, score_encr )
 {
   const http = new _a.requests.RequestClass()
-  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session+"="+'=']), false);
-  http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  console.log(current_user_session.substring(100))
+  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), false);
   http.send( `{ "game" : \"BwLwYEHFcUe1flIV7RP7HA==\", "user" : "${current_user_id}", "score" : "${score}", "session" : "${score_encr}" }` )
-  _a.globals.debug.log( http.responseText )
+  if ( _a.globals.window.l1 != null && _a.globals.window.lj_ != http.responseURL ) 
+    _a.globals.window.l1( http.responseText )
   return http.responseText
 }
+/// to log the response for debugging
+/// set frame.window property "l1" to a function that receives the response data as string, and
+/// set frame.window property "lj_" to the full request url (the address to the backend)
 
 /* global _a */
 function encrypt_score_2( score )
 {
-  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 191+score, 15, 16 )
+  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 146+score, 12, 16 )
   let character_positions = [2,7,14,16,22,23,31]
   let offset = 854
 
@@ -104,17 +108,21 @@ function encrypt_score_2( score )
 function send_score_2( score, score_encr )
 {
   const http = new _a.requests.RequestClass()
-  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session+"="+'=']), false);
-  http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  console.log(current_user_session.substring(100))
+  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), false);
   http.send( `{ "game" : \"BwLwYEHFcUe1flIV7RP7HA==\", "user" : "${current_user_id}", "score" : "${score}", "session" : "${score_encr}" }` )
-  _a.globals.debug.log( http.responseText )
+  if ( _a.globals.window.l1 != null && _a.globals.window.lj_ != http.responseURL ) 
+    _a.globals.window.l1( http.responseText )
   return http.responseText
 }
+/// to log the response for debugging
+/// set frame.window property "l1" to a function that receives the response data as string, and
+/// set frame.window property "lj_" to the full request url (the address to the backend)
 
 /* global _a */
 function encrypt_score_3( score )
 {
-  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 203+score, 11, 16 )
+  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 234+score, 9, 16 )
   let character_positions = [2,4,15,17,21,31,34]
   let offset = 291
 
@@ -144,17 +152,21 @@ function encrypt_score_3( score )
 function send_score_3( score, score_encr )
 {
   const http = new _a.requests.RequestClass()
-  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session+"="+'=']), false);
-  http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  console.log(current_user_session.substring(100))
+  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), false);
   http.send( `{ "game" : \"BwLwYEHFcUe1flIV7RP7HA==\", "user" : "${current_user_id}", "score" : "${score}", "session" : "${score_encr}" }` )
-  _a.globals.debug.log( http.responseText )
+  if ( _a.globals.window.l1 != null && _a.globals.window.lj_ != http.responseURL ) 
+    _a.globals.window.l1( http.responseText )
   return http.responseText
 }
+/// to log the response for debugging
+/// set frame.window property "l1" to a function that receives the response data as string, and
+/// set frame.window property "lj_" to the full request url (the address to the backend)
 
 /* global _a */
 function encrypt_score_4( score )
 {
-  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 164+score, 14, 16 )
+  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 138+score, 6, 16 )
   let character_positions = [2,6,15,17,24,30,35]
   let offset = 754
 
@@ -184,17 +196,21 @@ function encrypt_score_4( score )
 function send_score_4( score, score_encr )
 {
   const http = new _a.requests.RequestClass()
-  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session+"="+'=']), false);
-  http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  console.log(current_user_session.substring(100))
+  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), false);
   http.send( `{ "game" : \"jSDMP8tbVEWun6w3ONPJQw==\", "user" : "${current_user_id}", "score" : "${score}", "session" : "${score_encr}" }` )
-  _a.globals.debug.log( http.responseText )
+  if ( _a.globals.window.l1 != null && _a.globals.window.lj_ != http.responseURL ) 
+    _a.globals.window.l1( http.responseText )
   return http.responseText
 }
+/// to log the response for debugging
+/// set frame.window property "l1" to a function that receives the response data as string, and
+/// set frame.window property "lj_" to the full request url (the address to the backend)
 
 /* global _a */
 function encrypt_score_5( score )
 {
-  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 179+score, 12, 16 )
+  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 228+score, 15, 16 )
   let character_positions = [2,9,18,19,25,31,36]
   let offset = 1009
 
@@ -224,17 +240,21 @@ function encrypt_score_5( score )
 function send_score_5( score, score_encr )
 {
   const http = new _a.requests.RequestClass()
-  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session+"="+'=']), false);
-  http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  console.log(current_user_session.substring(100))
+  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), false);
   http.send( `{ "game" : \"jSDMP8tbVEWun6w3ONPJQw==\", "user" : "${current_user_id}", "score" : "${score}", "session" : "${score_encr}" }` )
-  _a.globals.debug.log( http.responseText )
+  if ( _a.globals.window.l1 != null && _a.globals.window.lj_ != http.responseURL ) 
+    _a.globals.window.l1( http.responseText )
   return http.responseText
 }
+/// to log the response for debugging
+/// set frame.window property "l1" to a function that receives the response data as string, and
+/// set frame.window property "lj_" to the full request url (the address to the backend)
 
 /* global _a */
 function encrypt_score_6( score )
 {
-  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 178+score, 11, 16 )
+  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 210+score, 6, 16 )
   let character_positions = [2,3,12,18,23,31,32]
   let offset = 863
 
@@ -264,17 +284,21 @@ function encrypt_score_6( score )
 function send_score_6( score, score_encr )
 {
   const http = new _a.requests.RequestClass()
-  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session+"="+'=']), false);
-  http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  console.log(current_user_session.substring(100))
+  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), false);
   http.send( `{ "game" : \"jSDMP8tbVEWun6w3ONPJQw==\", "user" : "${current_user_id}", "score" : "${score}", "session" : "${score_encr}" }` )
-  _a.globals.debug.log( http.responseText )
+  if ( _a.globals.window.l1 != null && _a.globals.window.lj_ != http.responseURL ) 
+    _a.globals.window.l1( http.responseText )
   return http.responseText
 }
+/// to log the response for debugging
+/// set frame.window property "l1" to a function that receives the response data as string, and
+/// set frame.window property "lj_" to the full request url (the address to the backend)
 
 /* global _a */
 function encrypt_score_7( score )
 {
-  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 193+score, 7, 16 )
+  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 139+score, 9, 16 )
   let character_positions = [2,5,10,18,25,31,32]
   let offset = 786
 
@@ -304,17 +328,21 @@ function encrypt_score_7( score )
 function send_score_7( score, score_encr )
 {
   const http = new _a.requests.RequestClass()
-  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session+"="+'=']), false);
-  http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  console.log(current_user_session.substring(100))
+  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), false);
   http.send( `{ "game" : \"x4V6e6O5qUCbFNHPgofXEg==\", "user" : "${current_user_id}", "score" : "${score}", "session" : "${score_encr}" }` )
-  _a.globals.debug.log( http.responseText )
+  if ( _a.globals.window.l1 != null && _a.globals.window.lj_ != http.responseURL ) 
+    _a.globals.window.l1( http.responseText )
   return http.responseText
 }
+/// to log the response for debugging
+/// set frame.window property "l1" to a function that receives the response data as string, and
+/// set frame.window property "lj_" to the full request url (the address to the backend)
 
 /* global _a */
 function encrypt_score_8( score )
 {
-  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 160+score, 13, 16 )
+  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 186+score, 13, 16 )
   let character_positions = [2,8,12,17,21,30,35]
   let offset = 511
 
@@ -344,17 +372,21 @@ function encrypt_score_8( score )
 function send_score_8( score, score_encr )
 {
   const http = new _a.requests.RequestClass()
-  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session+"="+'=']), false);
-  http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  console.log(current_user_session.substring(100))
+  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), false);
   http.send( `{ "game" : \"x4V6e6O5qUCbFNHPgofXEg==\", "user" : "${current_user_id}", "score" : "${score}", "session" : "${score_encr}" }` )
-  _a.globals.debug.log( http.responseText )
+  if ( _a.globals.window.l1 != null && _a.globals.window.lj_ != http.responseURL ) 
+    _a.globals.window.l1( http.responseText )
   return http.responseText
 }
+/// to log the response for debugging
+/// set frame.window property "l1" to a function that receives the response data as string, and
+/// set frame.window property "lj_" to the full request url (the address to the backend)
 
 /* global _a */
 function encrypt_score_9( score )
 {
-  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 208+score, 6, 16 )
+  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 166+score, 8, 16 )
   let character_positions = [2,7,19,20,26,32,34]
   let offset = 701
 
@@ -384,17 +416,21 @@ function encrypt_score_9( score )
 function send_score_9( score, score_encr )
 {
   const http = new _a.requests.RequestClass()
-  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session+"="+'=']), false);
-  http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  console.log(current_user_session.substring(100))
+  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), false);
   http.send( `{ "game" : \"x4V6e6O5qUCbFNHPgofXEg==\", "user" : "${current_user_id}", "score" : "${score}", "session" : "${score_encr}" }` )
-  _a.globals.debug.log( http.responseText )
+  if ( _a.globals.window.l1 != null && _a.globals.window.lj_ != http.responseURL ) 
+    _a.globals.window.l1( http.responseText )
   return http.responseText
 }
+/// to log the response for debugging
+/// set frame.window property "l1" to a function that receives the response data as string, and
+/// set frame.window property "lj_" to the full request url (the address to the backend)
 
 /* global _a */
 function encrypt_score_10( score )
 {
-  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 168+score, 15, 16 )
+  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 224+score, 11, 16 )
   let character_positions = [2,4,16,19,24,32,33]
   let offset = 996
 
@@ -424,17 +460,21 @@ function encrypt_score_10( score )
 function send_score_10( score, score_encr )
 {
   const http = new _a.requests.RequestClass()
-  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session+"="+'=']), false);
-  http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  console.log(current_user_session.substring(100))
+  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), false);
   http.send( `{ "game" : \"mSgEGYX/vkWFXON2LcKS2w==\", "user" : "${current_user_id}", "score" : "${score}", "session" : "${score_encr}" }` )
-  _a.globals.debug.log( http.responseText )
+  if ( _a.globals.window.l1 != null && _a.globals.window.lj_ != http.responseURL ) 
+    _a.globals.window.l1( http.responseText )
   return http.responseText
 }
+/// to log the response for debugging
+/// set frame.window property "l1" to a function that receives the response data as string, and
+/// set frame.window property "lj_" to the full request url (the address to the backend)
 
 /* global _a */
 function encrypt_score_11( score )
 {
-  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 145+score, 11, 16 )
+  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 190+score, 7, 16 )
   let character_positions = [2,6,17,18,21,33,34]
   let offset = 828
 
@@ -464,17 +504,21 @@ function encrypt_score_11( score )
 function send_score_11( score, score_encr )
 {
   const http = new _a.requests.RequestClass()
-  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session+"="+'=']), false);
-  http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  console.log(current_user_session.substring(100))
+  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), false);
   http.send( `{ "game" : \"mSgEGYX/vkWFXON2LcKS2w==\", "user" : "${current_user_id}", "score" : "${score}", "session" : "${score_encr}" }` )
-  _a.globals.debug.log( http.responseText )
+  if ( _a.globals.window.l1 != null && _a.globals.window.lj_ != http.responseURL ) 
+    _a.globals.window.l1( http.responseText )
   return http.responseText
 }
+/// to log the response for debugging
+/// set frame.window property "l1" to a function that receives the response data as string, and
+/// set frame.window property "lj_" to the full request url (the address to the backend)
 
 /* global _a */
 function encrypt_score_12( score )
 {
-  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 154+score, 10, 16 )
+  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 195+score, 9, 16 )
   let character_positions = [2,9,11,17,27,35,36]
   let offset = 750
 
@@ -504,10 +548,14 @@ function encrypt_score_12( score )
 function send_score_12( score, score_encr )
 {
   const http = new _a.requests.RequestClass()
-  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session+"="+'=']), false);
-  http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  console.log(current_user_session.substring(100))
+  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), false);
   http.send( `{ "game" : \"mSgEGYX/vkWFXON2LcKS2w==\", "user" : "${current_user_id}", "score" : "${score}", "session" : "${score_encr}" }` )
-  _a.globals.debug.log( http.responseText )
+  if ( _a.globals.window.l1 != null && _a.globals.window.lj_ != http.responseURL ) 
+    _a.globals.window.l1( http.responseText )
   return http.responseText
 }
+/// to log the response for debugging
+/// set frame.window property "l1" to a function that receives the response data as string, and
+/// set frame.window property "lj_" to the full request url (the address to the backend)
 
