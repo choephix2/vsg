@@ -15,6 +15,7 @@ header('Access-Control-Allow-Origin: *');
 header("Content-Type: application/json");
 
 $score_arguments = (array)json_decode( file_get_contents( 'php://input' ) );
+
 $handler = new GameResultHandler( DEBUG );
 $handler->handle_game_results( $score_arguments );
 
@@ -22,7 +23,8 @@ debug("incame request with data: ".var_export($score_arguments,true));
 
 try
 { 
-  $db = new DatabaseMiddleGuy(); 
+  // $db = new DatabaseMiddleGuy(); 
+  $db = new DatabaseMiddleGuy_POSTGRE(); 
   info("Connected to database");
 }
 catch( Exception $e ) 
@@ -38,7 +40,7 @@ if ( $handler->get_success() )
   $score_raw = $handler->get_data()->score_raw;
   $score_encrypted = $handler->get_data()->score_encrypted;
 
-  $db->add_score( game_uuid, $user, $score_raw, $score_encrypted, $_SERVER['REMOTE_ADDR'] );
+  $db->add_score( $game_uuid, $user, $score_raw, $score_encrypted, $_SERVER['REMOTE_ADDR'] );
   
   info( "New score: User $user got $score_raw in game '$game_uuid'" );
 }
