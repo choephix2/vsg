@@ -14,6 +14,7 @@ if ( $gameslug == null )
 }
 $backend_url = BASE_URL."/backend";
 $user_identifier = "klaud";
+$round_identifier = "1";
 
 function make_jumbled_backend_url()
 {
@@ -36,36 +37,36 @@ function make_jumbled_backend_url()
 	<title>ViralSys Games - <?php echo $gameslug ?></title>
 	
 	<style type="text/css">
-		body
-		{
-			background-color: black;
-			color: white;
-			margin: 0;
-			padding: 0;
-			overflow: hidden;
-		}
-		
-		#side
-		{
-			width: 150px;
-			position: absolute;
-			top: 0px;
-			bottom: 0px;
-		}
-		
-		#main
-		{
-			position: absolute;
-			left: 150px;
-			top: 0px;
-			bottom: 0px;
-			right: 0px;
-		}
-		
-		iframe
-		{
-			border: none;
-		}
+	body
+	{
+		background-color: black;
+		color: white;
+		margin: 0;
+		padding: 0;
+		overflow: hidden;
+	}
+	
+	#side
+	{
+		width: 150px;
+		position: absolute;
+		top: 0px;
+		bottom: 0px;
+	}
+	
+	#main
+	{
+		position: absolute;
+		left: 150px;
+		top: 0px;
+		bottom: 0px;
+		right: 0px;
+	}
+	
+	iframe
+	{
+		border: none;
+	}
 	</style>
 </head> 
  
@@ -94,6 +95,7 @@ function make_jumbled_backend_url()
 		function onGameFrameLoad()
 		{
 			var gameframe = window.frames["gameframe"].window
+			gameframe.current_round_id="<?php echo $round_identifier ?>"
 			gameframe.current_user_id="<?php echo $user_identifier ?>"
 			gameframe.current_user_session="<?php echo make_jumbled_backend_url() ?>"
 			<?PHP if (true) { ?>
