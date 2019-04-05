@@ -56,6 +56,8 @@ class GameResultHandler
       $data = $this->data = new \stdClass();
       // set_error_handler( "on_error" );
       
+      if ( !isset( $args['round'] ) )
+        return $this->on_error( "Missing argument 'round'" );
       if ( !isset( $args['user'] ) )
         return $this->on_error( "Missing argument 'user'" );
       if ( !isset( $args['game'] ) )
@@ -65,6 +67,7 @@ class GameResultHandler
       if ( !isset( $args['session'] ) )
         return $this->on_error( "Missing argument 'session'" );
 
+      $data->competition_round = $args["round"];
       $data->game_uuid = urldecode( $args["game"] );
       $data->user = $args["user"];
       $data->score_raw = $args["score"];

@@ -1,4 +1,5 @@
 /* global _a */
+/* global bambi */
 /* global current_round_id */
 /* global current_user_id */
 /* global current_user_session */
@@ -7,6 +8,7 @@ function __FUNCTION_NAME__( score, score_encr )
   const http = new _a.requests.RequestClass()
   http.addEventListener("load", onDone);
   http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), true);
+  http.setRequestHeader('X-CSRF-TOKEN',bambi);
   http.send( `{ "game" : \"__GAME_UUID__\", "round": "${current_round_id}", "user" : "${current_user_id}", "score" : "${score}", "session" : "${score_encr}" }` )
   function onDone()
   {

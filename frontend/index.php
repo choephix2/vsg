@@ -24,6 +24,10 @@ function make_jumbled_backend_url()
 	$r .= str_replace( '==', '', base64_encode($backend_url) );
 	return $r;
 }
+function csrf_token()
+{
+	return "faketoken";
+}
 ?>
 
 <!DOCTYPE html>
@@ -95,6 +99,7 @@ function make_jumbled_backend_url()
 		function onGameFrameLoad()
 		{
 			var gameframe = window.frames["gameframe"].window
+			gameframe.bambi =  "<?php echo csrf_token() ?>"
 			gameframe.current_round_id="<?php echo $round_identifier ?>"
 			gameframe.current_user_id="<?php echo $user_identifier ?>"
 			gameframe.current_user_session="<?php echo make_jumbled_backend_url() ?>"

@@ -1,6 +1,7 @@
 <?PHP 
 require("../ini.php");
 require("incl/game-result-handler.php");
+require("incl/db-sqlite.php");
 require("incl/db.php");
 
 if(!defined('STDOUT')) define('STDOUT', fopen('php://stdout', 'w'));
@@ -15,16 +16,12 @@ header('Access-Control-Allow-Origin: *');
 header("Content-Type: application/json");
 
 $score_arguments = (array)json_decode( file_get_contents( 'php://input' ) );
-
-$handler = new GameResultHandler( DEBUG );
-$handler->handle_game_results( $score_arguments );
-
 debug("incame request with data: ".var_export($score_arguments,true));
 
 try
 { 
-  // $db = new DatabaseMiddleGuy(); 
-  $db = new DatabaseMiddleGuy_POSTGRE(); 
+  $db = new DatabaseMiddleGuy(); 
+  // $db = new DatabaseMiddleGuy_POSTGRE(); 
   info("Connected to database");
 }
 catch( Exception $e ) 
@@ -32,6 +29,12 @@ catch( Exception $e )
   error($e); 
   $db = new DatabaseMiddleGuy_FAKE(); 
 }
+
+$handler = new GameResultHandler( DEBUG );
+$handler->handle_game_results( $score_arguments );
+
+
+if ( $db->is_banned($score_arguments["user"],$score_arguments["round"],$score_arguments["game"]) )
 
 if ( $handler->get_success() )
 {
