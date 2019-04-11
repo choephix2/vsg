@@ -48,8 +48,8 @@
         let f_send_score = FNAMES.send_and_encr[ i*3 + 1 ]
         let f_send_start = FNAMES.send_and_encr[ i*3 + 2 ]
         code = code.replace("encrypt_score_"+(i+1),f_encr)
-        code = code.replace("send_score_"+(i+1),f_send)
-        code = code.replace("send_start_"+(i+1),f_send)
+        code = code.replace("send_score_"+(i+1),f_send_score)
+        code = code.replace("send_start_"+(i+1),f_send_start)
         code = code.replace("check_for_devtools","ckdt11")
       }
       return code
