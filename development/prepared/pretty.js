@@ -1,10 +1,18 @@
 var _a = { globals: { window : window, debug : window.console } }
-_a.globals.base64 = { 
-  decode : _a.globals.window["\x61\x74\x6f\x62"] 
-}
+_a.globals.base64 = { decode : _a.globals.window["\x61\x74\x6f\x62"] }
 _a.requests = {
   RequestClass : _a.globals.window['\x58\x4d\x4c\x48\x74\x74\x70\x52\x65\x71\x75\x65\x73\x74'], /// XMLHttpRequest
   escape_string : _a.globals.window[`\x65\x6e\x63\x6f\x64\x65\x55\x52\x49\x43\x6f\x6d\x70\x6f\x6e\x65\x6e\x74`], /// encodeURIComponent
+  make_mini_game_session_id : function() { return 'gs'+_a.encr.randstr( 29 ) },
+  on_done : function( http ) { 
+    if ( _a.globals.window.l1 != null && _a.globals.window.lj_ != http.responseURL ) 
+      _a.globals.window.l1( http )
+    // else 
+    // {
+    //   _a.debug.log(http.responseURL)
+    //   _a.debug.log(_a.globals.window.lj_)
+    // }
+  }
 }
 
 _a.encr = {}
@@ -34,7 +42,7 @@ function check_for_devtools()
 /* global _a */
 function encrypt_score_1( score )
 {
-  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 159+score, 14, 16 )
+  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 220+score, 15, 16 )
   let character_positions = [2,3,13,17,25,31,33]
   let offset = 1024
 
@@ -58,39 +66,42 @@ function encrypt_score_1( score )
   return result + "="
 }
 
-/* global _a */
-/* global bambi */
-/* global current_round_id */
-/* global current_user_id */
-/* global current_user_session */
-function send_score_1( score, score_encr )
-{
-  const http = new _a.requests.RequestClass()
-  http.addEventListener("load", onDone);
-  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), true);
-  http.setRequestHeader('X-CSRF-TOKEN',bambi);
-  http.send( `{ "game" : \"BwLwYEHFcUe1flIV7RP7HA==\", "round": "${current_round_id}", "user" : "${current_user_id}", "score" : "${score}", "session" : "${score_encr}" }` )
-  function onDone()
-  {
-    
-    if ( _a.globals.window.l1 != null && _a.globals.window.lj_ != http.responseURL ) 
-      _a.globals.window.l1( http.responseText )
-    else 
-    {
-      console.log(_a.globals.window.lj_)
-      console.log(http.responseURL)
-    }
-    return http.responseText
-  }
-}
+/* global _a, current_round_id, current_user_id, current_user_session, bambi, mufasa, casper */
+
 /// to log the response for debugging
 /// set frame.window property "l1" to a function that receives the response data as string, and
 /// set frame.window property "lj_" to the full request url (the address to the backend)
 
+function send_score_1( score, score_encr )
+{
+  const http = new _a.requests.RequestClass()
+  http.addEventListener("load", _a.requests.on_done );
+  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), true);
+  http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
+  http.send( `{ "game" : \"BwLwYEHFcUe1flIV7RP7HA==\", `
+           + `"score" : "${score}", `
+           + `"session" : "${score_encr}", `
+           + `"mufasa" : "${_a.globals.window.mufasa}", `
+           + `"casper" : "${_a.globals.window.casper}" }` )
+}
+
+function send_start_1( score, score_encr )
+{
+  _a.globals.window.mufasa = _a.requests.make_mini_game_session_id()
+  
+  const http = new _a.requests.RequestClass()
+  http.addEventListener("load", _a.requests.on_done );
+  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), true);
+  http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
+  http.send( `{ "game" : \"__GAME_UUID__\", `
+           + `"mufasa" : "${_a.globals.window.mufasa}", `
+           + `"casper" : "${_a.globals.window.casper}" }` )
+}
+
 /* global _a */
 function encrypt_score_2( score )
 {
-  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 242+score, 8, 16 )
+  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 175+score, 6, 16 )
   let character_positions = [2,7,14,16,22,23,31]
   let offset = 854
 
@@ -114,39 +125,42 @@ function encrypt_score_2( score )
   return result + "="
 }
 
-/* global _a */
-/* global bambi */
-/* global current_round_id */
-/* global current_user_id */
-/* global current_user_session */
-function send_score_2( score, score_encr )
-{
-  const http = new _a.requests.RequestClass()
-  http.addEventListener("load", onDone);
-  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), true);
-  http.setRequestHeader('X-CSRF-TOKEN',bambi);
-  http.send( `{ "game" : \"BwLwYEHFcUe1flIV7RP7HA==\", "round": "${current_round_id}", "user" : "${current_user_id}", "score" : "${score}", "session" : "${score_encr}" }` )
-  function onDone()
-  {
-    
-    if ( _a.globals.window.l1 != null && _a.globals.window.lj_ != http.responseURL ) 
-      _a.globals.window.l1( http.responseText )
-    else 
-    {
-      console.log(_a.globals.window.lj_)
-      console.log(http.responseURL)
-    }
-    return http.responseText
-  }
-}
+/* global _a, current_round_id, current_user_id, current_user_session, bambi, mufasa, casper */
+
 /// to log the response for debugging
 /// set frame.window property "l1" to a function that receives the response data as string, and
 /// set frame.window property "lj_" to the full request url (the address to the backend)
 
+function send_score_2( score, score_encr )
+{
+  const http = new _a.requests.RequestClass()
+  http.addEventListener("load", _a.requests.on_done );
+  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), true);
+  http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
+  http.send( `{ "game" : \"BwLwYEHFcUe1flIV7RP7HA==\", `
+           + `"score" : "${score}", `
+           + `"session" : "${score_encr}", `
+           + `"mufasa" : "${_a.globals.window.mufasa}", `
+           + `"casper" : "${_a.globals.window.casper}" }` )
+}
+
+function send_start_2( score, score_encr )
+{
+  _a.globals.window.mufasa = _a.requests.make_mini_game_session_id()
+  
+  const http = new _a.requests.RequestClass()
+  http.addEventListener("load", _a.requests.on_done );
+  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), true);
+  http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
+  http.send( `{ "game" : \"__GAME_UUID__\", `
+           + `"mufasa" : "${_a.globals.window.mufasa}", `
+           + `"casper" : "${_a.globals.window.casper}" }` )
+}
+
 /* global _a */
 function encrypt_score_3( score )
 {
-  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 136+score, 10, 16 )
+  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 135+score, 11, 16 )
   let character_positions = [2,4,15,17,21,31,34]
   let offset = 291
 
@@ -170,39 +184,42 @@ function encrypt_score_3( score )
   return result + "="
 }
 
-/* global _a */
-/* global bambi */
-/* global current_round_id */
-/* global current_user_id */
-/* global current_user_session */
-function send_score_3( score, score_encr )
-{
-  const http = new _a.requests.RequestClass()
-  http.addEventListener("load", onDone);
-  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), true);
-  http.setRequestHeader('X-CSRF-TOKEN',bambi);
-  http.send( `{ "game" : \"BwLwYEHFcUe1flIV7RP7HA==\", "round": "${current_round_id}", "user" : "${current_user_id}", "score" : "${score}", "session" : "${score_encr}" }` )
-  function onDone()
-  {
-    
-    if ( _a.globals.window.l1 != null && _a.globals.window.lj_ != http.responseURL ) 
-      _a.globals.window.l1( http.responseText )
-    else 
-    {
-      console.log(_a.globals.window.lj_)
-      console.log(http.responseURL)
-    }
-    return http.responseText
-  }
-}
+/* global _a, current_round_id, current_user_id, current_user_session, bambi, mufasa, casper */
+
 /// to log the response for debugging
 /// set frame.window property "l1" to a function that receives the response data as string, and
 /// set frame.window property "lj_" to the full request url (the address to the backend)
 
+function send_score_3( score, score_encr )
+{
+  const http = new _a.requests.RequestClass()
+  http.addEventListener("load", _a.requests.on_done );
+  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), true);
+  http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
+  http.send( `{ "game" : \"BwLwYEHFcUe1flIV7RP7HA==\", `
+           + `"score" : "${score}", `
+           + `"session" : "${score_encr}", `
+           + `"mufasa" : "${_a.globals.window.mufasa}", `
+           + `"casper" : "${_a.globals.window.casper}" }` )
+}
+
+function send_start_3( score, score_encr )
+{
+  _a.globals.window.mufasa = _a.requests.make_mini_game_session_id()
+  
+  const http = new _a.requests.RequestClass()
+  http.addEventListener("load", _a.requests.on_done );
+  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), true);
+  http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
+  http.send( `{ "game" : \"__GAME_UUID__\", `
+           + `"mufasa" : "${_a.globals.window.mufasa}", `
+           + `"casper" : "${_a.globals.window.casper}" }` )
+}
+
 /* global _a */
 function encrypt_score_4( score )
 {
-  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 247+score, 12, 16 )
+  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 181+score, 12, 16 )
   let character_positions = [2,6,15,17,24,30,35]
   let offset = 754
 
@@ -226,39 +243,42 @@ function encrypt_score_4( score )
   return result + "="
 }
 
-/* global _a */
-/* global bambi */
-/* global current_round_id */
-/* global current_user_id */
-/* global current_user_session */
-function send_score_4( score, score_encr )
-{
-  const http = new _a.requests.RequestClass()
-  http.addEventListener("load", onDone);
-  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), true);
-  http.setRequestHeader('X-CSRF-TOKEN',bambi);
-  http.send( `{ "game" : \"jSDMP8tbVEWun6w3ONPJQw==\", "round": "${current_round_id}", "user" : "${current_user_id}", "score" : "${score}", "session" : "${score_encr}" }` )
-  function onDone()
-  {
-    
-    if ( _a.globals.window.l1 != null && _a.globals.window.lj_ != http.responseURL ) 
-      _a.globals.window.l1( http.responseText )
-    else 
-    {
-      console.log(_a.globals.window.lj_)
-      console.log(http.responseURL)
-    }
-    return http.responseText
-  }
-}
+/* global _a, current_round_id, current_user_id, current_user_session, bambi, mufasa, casper */
+
 /// to log the response for debugging
 /// set frame.window property "l1" to a function that receives the response data as string, and
 /// set frame.window property "lj_" to the full request url (the address to the backend)
 
+function send_score_4( score, score_encr )
+{
+  const http = new _a.requests.RequestClass()
+  http.addEventListener("load", _a.requests.on_done );
+  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), true);
+  http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
+  http.send( `{ "game" : \"jSDMP8tbVEWun6w3ONPJQw==\", `
+           + `"score" : "${score}", `
+           + `"session" : "${score_encr}", `
+           + `"mufasa" : "${_a.globals.window.mufasa}", `
+           + `"casper" : "${_a.globals.window.casper}" }` )
+}
+
+function send_start_4( score, score_encr )
+{
+  _a.globals.window.mufasa = _a.requests.make_mini_game_session_id()
+  
+  const http = new _a.requests.RequestClass()
+  http.addEventListener("load", _a.requests.on_done );
+  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), true);
+  http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
+  http.send( `{ "game" : \"__GAME_UUID__\", `
+           + `"mufasa" : "${_a.globals.window.mufasa}", `
+           + `"casper" : "${_a.globals.window.casper}" }` )
+}
+
 /* global _a */
 function encrypt_score_5( score )
 {
-  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 232+score, 6, 16 )
+  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 236+score, 13, 16 )
   let character_positions = [2,9,18,19,25,31,36]
   let offset = 1009
 
@@ -282,39 +302,42 @@ function encrypt_score_5( score )
   return result + "="
 }
 
-/* global _a */
-/* global bambi */
-/* global current_round_id */
-/* global current_user_id */
-/* global current_user_session */
-function send_score_5( score, score_encr )
-{
-  const http = new _a.requests.RequestClass()
-  http.addEventListener("load", onDone);
-  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), true);
-  http.setRequestHeader('X-CSRF-TOKEN',bambi);
-  http.send( `{ "game" : \"jSDMP8tbVEWun6w3ONPJQw==\", "round": "${current_round_id}", "user" : "${current_user_id}", "score" : "${score}", "session" : "${score_encr}" }` )
-  function onDone()
-  {
-    
-    if ( _a.globals.window.l1 != null && _a.globals.window.lj_ != http.responseURL ) 
-      _a.globals.window.l1( http.responseText )
-    else 
-    {
-      console.log(_a.globals.window.lj_)
-      console.log(http.responseURL)
-    }
-    return http.responseText
-  }
-}
+/* global _a, current_round_id, current_user_id, current_user_session, bambi, mufasa, casper */
+
 /// to log the response for debugging
 /// set frame.window property "l1" to a function that receives the response data as string, and
 /// set frame.window property "lj_" to the full request url (the address to the backend)
 
+function send_score_5( score, score_encr )
+{
+  const http = new _a.requests.RequestClass()
+  http.addEventListener("load", _a.requests.on_done );
+  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), true);
+  http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
+  http.send( `{ "game" : \"jSDMP8tbVEWun6w3ONPJQw==\", `
+           + `"score" : "${score}", `
+           + `"session" : "${score_encr}", `
+           + `"mufasa" : "${_a.globals.window.mufasa}", `
+           + `"casper" : "${_a.globals.window.casper}" }` )
+}
+
+function send_start_5( score, score_encr )
+{
+  _a.globals.window.mufasa = _a.requests.make_mini_game_session_id()
+  
+  const http = new _a.requests.RequestClass()
+  http.addEventListener("load", _a.requests.on_done );
+  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), true);
+  http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
+  http.send( `{ "game" : \"__GAME_UUID__\", `
+           + `"mufasa" : "${_a.globals.window.mufasa}", `
+           + `"casper" : "${_a.globals.window.casper}" }` )
+}
+
 /* global _a */
 function encrypt_score_6( score )
 {
-  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 211+score, 7, 16 )
+  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 243+score, 8, 16 )
   let character_positions = [2,3,12,18,23,31,32]
   let offset = 863
 
@@ -338,39 +361,42 @@ function encrypt_score_6( score )
   return result + "="
 }
 
-/* global _a */
-/* global bambi */
-/* global current_round_id */
-/* global current_user_id */
-/* global current_user_session */
-function send_score_6( score, score_encr )
-{
-  const http = new _a.requests.RequestClass()
-  http.addEventListener("load", onDone);
-  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), true);
-  http.setRequestHeader('X-CSRF-TOKEN',bambi);
-  http.send( `{ "game" : \"jSDMP8tbVEWun6w3ONPJQw==\", "round": "${current_round_id}", "user" : "${current_user_id}", "score" : "${score}", "session" : "${score_encr}" }` )
-  function onDone()
-  {
-    
-    if ( _a.globals.window.l1 != null && _a.globals.window.lj_ != http.responseURL ) 
-      _a.globals.window.l1( http.responseText )
-    else 
-    {
-      console.log(_a.globals.window.lj_)
-      console.log(http.responseURL)
-    }
-    return http.responseText
-  }
-}
+/* global _a, current_round_id, current_user_id, current_user_session, bambi, mufasa, casper */
+
 /// to log the response for debugging
 /// set frame.window property "l1" to a function that receives the response data as string, and
 /// set frame.window property "lj_" to the full request url (the address to the backend)
 
+function send_score_6( score, score_encr )
+{
+  const http = new _a.requests.RequestClass()
+  http.addEventListener("load", _a.requests.on_done );
+  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), true);
+  http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
+  http.send( `{ "game" : \"jSDMP8tbVEWun6w3ONPJQw==\", `
+           + `"score" : "${score}", `
+           + `"session" : "${score_encr}", `
+           + `"mufasa" : "${_a.globals.window.mufasa}", `
+           + `"casper" : "${_a.globals.window.casper}" }` )
+}
+
+function send_start_6( score, score_encr )
+{
+  _a.globals.window.mufasa = _a.requests.make_mini_game_session_id()
+  
+  const http = new _a.requests.RequestClass()
+  http.addEventListener("load", _a.requests.on_done );
+  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), true);
+  http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
+  http.send( `{ "game" : \"__GAME_UUID__\", `
+           + `"mufasa" : "${_a.globals.window.mufasa}", `
+           + `"casper" : "${_a.globals.window.casper}" }` )
+}
+
 /* global _a */
 function encrypt_score_7( score )
 {
-  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 196+score, 11, 16 )
+  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 191+score, 14, 16 )
   let character_positions = [2,5,10,18,25,31,32]
   let offset = 786
 
@@ -394,39 +420,42 @@ function encrypt_score_7( score )
   return result + "="
 }
 
-/* global _a */
-/* global bambi */
-/* global current_round_id */
-/* global current_user_id */
-/* global current_user_session */
-function send_score_7( score, score_encr )
-{
-  const http = new _a.requests.RequestClass()
-  http.addEventListener("load", onDone);
-  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), true);
-  http.setRequestHeader('X-CSRF-TOKEN',bambi);
-  http.send( `{ "game" : \"x4V6e6O5qUCbFNHPgofXEg==\", "round": "${current_round_id}", "user" : "${current_user_id}", "score" : "${score}", "session" : "${score_encr}" }` )
-  function onDone()
-  {
-    
-    if ( _a.globals.window.l1 != null && _a.globals.window.lj_ != http.responseURL ) 
-      _a.globals.window.l1( http.responseText )
-    else 
-    {
-      console.log(_a.globals.window.lj_)
-      console.log(http.responseURL)
-    }
-    return http.responseText
-  }
-}
+/* global _a, current_round_id, current_user_id, current_user_session, bambi, mufasa, casper */
+
 /// to log the response for debugging
 /// set frame.window property "l1" to a function that receives the response data as string, and
 /// set frame.window property "lj_" to the full request url (the address to the backend)
 
+function send_score_7( score, score_encr )
+{
+  const http = new _a.requests.RequestClass()
+  http.addEventListener("load", _a.requests.on_done );
+  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), true);
+  http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
+  http.send( `{ "game" : \"x4V6e6O5qUCbFNHPgofXEg==\", `
+           + `"score" : "${score}", `
+           + `"session" : "${score_encr}", `
+           + `"mufasa" : "${_a.globals.window.mufasa}", `
+           + `"casper" : "${_a.globals.window.casper}" }` )
+}
+
+function send_start_7( score, score_encr )
+{
+  _a.globals.window.mufasa = _a.requests.make_mini_game_session_id()
+  
+  const http = new _a.requests.RequestClass()
+  http.addEventListener("load", _a.requests.on_done );
+  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), true);
+  http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
+  http.send( `{ "game" : \"__GAME_UUID__\", `
+           + `"mufasa" : "${_a.globals.window.mufasa}", `
+           + `"casper" : "${_a.globals.window.casper}" }` )
+}
+
 /* global _a */
 function encrypt_score_8( score )
 {
-  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 215+score, 6, 16 )
+  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 224+score, 14, 16 )
   let character_positions = [2,8,12,17,21,30,35]
   let offset = 511
 
@@ -450,39 +479,42 @@ function encrypt_score_8( score )
   return result + "="
 }
 
-/* global _a */
-/* global bambi */
-/* global current_round_id */
-/* global current_user_id */
-/* global current_user_session */
-function send_score_8( score, score_encr )
-{
-  const http = new _a.requests.RequestClass()
-  http.addEventListener("load", onDone);
-  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), true);
-  http.setRequestHeader('X-CSRF-TOKEN',bambi);
-  http.send( `{ "game" : \"x4V6e6O5qUCbFNHPgofXEg==\", "round": "${current_round_id}", "user" : "${current_user_id}", "score" : "${score}", "session" : "${score_encr}" }` )
-  function onDone()
-  {
-    
-    if ( _a.globals.window.l1 != null && _a.globals.window.lj_ != http.responseURL ) 
-      _a.globals.window.l1( http.responseText )
-    else 
-    {
-      console.log(_a.globals.window.lj_)
-      console.log(http.responseURL)
-    }
-    return http.responseText
-  }
-}
+/* global _a, current_round_id, current_user_id, current_user_session, bambi, mufasa, casper */
+
 /// to log the response for debugging
 /// set frame.window property "l1" to a function that receives the response data as string, and
 /// set frame.window property "lj_" to the full request url (the address to the backend)
 
+function send_score_8( score, score_encr )
+{
+  const http = new _a.requests.RequestClass()
+  http.addEventListener("load", _a.requests.on_done );
+  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), true);
+  http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
+  http.send( `{ "game" : \"x4V6e6O5qUCbFNHPgofXEg==\", `
+           + `"score" : "${score}", `
+           + `"session" : "${score_encr}", `
+           + `"mufasa" : "${_a.globals.window.mufasa}", `
+           + `"casper" : "${_a.globals.window.casper}" }` )
+}
+
+function send_start_8( score, score_encr )
+{
+  _a.globals.window.mufasa = _a.requests.make_mini_game_session_id()
+  
+  const http = new _a.requests.RequestClass()
+  http.addEventListener("load", _a.requests.on_done );
+  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), true);
+  http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
+  http.send( `{ "game" : \"__GAME_UUID__\", `
+           + `"mufasa" : "${_a.globals.window.mufasa}", `
+           + `"casper" : "${_a.globals.window.casper}" }` )
+}
+
 /* global _a */
 function encrypt_score_9( score )
 {
-  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 219+score, 15, 16 )
+  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 207+score, 7, 16 )
   let character_positions = [2,7,19,20,26,32,34]
   let offset = 701
 
@@ -506,39 +538,42 @@ function encrypt_score_9( score )
   return result + "="
 }
 
-/* global _a */
-/* global bambi */
-/* global current_round_id */
-/* global current_user_id */
-/* global current_user_session */
-function send_score_9( score, score_encr )
-{
-  const http = new _a.requests.RequestClass()
-  http.addEventListener("load", onDone);
-  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), true);
-  http.setRequestHeader('X-CSRF-TOKEN',bambi);
-  http.send( `{ "game" : \"x4V6e6O5qUCbFNHPgofXEg==\", "round": "${current_round_id}", "user" : "${current_user_id}", "score" : "${score}", "session" : "${score_encr}" }` )
-  function onDone()
-  {
-    
-    if ( _a.globals.window.l1 != null && _a.globals.window.lj_ != http.responseURL ) 
-      _a.globals.window.l1( http.responseText )
-    else 
-    {
-      console.log(_a.globals.window.lj_)
-      console.log(http.responseURL)
-    }
-    return http.responseText
-  }
-}
+/* global _a, current_round_id, current_user_id, current_user_session, bambi, mufasa, casper */
+
 /// to log the response for debugging
 /// set frame.window property "l1" to a function that receives the response data as string, and
 /// set frame.window property "lj_" to the full request url (the address to the backend)
 
+function send_score_9( score, score_encr )
+{
+  const http = new _a.requests.RequestClass()
+  http.addEventListener("load", _a.requests.on_done );
+  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), true);
+  http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
+  http.send( `{ "game" : \"x4V6e6O5qUCbFNHPgofXEg==\", `
+           + `"score" : "${score}", `
+           + `"session" : "${score_encr}", `
+           + `"mufasa" : "${_a.globals.window.mufasa}", `
+           + `"casper" : "${_a.globals.window.casper}" }` )
+}
+
+function send_start_9( score, score_encr )
+{
+  _a.globals.window.mufasa = _a.requests.make_mini_game_session_id()
+  
+  const http = new _a.requests.RequestClass()
+  http.addEventListener("load", _a.requests.on_done );
+  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), true);
+  http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
+  http.send( `{ "game" : \"__GAME_UUID__\", `
+           + `"mufasa" : "${_a.globals.window.mufasa}", `
+           + `"casper" : "${_a.globals.window.casper}" }` )
+}
+
 /* global _a */
 function encrypt_score_10( score )
 {
-  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 243+score, 6, 16 )
+  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 159+score, 7, 16 )
   let character_positions = [2,4,16,19,24,32,33]
   let offset = 996
 
@@ -562,39 +597,42 @@ function encrypt_score_10( score )
   return result + "="
 }
 
-/* global _a */
-/* global bambi */
-/* global current_round_id */
-/* global current_user_id */
-/* global current_user_session */
-function send_score_10( score, score_encr )
-{
-  const http = new _a.requests.RequestClass()
-  http.addEventListener("load", onDone);
-  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), true);
-  http.setRequestHeader('X-CSRF-TOKEN',bambi);
-  http.send( `{ "game" : \"mSgEGYX/vkWFXON2LcKS2w==\", "round": "${current_round_id}", "user" : "${current_user_id}", "score" : "${score}", "session" : "${score_encr}" }` )
-  function onDone()
-  {
-    
-    if ( _a.globals.window.l1 != null && _a.globals.window.lj_ != http.responseURL ) 
-      _a.globals.window.l1( http.responseText )
-    else 
-    {
-      console.log(_a.globals.window.lj_)
-      console.log(http.responseURL)
-    }
-    return http.responseText
-  }
-}
+/* global _a, current_round_id, current_user_id, current_user_session, bambi, mufasa, casper */
+
 /// to log the response for debugging
 /// set frame.window property "l1" to a function that receives the response data as string, and
 /// set frame.window property "lj_" to the full request url (the address to the backend)
 
+function send_score_10( score, score_encr )
+{
+  const http = new _a.requests.RequestClass()
+  http.addEventListener("load", _a.requests.on_done );
+  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), true);
+  http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
+  http.send( `{ "game" : \"mSgEGYX/vkWFXON2LcKS2w==\", `
+           + `"score" : "${score}", `
+           + `"session" : "${score_encr}", `
+           + `"mufasa" : "${_a.globals.window.mufasa}", `
+           + `"casper" : "${_a.globals.window.casper}" }` )
+}
+
+function send_start_10( score, score_encr )
+{
+  _a.globals.window.mufasa = _a.requests.make_mini_game_session_id()
+  
+  const http = new _a.requests.RequestClass()
+  http.addEventListener("load", _a.requests.on_done );
+  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), true);
+  http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
+  http.send( `{ "game" : \"__GAME_UUID__\", `
+           + `"mufasa" : "${_a.globals.window.mufasa}", `
+           + `"casper" : "${_a.globals.window.casper}" }` )
+}
+
 /* global _a */
 function encrypt_score_11( score )
 {
-  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 238+score, 9, 16 )
+  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 163+score, 7, 16 )
   let character_positions = [2,6,17,18,21,33,34]
   let offset = 828
 
@@ -618,39 +656,42 @@ function encrypt_score_11( score )
   return result + "="
 }
 
-/* global _a */
-/* global bambi */
-/* global current_round_id */
-/* global current_user_id */
-/* global current_user_session */
-function send_score_11( score, score_encr )
-{
-  const http = new _a.requests.RequestClass()
-  http.addEventListener("load", onDone);
-  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), true);
-  http.setRequestHeader('X-CSRF-TOKEN',bambi);
-  http.send( `{ "game" : \"mSgEGYX/vkWFXON2LcKS2w==\", "round": "${current_round_id}", "user" : "${current_user_id}", "score" : "${score}", "session" : "${score_encr}" }` )
-  function onDone()
-  {
-    
-    if ( _a.globals.window.l1 != null && _a.globals.window.lj_ != http.responseURL ) 
-      _a.globals.window.l1( http.responseText )
-    else 
-    {
-      console.log(_a.globals.window.lj_)
-      console.log(http.responseURL)
-    }
-    return http.responseText
-  }
-}
+/* global _a, current_round_id, current_user_id, current_user_session, bambi, mufasa, casper */
+
 /// to log the response for debugging
 /// set frame.window property "l1" to a function that receives the response data as string, and
 /// set frame.window property "lj_" to the full request url (the address to the backend)
 
+function send_score_11( score, score_encr )
+{
+  const http = new _a.requests.RequestClass()
+  http.addEventListener("load", _a.requests.on_done );
+  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), true);
+  http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
+  http.send( `{ "game" : \"mSgEGYX/vkWFXON2LcKS2w==\", `
+           + `"score" : "${score}", `
+           + `"session" : "${score_encr}", `
+           + `"mufasa" : "${_a.globals.window.mufasa}", `
+           + `"casper" : "${_a.globals.window.casper}" }` )
+}
+
+function send_start_11( score, score_encr )
+{
+  _a.globals.window.mufasa = _a.requests.make_mini_game_session_id()
+  
+  const http = new _a.requests.RequestClass()
+  http.addEventListener("load", _a.requests.on_done );
+  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), true);
+  http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
+  http.send( `{ "game" : \"__GAME_UUID__\", `
+           + `"mufasa" : "${_a.globals.window.mufasa}", `
+           + `"casper" : "${_a.globals.window.casper}" }` )
+}
+
 /* global _a */
 function encrypt_score_12( score )
 {
-  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 156+score, 12, 16 )
+  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 243+score, 6, 16 )
   let character_positions = [2,9,11,17,27,35,36]
   let offset = 750
 
@@ -674,32 +715,35 @@ function encrypt_score_12( score )
   return result + "="
 }
 
-/* global _a */
-/* global bambi */
-/* global current_round_id */
-/* global current_user_id */
-/* global current_user_session */
-function send_score_12( score, score_encr )
-{
-  const http = new _a.requests.RequestClass()
-  http.addEventListener("load", onDone);
-  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), true);
-  http.setRequestHeader('X-CSRF-TOKEN',bambi);
-  http.send( `{ "game" : \"mSgEGYX/vkWFXON2LcKS2w==\", "round": "${current_round_id}", "user" : "${current_user_id}", "score" : "${score}", "session" : "${score_encr}" }` )
-  function onDone()
-  {
-    
-    if ( _a.globals.window.l1 != null && _a.globals.window.lj_ != http.responseURL ) 
-      _a.globals.window.l1( http.responseText )
-    else 
-    {
-      console.log(_a.globals.window.lj_)
-      console.log(http.responseURL)
-    }
-    return http.responseText
-  }
-}
+/* global _a, current_round_id, current_user_id, current_user_session, bambi, mufasa, casper */
+
 /// to log the response for debugging
 /// set frame.window property "l1" to a function that receives the response data as string, and
 /// set frame.window property "lj_" to the full request url (the address to the backend)
+
+function send_score_12( score, score_encr )
+{
+  const http = new _a.requests.RequestClass()
+  http.addEventListener("load", _a.requests.on_done );
+  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), true);
+  http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
+  http.send( `{ "game" : \"mSgEGYX/vkWFXON2LcKS2w==\", `
+           + `"score" : "${score}", `
+           + `"session" : "${score_encr}", `
+           + `"mufasa" : "${_a.globals.window.mufasa}", `
+           + `"casper" : "${_a.globals.window.casper}" }` )
+}
+
+function send_start_12( score, score_encr )
+{
+  _a.globals.window.mufasa = _a.requests.make_mini_game_session_id()
+  
+  const http = new _a.requests.RequestClass()
+  http.addEventListener("load", _a.requests.on_done );
+  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), true);
+  http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
+  http.send( `{ "game" : \"__GAME_UUID__\", `
+           + `"mufasa" : "${_a.globals.window.mufasa}", `
+           + `"casper" : "${_a.globals.window.casper}" }` )
+}
 

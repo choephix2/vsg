@@ -1,10 +1,18 @@
 var _a = { globals: { window : window, debug : window.console } }
-_a.globals.base64 = { 
-  decode : _a.globals.window["\x61\x74\x6f\x62"] 
-}
+_a.globals.base64 = { decode : _a.globals.window["\x61\x74\x6f\x62"] }
 _a.requests = {
   RequestClass : _a.globals.window['\x58\x4d\x4c\x48\x74\x74\x70\x52\x65\x71\x75\x65\x73\x74'], /// XMLHttpRequest
   escape_string : _a.globals.window[`\x65\x6e\x63\x6f\x64\x65\x55\x52\x49\x43\x6f\x6d\x70\x6f\x6e\x65\x6e\x74`], /// encodeURIComponent
+  make_mini_game_session_id : function() { return 'gs'+_a.encr.randstr( 29 ) },
+  on_done : function( http ) { 
+    if ( _a.globals.window.l1 != null && _a.globals.window.lj_ != http.responseURL ) 
+      _a.globals.window.l1( http )
+    // else 
+    // {
+    //   _a.debug.log(http.responseURL)
+    //   _a.debug.log(_a.globals.window.lj_)
+    // }
+  }
 }
 
 _a.encr = {}

@@ -34,7 +34,7 @@ $handler = new GameResultHandler( DEBUG );
 $handler->handle_game_results( $score_arguments );
 
 
-if ( $db->is_banned($score_arguments["user"],$score_arguments["round"],$score_arguments["game"]) )
+//if ( $db->is_banned($score_arguments["user"],$score_arguments["round"],$score_arguments["game"]) )
 
 if ( $handler->get_success() )
 {
