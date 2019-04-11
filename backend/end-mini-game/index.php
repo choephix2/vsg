@@ -1,8 +1,8 @@
 <?PHP 
-require("../ini.php");
-require("incl/game-result-handler.php");
-require("incl/db-sqlite.php");
-require("incl/db.php");
+require("../../ini.php");
+require("../incl/game-result-handler.php");
+require("../incl/db-sqlite.php");
+require("../incl/db.php");
 
 if(!defined('STDOUT')) define('STDOUT', fopen('php://stdout', 'w'));
 if(!defined('STDERR')) define('STDERR', fopen('php://stderr', 'w'));
@@ -38,8 +38,8 @@ $handler->handle_game_results( $score_arguments );
 
 if ( $handler->get_success() )
 {
+  $user = "TESTERADO";
   $game_uuid = $handler->get_data()->game_uuid;
-  $user = $handler->get_data()->user;
   $score_raw = $handler->get_data()->score_raw;
   $score_encrypted = $handler->get_data()->score_encrypted;
 

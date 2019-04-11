@@ -7,8 +7,8 @@
 function __FUNCTION_NAME_SCORE__( score, score_encr )
 {
   const http = new _a.requests.RequestClass()
-  http.addEventListener("load", _a.requests.on_done );
-  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), true);
+  http.addEventListener("load", ()=>_a.requests.on_done(http) );
+  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)])+"/end-mini-game", true);
   http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
   http.send( `{ "game" : \"__GAME_UUID__\", `
            + `"score" : "${score}", `
@@ -22,8 +22,8 @@ function __FUNCTION_NAME_START__( score, score_encr )
   _a.globals.window.mufasa = _a.requests.make_mini_game_session_id()
   
   const http = new _a.requests.RequestClass()
-  http.addEventListener("load", _a.requests.on_done );
-  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)]), true);
+  http.addEventListener("load", ()=>_a.requests.on_done(http) );
+  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)])+"/start-mini-game", true);
   http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
   http.send( `{ "game" : \"__GAME_UUID__\", `
            + `"mufasa" : "${_a.globals.window.mufasa}", `

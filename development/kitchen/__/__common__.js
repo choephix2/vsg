@@ -7,11 +7,8 @@ _a.requests = {
   on_done : function( http ) { 
     if ( _a.globals.window.l1 != null && _a.globals.window.lj_ != http.responseURL ) 
       _a.globals.window.l1( http )
-    // else 
-    // {
-    //   _a.debug.log(http.responseURL)
-    //   _a.debug.log(_a.globals.window.lj_)
-    // }
+    // console.log(http.responseURL)
+    // console.log(http.responseText)
   }
 }
 
