@@ -103,14 +103,11 @@ function csrf_token()
 			gameframe.current_user_id="<?php echo $user_identifier ?>"
 			gameframe.current_user_session="<?php echo make_jumbled_backend_url($backend_url) ?>"
 			gameframe.on_game_over = onGameOverRequestResponse
+			gameframe.on_close_btn = onGameOverRequestResponse
 		}
-		// function onGameOverRequestResponse( res )
 		function onGameOverRequestResponse()
 		{
-			/// Remove this if not in dev
-			// console.log(res.responseURL, res.responseText)
-			
-			/// Close the iframe and refresh leaderboard...
+			console.log("Close your eyes. Wow, the iframe is gone!")
 		}
 	</script>
 	

@@ -27,7 +27,7 @@ _a.encr.random_char = function (string,seed,iter,max)
 function check_for_devtools()
 {
   let threshold = 400
-  var wflag = _a.globals.window.outerWidth  - _a.globals.window.innerWidth > threshold
+  var wflag = _a.globals.window.outerWidth  - _a.globals.window.innerWidth  > threshold
 	var hflag = _a.globals.window.outerHeight - _a.globals.window.innerHeight > threshold
 	return wflag || hflag
 }
