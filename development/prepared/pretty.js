@@ -4,12 +4,8 @@ _a.requests = {
   RequestClass : _a.globals.window['\x58\x4d\x4c\x48\x74\x74\x70\x52\x65\x71\x75\x65\x73\x74'], /// XMLHttpRequest
   escape_string : _a.globals.window[`\x65\x6e\x63\x6f\x64\x65\x55\x52\x49\x43\x6f\x6d\x70\x6f\x6e\x65\x6e\x74`], /// encodeURIComponent
   make_mini_game_session_id : function() { return 'gs'+_a.encr.randstr( 29 ) },
-  on_done : function( http ) { 
-    if ( _a.globals.window.l1 != null && _a.globals.window.lj_ != http.responseURL ) 
-      _a.globals.window.l1( http )
-    console.log(http.responseURL)
-    console.log(http.responseText)
-  }
+  on_done_score : function( o ) { _a.globals.window.on_game_over( o ) },
+  on_done_start : function( o ) { }
 }
 
 _a.encr = {}
@@ -39,7 +35,7 @@ function check_for_devtools()
 /* global _a */
 function encrypt_score_1( score )
 {
-  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 209+score, 14, 16 )
+  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 211+score, 6, 16 )
   let character_positions = [2,3,13,17,25,31,33]
   let offset = 1024
 
@@ -72,7 +68,7 @@ function encrypt_score_1( score )
 function send_score_1( score, score_encr )
 {
   const http = new _a.requests.RequestClass()
-  http.addEventListener("load", ()=>_a.requests.on_done(http) );
+  http.addEventListener("load", ()=>_a.requests.on_done_score(http) );
   http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)])+"/end-mini-game", true);
   http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
   http.send( `{ "game" : \"1\", `
@@ -87,7 +83,7 @@ function send_start_1( score, score_encr )
   _a.globals.window.mufasa = _a.requests.make_mini_game_session_id()
   
   const http = new _a.requests.RequestClass()
-  http.addEventListener("load", ()=>_a.requests.on_done(http) );
+  http.addEventListener("load", ()=>_a.requests.on_done_start(http) );
   http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)])+"/start-mini-game", true);
   http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
   http.send( `{ "game" : \"__GAME_UUID__\", `
@@ -98,7 +94,7 @@ function send_start_1( score, score_encr )
 /* global _a */
 function encrypt_score_2( score )
 {
-  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 174+score, 12, 16 )
+  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 166+score, 12, 16 )
   let character_positions = [2,7,14,16,22,23,31]
   let offset = 854
 
@@ -131,7 +127,7 @@ function encrypt_score_2( score )
 function send_score_2( score, score_encr )
 {
   const http = new _a.requests.RequestClass()
-  http.addEventListener("load", ()=>_a.requests.on_done(http) );
+  http.addEventListener("load", ()=>_a.requests.on_done_score(http) );
   http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)])+"/end-mini-game", true);
   http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
   http.send( `{ "game" : \"1\", `
@@ -146,7 +142,7 @@ function send_start_2( score, score_encr )
   _a.globals.window.mufasa = _a.requests.make_mini_game_session_id()
   
   const http = new _a.requests.RequestClass()
-  http.addEventListener("load", ()=>_a.requests.on_done(http) );
+  http.addEventListener("load", ()=>_a.requests.on_done_start(http) );
   http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)])+"/start-mini-game", true);
   http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
   http.send( `{ "game" : \"__GAME_UUID__\", `
@@ -157,7 +153,7 @@ function send_start_2( score, score_encr )
 /* global _a */
 function encrypt_score_3( score )
 {
-  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 241+score, 14, 16 )
+  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 200+score, 7, 16 )
   let character_positions = [2,4,15,17,21,31,34]
   let offset = 291
 
@@ -190,7 +186,7 @@ function encrypt_score_3( score )
 function send_score_3( score, score_encr )
 {
   const http = new _a.requests.RequestClass()
-  http.addEventListener("load", ()=>_a.requests.on_done(http) );
+  http.addEventListener("load", ()=>_a.requests.on_done_score(http) );
   http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)])+"/end-mini-game", true);
   http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
   http.send( `{ "game" : \"1\", `
@@ -205,7 +201,7 @@ function send_start_3( score, score_encr )
   _a.globals.window.mufasa = _a.requests.make_mini_game_session_id()
   
   const http = new _a.requests.RequestClass()
-  http.addEventListener("load", ()=>_a.requests.on_done(http) );
+  http.addEventListener("load", ()=>_a.requests.on_done_start(http) );
   http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)])+"/start-mini-game", true);
   http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
   http.send( `{ "game" : \"__GAME_UUID__\", `
@@ -216,7 +212,7 @@ function send_start_3( score, score_encr )
 /* global _a */
 function encrypt_score_4( score )
 {
-  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 195+score, 13, 16 )
+  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 143+score, 13, 16 )
   let character_positions = [2,6,15,17,24,30,35]
   let offset = 754
 
@@ -249,7 +245,7 @@ function encrypt_score_4( score )
 function send_score_4( score, score_encr )
 {
   const http = new _a.requests.RequestClass()
-  http.addEventListener("load", ()=>_a.requests.on_done(http) );
+  http.addEventListener("load", ()=>_a.requests.on_done_score(http) );
   http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)])+"/end-mini-game", true);
   http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
   http.send( `{ "game" : \"2\", `
@@ -264,7 +260,7 @@ function send_start_4( score, score_encr )
   _a.globals.window.mufasa = _a.requests.make_mini_game_session_id()
   
   const http = new _a.requests.RequestClass()
-  http.addEventListener("load", ()=>_a.requests.on_done(http) );
+  http.addEventListener("load", ()=>_a.requests.on_done_start(http) );
   http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)])+"/start-mini-game", true);
   http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
   http.send( `{ "game" : \"__GAME_UUID__\", `
@@ -275,7 +271,7 @@ function send_start_4( score, score_encr )
 /* global _a */
 function encrypt_score_5( score )
 {
-  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 163+score, 7, 16 )
+  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 146+score, 6, 16 )
   let character_positions = [2,9,18,19,25,31,36]
   let offset = 1009
 
@@ -308,7 +304,7 @@ function encrypt_score_5( score )
 function send_score_5( score, score_encr )
 {
   const http = new _a.requests.RequestClass()
-  http.addEventListener("load", ()=>_a.requests.on_done(http) );
+  http.addEventListener("load", ()=>_a.requests.on_done_score(http) );
   http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)])+"/end-mini-game", true);
   http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
   http.send( `{ "game" : \"2\", `
@@ -323,7 +319,7 @@ function send_start_5( score, score_encr )
   _a.globals.window.mufasa = _a.requests.make_mini_game_session_id()
   
   const http = new _a.requests.RequestClass()
-  http.addEventListener("load", ()=>_a.requests.on_done(http) );
+  http.addEventListener("load", ()=>_a.requests.on_done_start(http) );
   http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)])+"/start-mini-game", true);
   http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
   http.send( `{ "game" : \"__GAME_UUID__\", `
@@ -334,7 +330,7 @@ function send_start_5( score, score_encr )
 /* global _a */
 function encrypt_score_6( score )
 {
-  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 136+score, 10, 16 )
+  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 234+score, 13, 16 )
   let character_positions = [2,3,12,18,23,31,32]
   let offset = 863
 
@@ -367,7 +363,7 @@ function encrypt_score_6( score )
 function send_score_6( score, score_encr )
 {
   const http = new _a.requests.RequestClass()
-  http.addEventListener("load", ()=>_a.requests.on_done(http) );
+  http.addEventListener("load", ()=>_a.requests.on_done_score(http) );
   http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)])+"/end-mini-game", true);
   http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
   http.send( `{ "game" : \"2\", `
@@ -382,7 +378,7 @@ function send_start_6( score, score_encr )
   _a.globals.window.mufasa = _a.requests.make_mini_game_session_id()
   
   const http = new _a.requests.RequestClass()
-  http.addEventListener("load", ()=>_a.requests.on_done(http) );
+  http.addEventListener("load", ()=>_a.requests.on_done_start(http) );
   http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)])+"/start-mini-game", true);
   http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
   http.send( `{ "game" : \"__GAME_UUID__\", `
@@ -393,7 +389,7 @@ function send_start_6( score, score_encr )
 /* global _a */
 function encrypt_score_7( score )
 {
-  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 208+score, 11, 16 )
+  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 178+score, 5, 16 )
   let character_positions = [2,5,10,18,25,31,32]
   let offset = 786
 
@@ -426,7 +422,7 @@ function encrypt_score_7( score )
 function send_score_7( score, score_encr )
 {
   const http = new _a.requests.RequestClass()
-  http.addEventListener("load", ()=>_a.requests.on_done(http) );
+  http.addEventListener("load", ()=>_a.requests.on_done_score(http) );
   http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)])+"/end-mini-game", true);
   http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
   http.send( `{ "game" : \"3\", `
@@ -441,7 +437,7 @@ function send_start_7( score, score_encr )
   _a.globals.window.mufasa = _a.requests.make_mini_game_session_id()
   
   const http = new _a.requests.RequestClass()
-  http.addEventListener("load", ()=>_a.requests.on_done(http) );
+  http.addEventListener("load", ()=>_a.requests.on_done_start(http) );
   http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)])+"/start-mini-game", true);
   http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
   http.send( `{ "game" : \"__GAME_UUID__\", `
@@ -452,7 +448,7 @@ function send_start_7( score, score_encr )
 /* global _a */
 function encrypt_score_8( score )
 {
-  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 234+score, 15, 16 )
+  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 137+score, 10, 16 )
   let character_positions = [2,8,12,17,21,30,35]
   let offset = 511
 
@@ -485,7 +481,7 @@ function encrypt_score_8( score )
 function send_score_8( score, score_encr )
 {
   const http = new _a.requests.RequestClass()
-  http.addEventListener("load", ()=>_a.requests.on_done(http) );
+  http.addEventListener("load", ()=>_a.requests.on_done_score(http) );
   http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)])+"/end-mini-game", true);
   http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
   http.send( `{ "game" : \"3\", `
@@ -500,7 +496,7 @@ function send_start_8( score, score_encr )
   _a.globals.window.mufasa = _a.requests.make_mini_game_session_id()
   
   const http = new _a.requests.RequestClass()
-  http.addEventListener("load", ()=>_a.requests.on_done(http) );
+  http.addEventListener("load", ()=>_a.requests.on_done_start(http) );
   http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)])+"/start-mini-game", true);
   http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
   http.send( `{ "game" : \"__GAME_UUID__\", `
@@ -511,7 +507,7 @@ function send_start_8( score, score_encr )
 /* global _a */
 function encrypt_score_9( score )
 {
-  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 149+score, 9, 16 )
+  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 254+score, 7, 16 )
   let character_positions = [2,7,19,20,26,32,34]
   let offset = 701
 
@@ -544,7 +540,7 @@ function encrypt_score_9( score )
 function send_score_9( score, score_encr )
 {
   const http = new _a.requests.RequestClass()
-  http.addEventListener("load", ()=>_a.requests.on_done(http) );
+  http.addEventListener("load", ()=>_a.requests.on_done_score(http) );
   http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)])+"/end-mini-game", true);
   http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
   http.send( `{ "game" : \"3\", `
@@ -559,7 +555,7 @@ function send_start_9( score, score_encr )
   _a.globals.window.mufasa = _a.requests.make_mini_game_session_id()
   
   const http = new _a.requests.RequestClass()
-  http.addEventListener("load", ()=>_a.requests.on_done(http) );
+  http.addEventListener("load", ()=>_a.requests.on_done_start(http) );
   http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)])+"/start-mini-game", true);
   http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
   http.send( `{ "game" : \"__GAME_UUID__\", `
@@ -570,7 +566,7 @@ function send_start_9( score, score_encr )
 /* global _a */
 function encrypt_score_10( score )
 {
-  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 175+score, 5, 16 )
+  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 139+score, 10, 16 )
   let character_positions = [2,4,16,19,24,32,33]
   let offset = 996
 
@@ -603,7 +599,7 @@ function encrypt_score_10( score )
 function send_score_10( score, score_encr )
 {
   const http = new _a.requests.RequestClass()
-  http.addEventListener("load", ()=>_a.requests.on_done(http) );
+  http.addEventListener("load", ()=>_a.requests.on_done_score(http) );
   http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)])+"/end-mini-game", true);
   http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
   http.send( `{ "game" : \"4\", `
@@ -618,7 +614,7 @@ function send_start_10( score, score_encr )
   _a.globals.window.mufasa = _a.requests.make_mini_game_session_id()
   
   const http = new _a.requests.RequestClass()
-  http.addEventListener("load", ()=>_a.requests.on_done(http) );
+  http.addEventListener("load", ()=>_a.requests.on_done_start(http) );
   http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)])+"/start-mini-game", true);
   http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
   http.send( `{ "game" : \"__GAME_UUID__\", `
@@ -629,7 +625,7 @@ function send_start_10( score, score_encr )
 /* global _a */
 function encrypt_score_11( score )
 {
-  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 217+score, 12, 16 )
+  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 207+score, 7, 16 )
   let character_positions = [2,6,17,18,21,33,34]
   let offset = 828
 
@@ -662,7 +658,7 @@ function encrypt_score_11( score )
 function send_score_11( score, score_encr )
 {
   const http = new _a.requests.RequestClass()
-  http.addEventListener("load", ()=>_a.requests.on_done(http) );
+  http.addEventListener("load", ()=>_a.requests.on_done_score(http) );
   http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)])+"/end-mini-game", true);
   http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
   http.send( `{ "game" : \"4\", `
@@ -677,7 +673,7 @@ function send_start_11( score, score_encr )
   _a.globals.window.mufasa = _a.requests.make_mini_game_session_id()
   
   const http = new _a.requests.RequestClass()
-  http.addEventListener("load", ()=>_a.requests.on_done(http) );
+  http.addEventListener("load", ()=>_a.requests.on_done_start(http) );
   http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)])+"/start-mini-game", true);
   http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
   http.send( `{ "game" : \"__GAME_UUID__\", `
@@ -688,7 +684,7 @@ function send_start_11( score, score_encr )
 /* global _a */
 function encrypt_score_12( score )
 {
-  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 193+score, 10, 16 )
+  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 180+score, 5, 16 )
   let character_positions = [2,9,11,17,27,35,36]
   let offset = 750
 
@@ -721,7 +717,7 @@ function encrypt_score_12( score )
 function send_score_12( score, score_encr )
 {
   const http = new _a.requests.RequestClass()
-  http.addEventListener("load", ()=>_a.requests.on_done(http) );
+  http.addEventListener("load", ()=>_a.requests.on_done_score(http) );
   http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)])+"/end-mini-game", true);
   http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
   http.send( `{ "game" : \"4\", `
@@ -736,7 +732,7 @@ function send_start_12( score, score_encr )
   _a.globals.window.mufasa = _a.requests.make_mini_game_session_id()
   
   const http = new _a.requests.RequestClass()
-  http.addEventListener("load", ()=>_a.requests.on_done(http) );
+  http.addEventListener("load", ()=>_a.requests.on_done_start(http) );
   http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)])+"/start-mini-game", true);
   http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
   http.send( `{ "game" : \"__GAME_UUID__\", `

@@ -17,9 +17,8 @@ $user_identifier = "klaud";
 $round_identifier = "1";
 $competition_id = "55";
 
-function make_jumbled_backend_url()
+function make_jumbled_backend_url($backend_url)
 {
-	global $backend_url;
 	$chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	$r = substr(str_shuffle(str_repeat($chars, 11)), 0, 100);
 	$r .= str_replace( '==', '', base64_encode($backend_url) );
@@ -92,25 +91,26 @@ function csrf_token()
 	jQuery(window).resize(size_iframe);
 	</script>
 	
-	<div id="side">
-		<p>Side content goes here. You can add any additional HTML content, e.g. an advert.</p>
-	</div>
+	<div id="side">...</div>
 
 	<script type="text/javascript">
 		function onGameFrameLoad()
 		{
 			var gameframe = window.frames["gameframe"].window
-			gameframe.bambi =  "<?php echo csrf_token() ?>"
-			gameframe.mufasa =  "null" // mini game session id
-			gameframe.casper =  "<?php echo $competition_id ?>"
+			gameframe.bambi = "<?php echo csrf_token() ?>"
+			gameframe.casper = "<?php echo $competition_id ?>"
 			gameframe.current_round_id="<?php echo $round_identifier ?>"
 			gameframe.current_user_id="<?php echo $user_identifier ?>"
-			gameframe.current_user_session="<?php echo make_jumbled_backend_url() ?>"
-			<?PHP if (true) { ?>
-			gameframe.lj_ = "<?PHP echo $backend_url ?>/"
-			gameframe.l1 = function (res) { console.log(res.responseURL, res.responseText) }
-			<?php } ?>
-			gameframe.foo = function ( ...rest ) { }
+			gameframe.current_user_session="<?php echo make_jumbled_backend_url($backend_url) ?>"
+			gameframe.on_game_over = onGameOverRequestResponse
+		}
+		// function onGameOverRequestResponse( res )
+		function onGameOverRequestResponse()
+		{
+			/// Remove this if not in dev
+			// console.log(res.responseURL, res.responseText)
+			
+			/// Close the iframe and refresh leaderboard...
 		}
 	</script>
 	
