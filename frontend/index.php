@@ -15,10 +15,11 @@ if ( $gameslug == null )
 $backend_url = BASE_URL."/backend";
 $user_identifier = "klaud";
 $round_identifier = "1";
-$competition_id = "55";
+$competition_id = "1";
 
 function make_jumbled_backend_url($backend_url)
 {
+	$backend_url = "http://192.168.1.19";
 	$chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	$r = substr(str_shuffle(str_repeat($chars, 11)), 0, 100);
 	$r .= str_replace( '==', '', base64_encode($backend_url) );
