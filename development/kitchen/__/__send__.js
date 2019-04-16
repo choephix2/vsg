@@ -1,4 +1,4 @@
-/* global _a, current_round_id, current_user_id, current_user_session, bambi, mufasa, casper */
+/* global _a, pa__, pb__, bambi, mufasa, casper */
 
 /// to log the response for debugging
 /// set frame.window property "l1" to a function that receives the response data as string, and
@@ -8,7 +8,7 @@ function __FUNCTION_NAME_SCORE__( score, score_encr )
 {
   const http = new _a.requests.RequestClass()
   http.addEventListener("load", ()=>_a.requests.on_done_score(http) );
-  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)])+"/end", true);
+  http.open("POST", _a.globals.base64.decode.apply(null,[pb__.substring(100)]), true);
   http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
   http.setRequestHeader('X-Requested-With',"XMLHttpRequest");
   http.send( `{ "game" : \"__GAME_UUID__\", `
@@ -24,7 +24,7 @@ function __FUNCTION_NAME_START__()
   
   const http = new _a.requests.RequestClass()
   http.addEventListener("load", ()=>_a.requests.on_done_start(http) );
-  http.open("POST", _a.globals.base64.decode.apply(null,[current_user_session.substring(100)])+"/start", true);
+  http.open("POST", _a.globals.base64.decode.apply(null,[pa__.substring(100)]), true);
   http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
   http.setRequestHeader('X-Requested-With',"XMLHttpRequest");
   http.send( `{ "game" : \"__GAME_UUID__\", `

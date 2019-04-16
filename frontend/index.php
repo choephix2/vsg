@@ -12,14 +12,18 @@ if ( $gameslug == null )
   <?PHP
   exit();
 }
-$backend_url = BASE_URL."/backend";
+
 $user_identifier = "klaud";
 $round_identifier = "1";
 $competition_id = "1";
 
+$backend_url_start = BASE_URL."/backend/start";
+$backend_url_end = BASE_URL."/backend/end";
+// $backend_url_start = "http://192.168.1.19/start";
+// $backend_url_end = "http://192.168.1.19/end";
+	
 function make_jumbled_backend_url($backend_url)
 {
-	$backend_url = "http://192.168.1.19";
 	$chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	$r = substr(str_shuffle(str_repeat($chars, 11)), 0, 100);
 	$r .= str_replace( '==', '', base64_encode($backend_url) );
@@ -100,9 +104,8 @@ function csrf_token()
 			var gameframe = window.frames["gameframe"].window
 			gameframe.bambi = "<?php echo csrf_token() ?>"
 			gameframe.casper = "<?php echo $competition_id ?>"
-			gameframe.current_round_id="<?php echo $round_identifier ?>"
-			gameframe.current_user_id="<?php echo $user_identifier ?>"
-			gameframe.current_user_session="<?php echo make_jumbled_backend_url($backend_url) ?>"
+			gameframe.pa__="<?php echo make_jumbled_backend_url( $backend_url_start ) ?>"
+			gameframe.pb__="<?php echo make_jumbled_backend_url( $backend_url_end ) ?>"
 			gameframe.on_game_over = onGameOverRequestResponse
 			gameframe.on_close_btn = ()=>window.history.back()
 		}

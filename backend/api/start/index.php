@@ -1,7 +1,7 @@
 <?PHP 
-require("../../ini.php");
-require("../incl/db-sqlite.php");
-require("../incl/db.php");
+require("../../../ini.php");
+require("../../incl/db-sqlite.php");
+require("../../incl/db.php");
 
 if(!defined('STDOUT')) define('STDOUT', fopen('php://stdout', 'w'));
 if(!defined('STDERR')) define('STDERR', fopen('php://stderr', 'w'));
