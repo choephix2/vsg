@@ -1,18 +1,40 @@
 <head>
   <title>VSG Dev Home</title>
-  <style>
-    body { background: #55595C; }
-    p a { text-decoration: none; color: #CDE; font: monospace; }
-    p a { transition: color 250ms; }
-    p a:hover { color: #FFF; }
+  <style type="text/css">
+  html, body, div, p, a { margin:0; padding:0; }
+  .flex-container {
+    display: flex;
+    background-color: MidnightBlue;
+    height: 100vh;
+    flex-direction: column;
+    /*align-items: center;*/
+    /*justify-content: center;*/
+  }
+  .flex-container > a {
+    color: LightSkyBlue;
+    text-decoration: none;
+    font-size: 5vh;
+    /*flex-grow: 1;*/
+    align-items: center;
+    /*justify-content: center;*/
+    display:flex;
+    font-family:"Arial Black";
+    /*text-transform: uppercase;*/
+    transition: color 150ms;
+    margin-left: 6vh;
+    margin-top: 3vh;
+  }
+  .flex-container > a:hover {
+    color: #fff;
+  }
   </style>
 </head>
 <body>
-  <h1>
-    <p><a href="backend/sqlite/">Backend Testing Database</a></p>
-    <p><a href="frontend/">Frontend Test (play the actual games)</a></p>
-    <p><a href="development/">Development (Encryption Tests)</a></p>
-    <p><a href="development/prepare-pretty.html">-- update prepared js (step 1 - pretty)</a></p>
-    <p><a href="development/prepare-obfuscated.html">-- update prepared js (step 2 - obfuscated)</a></p>
-  </h1>
+  <div class="flex-container">
+    <a href="backend/sqlite/">Backend Testing Database</a>
+    <a href="frontend/">Frontend Test (play the actual games)</a>
+    <a href="development/">Development (Encryption Tests)</a>
+    <a href="development/prepare-pretty.html">🔴 update prepared js (step 1 - pretty)</a>
+    <a href="development/prepare-obfuscated.html">🔴 update prepared js (step 2 - obfuscated)</a>
+  </div>
 </body>
