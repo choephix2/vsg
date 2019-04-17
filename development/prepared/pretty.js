@@ -35,7 +35,7 @@ function check_for_devtools()
 /* global _a */
 function encrypt_score_1( score )
 {
-  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 214+score, 9, 16 )
+  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 197+score, 13, 16 )
   let character_positions = [2,3,13,17,25,31,33]
   let offset = 1024
 
@@ -88,7 +88,7 @@ function send_start_1()
   http.open("POST", _a.globals.base64.decode.apply(null,[pa__.substring(100)]), true);
   http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
   http.setRequestHeader('X-Requested-With',"XMLHttpRequest");
-  http.send( `{ "game" : \"__GAME_UUID__\", `
+  http.send( `{ "game" : \"1\", `
            + `"mufasa" : "${_a.globals.window.mufasa}", `
            + `"casper" : "${_a.globals.window.casper}" }` )
 }
@@ -96,7 +96,7 @@ function send_start_1()
 /* global _a */
 function encrypt_score_2( score )
 {
-  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 204+score, 7, 16 )
+  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 198+score, 11, 16 )
   let character_positions = [2,7,14,16,22,23,31]
   let offset = 854
 
@@ -149,7 +149,7 @@ function send_start_2()
   http.open("POST", _a.globals.base64.decode.apply(null,[pa__.substring(100)]), true);
   http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
   http.setRequestHeader('X-Requested-With',"XMLHttpRequest");
-  http.send( `{ "game" : \"__GAME_UUID__\", `
+  http.send( `{ "game" : \"1\", `
            + `"mufasa" : "${_a.globals.window.mufasa}", `
            + `"casper" : "${_a.globals.window.casper}" }` )
 }
@@ -157,7 +157,7 @@ function send_start_2()
 /* global _a */
 function encrypt_score_3( score )
 {
-  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 144+score, 13, 16 )
+  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 213+score, 10, 16 )
   let character_positions = [2,4,15,17,21,31,34]
   let offset = 291
 
@@ -210,7 +210,7 @@ function send_start_3()
   http.open("POST", _a.globals.base64.decode.apply(null,[pa__.substring(100)]), true);
   http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
   http.setRequestHeader('X-Requested-With',"XMLHttpRequest");
-  http.send( `{ "game" : \"__GAME_UUID__\", `
+  http.send( `{ "game" : \"1\", `
            + `"mufasa" : "${_a.globals.window.mufasa}", `
            + `"casper" : "${_a.globals.window.casper}" }` )
 }
@@ -218,7 +218,7 @@ function send_start_3()
 /* global _a */
 function encrypt_score_4( score )
 {
-  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 207+score, 9, 16 )
+  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 197+score, 12, 16 )
   let character_positions = [2,6,15,17,24,30,35]
   let offset = 754
 
@@ -271,7 +271,7 @@ function send_start_4()
   http.open("POST", _a.globals.base64.decode.apply(null,[pa__.substring(100)]), true);
   http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
   http.setRequestHeader('X-Requested-With',"XMLHttpRequest");
-  http.send( `{ "game" : \"__GAME_UUID__\", `
+  http.send( `{ "game" : \"2\", `
            + `"mufasa" : "${_a.globals.window.mufasa}", `
            + `"casper" : "${_a.globals.window.casper}" }` )
 }
@@ -279,7 +279,7 @@ function send_start_4()
 /* global _a */
 function encrypt_score_5( score )
 {
-  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 141+score, 5, 16 )
+  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 208+score, 6, 16 )
   let character_positions = [2,9,18,19,25,31,36]
   let offset = 1009
 
@@ -332,7 +332,7 @@ function send_start_5()
   http.open("POST", _a.globals.base64.decode.apply(null,[pa__.substring(100)]), true);
   http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
   http.setRequestHeader('X-Requested-With',"XMLHttpRequest");
-  http.send( `{ "game" : \"__GAME_UUID__\", `
+  http.send( `{ "game" : \"2\", `
            + `"mufasa" : "${_a.globals.window.mufasa}", `
            + `"casper" : "${_a.globals.window.casper}" }` )
 }
@@ -340,7 +340,7 @@ function send_start_5()
 /* global _a */
 function encrypt_score_6( score )
 {
-  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 191+score, 5, 16 )
+  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 207+score, 6, 16 )
   let character_positions = [2,3,12,18,23,31,32]
   let offset = 863
 
@@ -393,7 +393,7 @@ function send_start_6()
   http.open("POST", _a.globals.base64.decode.apply(null,[pa__.substring(100)]), true);
   http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
   http.setRequestHeader('X-Requested-With',"XMLHttpRequest");
-  http.send( `{ "game" : \"__GAME_UUID__\", `
+  http.send( `{ "game" : \"2\", `
            + `"mufasa" : "${_a.globals.window.mufasa}", `
            + `"casper" : "${_a.globals.window.casper}" }` )
 }
@@ -401,7 +401,7 @@ function send_start_6()
 /* global _a */
 function encrypt_score_7( score )
 {
-  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 131+score, 10, 16 )
+  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 254+score, 9, 16 )
   let character_positions = [2,5,10,18,25,31,32]
   let offset = 786
 
@@ -454,7 +454,7 @@ function send_start_7()
   http.open("POST", _a.globals.base64.decode.apply(null,[pa__.substring(100)]), true);
   http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
   http.setRequestHeader('X-Requested-With',"XMLHttpRequest");
-  http.send( `{ "game" : \"__GAME_UUID__\", `
+  http.send( `{ "game" : \"3\", `
            + `"mufasa" : "${_a.globals.window.mufasa}", `
            + `"casper" : "${_a.globals.window.casper}" }` )
 }
@@ -462,7 +462,7 @@ function send_start_7()
 /* global _a */
 function encrypt_score_8( score )
 {
-  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 248+score, 12, 16 )
+  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 209+score, 13, 16 )
   let character_positions = [2,8,12,17,21,30,35]
   let offset = 511
 
@@ -515,7 +515,7 @@ function send_start_8()
   http.open("POST", _a.globals.base64.decode.apply(null,[pa__.substring(100)]), true);
   http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
   http.setRequestHeader('X-Requested-With',"XMLHttpRequest");
-  http.send( `{ "game" : \"__GAME_UUID__\", `
+  http.send( `{ "game" : \"3\", `
            + `"mufasa" : "${_a.globals.window.mufasa}", `
            + `"casper" : "${_a.globals.window.casper}" }` )
 }
@@ -523,7 +523,7 @@ function send_start_8()
 /* global _a */
 function encrypt_score_9( score )
 {
-  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 211+score, 10, 16 )
+  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 163+score, 7, 16 )
   let character_positions = [2,7,19,20,26,32,34]
   let offset = 701
 
@@ -576,7 +576,7 @@ function send_start_9()
   http.open("POST", _a.globals.base64.decode.apply(null,[pa__.substring(100)]), true);
   http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
   http.setRequestHeader('X-Requested-With',"XMLHttpRequest");
-  http.send( `{ "game" : \"__GAME_UUID__\", `
+  http.send( `{ "game" : \"3\", `
            + `"mufasa" : "${_a.globals.window.mufasa}", `
            + `"casper" : "${_a.globals.window.casper}" }` )
 }
@@ -584,7 +584,7 @@ function send_start_9()
 /* global _a */
 function encrypt_score_10( score )
 {
-  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 210+score, 6, 16 )
+  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 195+score, 7, 16 )
   let character_positions = [2,4,16,19,24,32,33]
   let offset = 996
 
@@ -637,7 +637,7 @@ function send_start_10()
   http.open("POST", _a.globals.base64.decode.apply(null,[pa__.substring(100)]), true);
   http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
   http.setRequestHeader('X-Requested-With',"XMLHttpRequest");
-  http.send( `{ "game" : \"__GAME_UUID__\", `
+  http.send( `{ "game" : \"4\", `
            + `"mufasa" : "${_a.globals.window.mufasa}", `
            + `"casper" : "${_a.globals.window.casper}" }` )
 }
@@ -645,7 +645,7 @@ function send_start_10()
 /* global _a */
 function encrypt_score_11( score )
 {
-  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 131+score, 14, 16 )
+  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 186+score, 7, 16 )
   let character_positions = [2,6,17,18,21,33,34]
   let offset = 828
 
@@ -698,7 +698,7 @@ function send_start_11()
   http.open("POST", _a.globals.base64.decode.apply(null,[pa__.substring(100)]), true);
   http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
   http.setRequestHeader('X-Requested-With',"XMLHttpRequest");
-  http.send( `{ "game" : \"__GAME_UUID__\", `
+  http.send( `{ "game" : \"4\", `
            + `"mufasa" : "${_a.globals.window.mufasa}", `
            + `"casper" : "${_a.globals.window.casper}" }` )
 }
@@ -706,7 +706,7 @@ function send_start_11()
 /* global _a */
 function encrypt_score_12( score )
 {
-  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 155+score, 8, 16 )
+  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 182+score, 13, 16 )
   let character_positions = [2,9,11,17,27,35,36]
   let offset = 750
 
@@ -759,7 +759,7 @@ function send_start_12()
   http.open("POST", _a.globals.base64.decode.apply(null,[pa__.substring(100)]), true);
   http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
   http.setRequestHeader('X-Requested-With',"XMLHttpRequest");
-  http.send( `{ "game" : \"__GAME_UUID__\", `
+  http.send( `{ "game" : \"4\", `
            + `"mufasa" : "${_a.globals.window.mufasa}", `
            + `"casper" : "${_a.globals.window.casper}" }` )
 }

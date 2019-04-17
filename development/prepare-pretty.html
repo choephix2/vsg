@@ -53,8 +53,9 @@
           result += s + '\n\n'
           
           s = __send__
-          s = s.replace( "__FUNCTION_NAME_START__","send_start_"+i )
           s = s.replace( "__FUNCTION_NAME_SCORE__","send_score_"+i )
+          s = s.replace( "__GAME_UUID__",game )
+          s = s.replace( "__FUNCTION_NAME_START__","send_start_"+i )
           s = s.replace( "__GAME_UUID__",game )
           result += s + '\n\n'
         }
