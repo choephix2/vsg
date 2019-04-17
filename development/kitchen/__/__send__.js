@@ -1,4 +1,4 @@
-/* global _a, pa__, pb__, bambi, mufasa, casper */
+/* global $, _a, pa__, pb__, bambi, mufasa, casper */
 
 /// to log the response for debugging
 /// set frame.window property "l1" to a function that receives the response data as string, and
@@ -6,28 +6,36 @@
 
 function __FUNCTION_NAME_SCORE__( score, score_encr )
 {
-  const http = new _a.requests.RequestClass()
-  http.addEventListener("load", ()=>_a.requests.on_done_score(http) );
-  http.open("POST", _a.globals.base64.decode.apply(null,[pb__.substring(100)]), true);
-  http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
-  http.setRequestHeader('X-Requested-With',"XMLHttpRequest");
-  http.send( `{ "game" : \"__GAME_UUID__\", `
-           + `"score" : "${score}", `
-           + `"session" : "${score_encr}", `
-           + `"mufasa" : "${_a.globals.window.mufasa}", `
-           + `"casper" : "${_a.globals.window.casper}" }` )
+  let data = {
+    game: "__GAME_UUID__", 
+    score:score, 
+    session:score_encr, 
+    mufasa:_a.globals.window.mufasa,
+    casper:_a.globals.window.casper
+  }
+  $.ajax({
+            type: "POST",
+            data: data,
+            url : _a.globals.base64.decode.apply(null,[pb__.substring(100)]),
+            beforeSend: function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);},
+            success : http => _a.requests.on_done_score(http)
+        });
 }
 
 function __FUNCTION_NAME_START__()
 {
   _a.globals.window.mufasa = _a.requests.make_mini_game_session_id()
   
-  const http = new _a.requests.RequestClass()
-  http.addEventListener("load", ()=>_a.requests.on_done_start(http) );
-  http.open("POST", _a.globals.base64.decode.apply(null,[pa__.substring(100)]), true);
-  http.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);
-  http.setRequestHeader('X-Requested-With',"XMLHttpRequest");
-  http.send( `{ "game" : \"__GAME_UUID__\", `
-           + `"mufasa" : "${_a.globals.window.mufasa}", `
-           + `"casper" : "${_a.globals.window.casper}" }` )
+  let data = {
+    game: "__GAME_UUID__", 
+    mufasa:_a.globals.window.mufasa,
+    casper:_a.globals.window.casper
+  }
+  $.ajax({
+            type: "POST",
+            data: data,
+            url : _a.globals.base64.decode.apply(null,[pa__.substring(100)]),
+            beforeSend: function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);},
+            success : http => _a.requests.on_done_score(http)
+        });
 }
