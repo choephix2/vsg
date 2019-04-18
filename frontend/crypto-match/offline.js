@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1555501992,
+	"version": 1555592589,
 	"fileList": [
 		"data.js",
 		"game.html",
@@ -21,7 +21,6 @@
 		"images/btn_sound-sheet0.png",
 		"images/btn_sound-sheet1.png",
 		"images/btn_exit-sheet0.png",
-		"images/btn_time_rush-sheet0.png",
 		"images/jewels-sheet0.png",
 		"images/jewels-sheet1.png",
 		"images/tile-sheet0.png",
