@@ -64,6 +64,17 @@
 	document.addEventListener("mozvisibilitychange", onVisibilityChanged, false);
 	document.addEventListener("webkitvisibilitychange", onVisibilityChanged, false);
 	document.addEventListener("msvisibilitychange", onVisibilityChanged, false);
+	
+	function size_iframe()
+	{
+		var w = jQuery(window).width()
+		var h = jQuery(window).height()
+		w = 720
+		h = 720
+		jQuery("lecanvascontainer").width(w).height(h)
+	};
+	jQuery(document).ready(size_iframe);
+	jQuery(window).resize(size_iframe);
     </script>
 </body> 
 </html> 
