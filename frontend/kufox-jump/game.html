@@ -13,10 +13,8 @@
 			touch-action: none;
 			-ms-touch-action: none;
 		}
-		canvas {
-			touch-action: none;
-			-ms-touch-action: none;
-		}
+		#lecanvascontainer { text-align: center; }
+		canvas { touch-action: none; -ms-touch-action: none; }
     </style>
 </head> 
  
@@ -46,6 +44,7 @@
 	<!-- Pages load faster with scripts at the bottom -->
 	
 	<script src="jquery-2.1.1.min.js"></script>
+	
 	<script src="analytics.js"></script>
 
     <script>
@@ -65,4 +64,4 @@
 	document.addEventListener("msvisibilitychange", onVisibilityChanged, false);
     </script>
 </body> 
-</html> 
+</html>  
