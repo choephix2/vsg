@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1557407988,
+	"version": 1558357823,
 	"fileList": [
 		"data.js",
 		"game.html",
@@ -33,11 +33,7 @@
 		"images/explosion-sheet1.png",
 		"images/shield-sheet0.png",
 		"images/powerup_shild-sheet0.png",
-		"images/powerup_shild-sheet1.png",
-		"images/powerup_shild-sheet2.png",
 		"images/powerup_explosion-sheet0.png",
-		"images/powerup_explosion-sheet1.png",
-		"images/powerup_explosion-sheet2.png",
 		"images/face-sheet0.png",
 		"images/inst-sheet0.png",
 		"images/site-sheet0.png",
