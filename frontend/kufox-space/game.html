@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <script src="../linkedin.js"></script>
+	<style type="text/css">
+		* { padding: 0; margin: 0; }
+		html, body {
+			background: #234;
+			color: #def;
+			overflow: hidden;
+			touch-action: none;
+			-ms-touch-action: none;
+		}
+		html { height: 100%; display: flex; align-items: center; }
+		#lecanvascontainer { text-align: center; }
+		canvas { touch-action: none; -ms-touch-action: none; }
+    </style>
+</head> 
+ 
+<body> 
+	<div id="fb-root"></div>
+	
+	<!-- The canvas must be inside a div called c2canvasdiv -->
+	<div id="lecanvascontainer">
+		<!-- The canvas the project will render to.  If you change its ID, don't forget to change the
+		ID the runtime looks for in the jQuery events above (ready() and cr_sizeCanvas()). -->
+		<canvas id="lecanvas" width="640" height="1136">
+			<!-- This text is displayed if the visitor's browser does not support HTML5.
+			You can change it, but it is a good idea to link to a description of a browser
+			and provide some links to download some popular HTML5-compatible browsers. -->
+			<h1>Your browser does not appear to support HTML5.  Try upgrading your browser to the latest version.  
+				<a href="http://www.whatbrowser.org">What is a browser?</a>
+				<br/><br/>
+				<a href="http://www.microsoft.com/windows/internet-explorer/default.aspx">Microsoft Internet Explorer</a>
+				<br/>
+				<a href="http://www.mozilla.com/firefox/">Mozilla Firefox</a><br/>
+				<a href="http://www.google.com/chrome/">Google Chrome</a><br/>
+				<a href="http://www.apple.com/safari/download/">Apple Safari</a>
+			</h1>
+		</canvas>
+	</div>
+	
+	<!-- Pages load faster with scripts at the bottom -->
+	
+	<script src="jquery-2.1.1.min.js"></script>
+	
+	<script src="analytics.js"></script>
+
+    <script>
+	/* global jQuery */
+	/* global cr_createRuntime */
+	/* global cr_setSuspended */
+	jQuery(document).ready( function () { cr_createRuntime("lecanvas"); } );
+	function onVisibilityChanged() {
+		if (document.hidden || document.mozHidden || document.webkitHidden || document.msHidden)
+			cr_setSuspended(true);
+		else
+			cr_setSuspended(false);
+	};
+	document.addEventListener("visibilitychange", onVisibilityChanged, false);
+	document.addEventListener("mozvisibilitychange", onVisibilityChanged, false);
+	document.addEventListener("webkitvisibilitychange", onVisibilityChanged, false);
+	document.addEventListener("msvisibilitychange", onVisibilityChanged, false);
+    </script>
+</body> 
+</html>  
