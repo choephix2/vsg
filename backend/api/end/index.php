@@ -51,7 +51,7 @@ else
 if ( $handler->get_error() )
 {
   $game_uuid = $handler->get_data()->game_uuid;
-  $user = $handler->get_data()->user;
+  $user = "dummbo";
   $score = $handler->get_data()->score_raw;
   $score_encrypted = $handler->get_data()->score_encrypted;
   $error = $handler->get_error();

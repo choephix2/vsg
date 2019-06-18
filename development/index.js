@@ -1,4 +1,4 @@
-const BACKEND_URL = "/backend/"
+const BACKEND_URL = "/backend/api/end"
 const GAMES = []
 let i = 0
 for ( let uuid in configuration.full_settings )
@@ -70,7 +70,7 @@ function addGame( game )
     let http = new XMLHttpRequest()
     http.open("POST", BACKEND_URL, true);
     http.addEventListener("load", onDone);
-    let data = `{ "game" : \"${game_uuid}\", "user" : "${user}", "score" : "${score}", "session" : "${string}" }`
+    let data = `{ "game" : \"${game_uuid}\", "user" : "${user}", "score" : "${score}", "session" : "${string}", "mufasa" : "-N-U-L-L-", "casper" : 0 }`
     DOM.classList.add("busy")
     http.send(data);
 

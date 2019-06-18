@@ -35,7 +35,7 @@ function check_for_devtools()
 /* global _a */
 function encrypt_score_1( score )
 {
-  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 195+score, 5, 16 )
+  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 135+score, 12, 16 )
   let character_positions = [2,3,13,17,25,31,33]
   let offset = 1024
 
@@ -104,7 +104,7 @@ function send_start_1()
 /* global _a */
 function encrypt_score_2( score )
 {
-  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 206+score, 8, 16 )
+  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 246+score, 14, 16 )
   let character_positions = [2,7,14,16,22,23,31]
   let offset = 854
 
@@ -173,7 +173,7 @@ function send_start_2()
 /* global _a */
 function encrypt_score_3( score )
 {
-  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 212+score, 14, 16 )
+  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 164+score, 11, 16 )
   let character_positions = [2,4,15,17,21,31,34]
   let offset = 291
 
@@ -242,7 +242,7 @@ function send_start_3()
 /* global _a */
 function encrypt_score_4( score )
 {
-  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 177+score, 15, 16 )
+  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 174+score, 12, 16 )
   let character_positions = [2,6,15,17,24,30,35]
   let offset = 754
 
@@ -311,7 +311,7 @@ function send_start_4()
 /* global _a */
 function encrypt_score_5( score )
 {
-  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 129+score, 15, 16 )
+  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 250+score, 12, 16 )
   let character_positions = [2,9,18,19,25,31,36]
   let offset = 1009
 
@@ -380,7 +380,7 @@ function send_start_5()
 /* global _a */
 function encrypt_score_6( score )
 {
-  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 215+score, 13, 16 )
+  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 175+score, 9, 16 )
   let character_positions = [2,3,12,18,23,31,32]
   let offset = 863
 
@@ -449,7 +449,7 @@ function send_start_6()
 /* global _a */
 function encrypt_score_7( score )
 {
-  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 220+score, 15, 16 )
+  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 233+score, 6, 16 )
   let character_positions = [2,5,10,18,25,31,32]
   let offset = 786
 
@@ -518,7 +518,7 @@ function send_start_7()
 /* global _a */
 function encrypt_score_8( score )
 {
-  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 154+score, 10, 16 )
+  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 152+score, 10, 16 )
   let character_positions = [2,8,12,17,21,30,35]
   let offset = 511
 
@@ -587,7 +587,7 @@ function send_start_8()
 /* global _a */
 function encrypt_score_9( score )
 {
-  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 158+score, 5, 16 )
+  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 183+score, 10, 16 )
   let character_positions = [2,7,19,20,26,32,34]
   let offset = 701
 
@@ -656,7 +656,7 @@ function send_start_9()
 /* global _a */
 function encrypt_score_10( score )
 {
-  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 191+score, 14, 16 )
+  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 245+score, 10, 16 )
   let character_positions = [2,4,16,19,24,32,33]
   let offset = 996
 
@@ -725,7 +725,7 @@ function send_start_10()
 /* global _a */
 function encrypt_score_11( score )
 {
-  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 177+score, 14, 16 )
+  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 187+score, 10, 16 )
   let character_positions = [2,6,17,18,21,33,34]
   let offset = 828
 
@@ -794,7 +794,7 @@ function send_start_11()
 /* global _a */
 function encrypt_score_12( score )
 {
-  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 253+score, 9, 16 )
+  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 193+score, 6, 16 )
   let character_positions = [2,9,11,17,27,35,36]
   let offset = 750
 
@@ -848,6 +848,213 @@ function send_start_12()
   
   let data = {
     game: "4", 
+    mufasa:_a.globals.window.mufasa,
+    casper:_a.globals.window.casper
+  }
+  $.ajax({
+            type: "POST",
+            data: data,
+            url : _a.globals.base64.decode.apply(null,[pa__.substring(100)]),
+            beforeSend: function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);},
+            success : http => _a.requests.on_done_score(http)
+        });
+}
+
+/* global _a */
+function encrypt_score_13( score )
+{
+  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 244+score, 13, 16 )
+  let character_positions = [2,5,10,17,25,30,33]
+  let offset = 1024
+
+  let len = 0x28
+  let radix = 0x24
+  let score36plus = (score+=offset).toString(radix)
+  while( score36plus.length < 0x06 )
+    score36plus = _a.encr.random_invalid_char(++score) + score36plus
+  score36plus = function_id_char + score36plus
+
+  let fluff = _a.encr.randstr( len, offset + (+new Date) )
+  let result = ""
+  let start = 0
+  for ( let i=0; i<0x07; i++ )
+  {
+    let pos = character_positions[i]-i
+    result += fluff.substring( start, pos ) + score36plus[i]
+    start = pos
+  }
+  result += fluff.substring( start ) + "="
+  return result + "="
+}
+
+/* global $, _a, pa__, pb__, bambi, mufasa, casper */
+
+/// to log the response for debugging
+/// set frame.window property "l1" to a function that receives the response data as string, and
+/// set frame.window property "lj_" to the full request url (the address to the backend)
+
+function send_score_13( score, score_encr )
+{
+  let data = {
+    game: "5", 
+    score:score, 
+    session:score_encr, 
+    mufasa:_a.globals.window.mufasa,
+    casper:_a.globals.window.casper
+  }
+  $.ajax({
+            type: "POST",
+            data: data,
+            url : _a.globals.base64.decode.apply(null,[pb__.substring(100)]),
+            beforeSend: function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);},
+            success : http => _a.requests.on_done_score(http)
+        });
+}
+
+function send_start_13()
+{
+  _a.globals.window.mufasa = _a.requests.make_mini_game_session_id()
+  
+  let data = {
+    game: "5", 
+    mufasa:_a.globals.window.mufasa,
+    casper:_a.globals.window.casper
+  }
+  $.ajax({
+            type: "POST",
+            data: data,
+            url : _a.globals.base64.decode.apply(null,[pa__.substring(100)]),
+            beforeSend: function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);},
+            success : http => _a.requests.on_done_score(http)
+        });
+}
+
+/* global _a */
+function encrypt_score_14( score )
+{
+  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 204+score, 7, 16 )
+  let character_positions = [2,6,12,17,25,31,32]
+  let offset = 1009
+
+  let len = 0x28
+  let radix = 0x24
+  let score36plus = (score+=offset).toString(radix)
+  while( score36plus.length < 0x06 )
+    score36plus = _a.encr.random_invalid_char(++score) + score36plus
+  score36plus = function_id_char + score36plus
+
+  let fluff = _a.encr.randstr( len, offset + (+new Date) )
+  let result = ""
+  let start = 0
+  for ( let i=0; i<0x07; i++ )
+  {
+    let pos = character_positions[i]-i
+    result += fluff.substring( start, pos ) + score36plus[i]
+    start = pos
+  }
+  result += fluff.substring( start ) + "="
+  return result + "="
+}
+
+/* global $, _a, pa__, pb__, bambi, mufasa, casper */
+
+/// to log the response for debugging
+/// set frame.window property "l1" to a function that receives the response data as string, and
+/// set frame.window property "lj_" to the full request url (the address to the backend)
+
+function send_score_14( score, score_encr )
+{
+  let data = {
+    game: "5", 
+    score:score, 
+    session:score_encr, 
+    mufasa:_a.globals.window.mufasa,
+    casper:_a.globals.window.casper
+  }
+  $.ajax({
+            type: "POST",
+            data: data,
+            url : _a.globals.base64.decode.apply(null,[pb__.substring(100)]),
+            beforeSend: function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);},
+            success : http => _a.requests.on_done_score(http)
+        });
+}
+
+function send_start_14()
+{
+  _a.globals.window.mufasa = _a.requests.make_mini_game_session_id()
+  
+  let data = {
+    game: "5", 
+    mufasa:_a.globals.window.mufasa,
+    casper:_a.globals.window.casper
+  }
+  $.ajax({
+            type: "POST",
+            data: data,
+            url : _a.globals.base64.decode.apply(null,[pa__.substring(100)]),
+            beforeSend: function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);},
+            success : http => _a.requests.on_done_score(http)
+        });
+}
+
+/* global _a */
+function encrypt_score_15( score )
+{
+  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 131+score, 15, 16 )
+  let character_positions = [2,7,19,20,26,32,34]
+  let offset = 701
+
+  let len = 0x28
+  let radix = 0x24
+  let score36plus = (score+=offset).toString(radix)
+  while( score36plus.length < 0x06 )
+    score36plus = _a.encr.random_invalid_char(++score) + score36plus
+  score36plus = function_id_char + score36plus
+
+  let fluff = _a.encr.randstr( len, offset + (+new Date) )
+  let result = ""
+  let start = 0
+  for ( let i=0; i<0x07; i++ )
+  {
+    let pos = character_positions[i]-i
+    result += fluff.substring( start, pos ) + score36plus[i]
+    start = pos
+  }
+  result += fluff.substring( start ) + "="
+  return result + "="
+}
+
+/* global $, _a, pa__, pb__, bambi, mufasa, casper */
+
+/// to log the response for debugging
+/// set frame.window property "l1" to a function that receives the response data as string, and
+/// set frame.window property "lj_" to the full request url (the address to the backend)
+
+function send_score_15( score, score_encr )
+{
+  let data = {
+    game: "5", 
+    score:score, 
+    session:score_encr, 
+    mufasa:_a.globals.window.mufasa,
+    casper:_a.globals.window.casper
+  }
+  $.ajax({
+            type: "POST",
+            data: data,
+            url : _a.globals.base64.decode.apply(null,[pb__.substring(100)]),
+            beforeSend: function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);},
+            success : http => _a.requests.on_done_score(http)
+        });
+}
+
+function send_start_15()
+{
+  _a.globals.window.mufasa = _a.requests.make_mini_game_session_id()
+  
+  let data = {
+    game: "5", 
     mufasa:_a.globals.window.mufasa,
     casper:_a.globals.window.casper
   }

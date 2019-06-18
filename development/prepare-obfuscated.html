@@ -3,6 +3,7 @@
 <head>
   <title>Obfuscate The Pretty</title>
   <script src="/development/prepared/pretty.js"></script>
+  <script src="/development/kitchen/config.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/javascript-obfuscator/dist/index.browser.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.9.0/beautify.min.js"></script>
   <style>pre{ font: .6em "Lucida Console"; white-space: pre-wrap; }</style>
@@ -10,27 +11,11 @@
 <body>
   <div id="main"></div>
   <script>
-    /* global JavaScriptObfuscator, js_beautify */
+    /* global configuration, JavaScriptObfuscator, js_beautify */
     
-    const FNAMES = {
-      send_and_encr : [
-          "_0x26af06", "_0x3c8c4d", "_0x42c19e",
-          "_0x57c4a4", "_0x4d213f", "_0xd4e4b2",
-          "_0x339cc3", "_0x5ce2b4", "_0x8dd1c1",
-          
-          "_0x3b34b6", "_0x2289de", "_0x3ec572",
-          "_0x2afb42", "_0x1f459e", "_0xd2a168",
-          "_0x58b5a0", "_0x3e2335", "_0x521398",
-          
-          "_0x1dd754", "_0x5ca3f3", "_0xe5dd10",
-          "_0x325def", "_0x108c44", "_0x290489",
-          "_0x298ad1", "_0x3c42cb", "_0x8bb19a",
-          
-          "_0x1e8c37", "_0x498b55", "_0x6c5a4f",
-          "_0x12c1bc", "_0x2e8af2", "_0x522589",
-          "_0x1c6d06", "_0x19bc49", "_0xa1a281",
-        ]
-    }
+    const FNAMES = configuration.function_names
+
+    console.warn(FNAMES)
     
     function loadfile(path) 
     {
@@ -42,7 +27,7 @@
     
     function obfuscateSomeMore( code )
     {
-      for ( let i = 0; i < 12; i++ )
+      for ( let i = 0; i < 15; i++ )
       {
         let f_encr = FNAMES.send_and_encr[ i*3 ]
         let f_send_score = FNAMES.send_and_encr[ i*3 + 1 ]

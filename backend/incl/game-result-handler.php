@@ -1,7 +1,7 @@
 <?php
-declare(strict_types=1);
+// declare(strict_types=1);
 
-namespace App\Lib\Util;
+// namespace App\Lib\Util;
 
 final class GameResultHandler
 {
