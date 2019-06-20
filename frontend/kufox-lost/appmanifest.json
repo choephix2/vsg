@@ -1,6 +1,6 @@
 ﻿{
-	"name": "kufox-space",
-	"short_name": "kufox-space",
+	"name": "kufox-lost",
+	"short_name": "kufox-lost",
 	"start_url": "index.html",
 	"display": "fullscreen",
 	"orientation": "landscape",
