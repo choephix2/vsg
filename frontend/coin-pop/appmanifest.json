@@ -1,6 +1,6 @@
 ﻿{
-	"name": "Coin Pop",
-	"short_name": "Coin Pop",
+	"name": "coin-pop",
+	"short_name": "coin-pop",
 	"start_url": "index.html",
 	"display": "fullscreen",
 	"orientation": "portrait",
