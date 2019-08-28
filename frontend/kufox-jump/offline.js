@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1565275243,
+	"version": 1566392229,
 	"fileList": [
 		"data.js",
 		"game.html",
@@ -12,7 +12,6 @@
 		"images/play-sheet2.png",
 		"images/block-sheet0.png",
 		"images/projectile-sheet0.png",
-		"images/btnmoregame-sheet0.png",
 		"images/btnplay-sheet0.png",
 		"images/btncredits-sheet0.png",
 		"images/bg_credits.png",
