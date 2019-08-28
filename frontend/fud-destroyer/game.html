@@ -12,10 +12,12 @@
 			overflow: hidden;
 			touch-action: none;
 			-ms-touch-action: none;
+			width: 100%;
 		}
 		html { height: 100%; display: flex; align-items: center; }
 		#lecanvascontainer { text-align: center; }
 		canvas { touch-action: none; -ms-touch-action: none; }
+		#close-btn { position: absolute; top: 10px; right: 10px; 		}
     </style>
 </head> 
  
@@ -40,6 +42,17 @@
 				<a href="http://www.apple.com/safari/download/">Apple Safari</a>
 			</h1>
 		</canvas>
+	</div>
+
+	<div id="close-btn" onclick="on_close_btn()"> 
+		<svg width="50" height="50" xmlns="http://www.w3.org/2000/svg">
+			<g opacity="0.60">
+			 <title>Close Button</title>
+			 <ellipse id="circle" fill-opacity="0.25" ry="25" rx="25" cy="25" cx="25" fill="#000000"/>
+			 <line id="line1" y2="38" x2="12" y1="12" x1="38" stroke-width="2" stroke="#ffffff"/>
+			 <line id="line2" y2="38" x2="38" y1="12" x1="12" stroke-width="2" stroke="#ffffff"/>
+			</g>
+		</svg>
 	</div>
 	
 	<!-- Pages load faster with scripts at the bottom -->

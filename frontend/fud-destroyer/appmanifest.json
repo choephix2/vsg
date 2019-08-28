@@ -1,6 +1,6 @@
 ﻿{
-	"name": "FUD Destroyer",
-	"short_name": "FUD Destroyer",
+	"name": "fud-destroyer",
+	"short_name": "fud-destroyer",
 	"start_url": "index.html",
 	"display": "fullscreen",
 	"orientation": "portrait",
