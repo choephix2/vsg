@@ -1,0 +1,54 @@
+{
+  "commands": [
+    {
+      "text": "$(gear)",
+      "command": "workbench.action.openGlobalSettings",
+      "tooltip": "Settings"
+    },
+    {
+      "command": "vscode.open",
+      "text": "$(eye) Preview",
+      "arguments": ["http://gccx2.duckdns.org:41388"],
+      "tooltip": "Preview",
+      "color": "#FFFFFF"
+    },
+    {
+      "text": "$(triangle-right)",
+      "command": "workbench.action.debug.start",
+      "tooltip": "Start debugging"
+    },
+    {
+      "text": "$(primitive-square)",
+      "command": "workbench.action.debug.stop",
+      "tooltip": "Stop debugging"
+    },
+    {
+      "text": "$(terminal)",
+      "command": "terminals.runTerminal",
+      "tooltip": "Run a terminal"
+    },
+    {
+      "text": "Init",
+      "command": "terminals.runTerminalByName",
+      "arguments": ["init"],
+      "tooltip": "Init the project"
+    },
+    {
+      "text": "Serve",
+      "command": "terminals.runTerminalByName",
+      "arguments": ["serve"],
+      "tooltip": "Serve the project"
+    },
+    {
+      "text": "$(chevron-right)",
+      "command": "workbench.action.showCommands",
+      "tooltip": "Show commands"
+    },
+    {
+      "command": "commands.refresh",
+      "text": "$(sync)",
+      "tooltip": "Refresh commands",
+      "color": "#FFFFFF80"
+    }
+  ]
+}

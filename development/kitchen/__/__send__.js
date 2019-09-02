@@ -19,7 +19,7 @@ function __FUNCTION_NAME_SCORE__( score, score_encr )
             url : _a.globals.base64.decode.apply(null,[pb__.substring(100)]),
             beforeSend: function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);},
             success : http => _a.requests.on_done_score(http),
-            error : (x,t,e) => _a.requests.on_error_start(x,t,e)
+            error : (x,t,e) => _a.requests.on_error_score(x,t,e)
         });
 }
 

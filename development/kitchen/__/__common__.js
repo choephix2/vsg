@@ -11,9 +11,29 @@ _a.requests = {
   on_done_score : function( o ) { try { _a.globals.window.on_game_over( o ) } catch(e) {} },
   on_done_start : function( o ) { try { _a.globals.window.on_game_start( o ) } catch(e) {} },
   on_error_start : function( xhr, textStatus, errorThrown ) 
-  { try { _a.globals.window.on_game_start_error( xhr, textStatus, errorThrown) } catch(e) {} },
+  { 
+    report_error( "send-start", xhr, textStatus, errorThrown )
+    try { _a.globals.window.on_game_start_error( xhr, textStatus, errorThrown) } catch(e) {} 
+  },
   on_error_score : function( xhr, textStatus, errorThrown ) 
-  { try { _a.globals.window.on_game_score_error( xhr, textStatus, errorThrown) } catch(e) {} },
+  { 
+    report_error( "send-score", xhr, textStatus, errorThrown )
+    try { _a.globals.window.on_game_score_error( xhr, textStatus, errorThrown) } catch(e) {} 
+  },
+}
+
+var report_error = function( request_descr, xhr, textStatus, errorThrown ) {
+  console.warn( xhr )
+  console.warn( textStatus )
+  console.warn( errorThrown )
+  let data = { text: "ERROR on "+request_descr+":\n"+textStatus }
+  $.ajax({
+            type: "POST",
+            data: JSON.stringify(data),
+            url : "https://hooks.slack.com/services/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----",
+            success : http => console.log("slack:",http),
+            error : (x,t,e) => console.warn("slack:",x,t,e)
+        });
 }
 
 _a.encr = {}
