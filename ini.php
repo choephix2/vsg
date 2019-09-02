@@ -2,6 +2,6 @@
 
 define( 'DEBUG', true ); 
 
-define("BASE_URL","https://blockch-viralgames-choephix.c9users.io"); 
+define("BASE_URL","http://gccx2.duckdns.org:41300"); 
 
 ?>
