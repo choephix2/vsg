@@ -4,13 +4,6 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "echo",
-      "type": "shell",
-      "command": "/bin/bash /coder/mnt/choephix_bs/viral-games/serve.sh",
-      "isBackground": false,
-      "problemMatcher": []
-    },
-    {
       "label": "serve php",
       "type": "shell",
       "command": "php -S 0.0.0.0:8080",
