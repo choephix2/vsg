@@ -18,7 +18,8 @@ function __FUNCTION_NAME_SCORE__( score, score_encr )
             data: data,
             url : _a.globals.base64.decode.apply(null,[pb__.substring(100)]),
             beforeSend: function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);},
-            success : http => _a.requests.on_done_score(http)
+            success : http => _a.requests.on_done_score(http),
+            error : (x,t,e) => _a.requests.on_error_start(x,t,e)
         });
 }
 
@@ -35,7 +36,8 @@ function __FUNCTION_NAME_START__()
             type: "POST",
             data: data,
             url : _a.globals.base64.decode.apply(null,[pa__.substring(100)]),
-            beforeSend: function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);},
-            success : http => _a.requests.on_done_score(http)
+            beforeSend : function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);},
+            success : http => _a.requests.on_done_start(http),
+            error : (x,t,e) => _a.requests.on_error_start(x,t,e)
         });
 }
