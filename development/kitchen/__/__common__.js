@@ -1,3 +1,5 @@
+console.log("v500")
+
 var _a = { globals: { window : window, debug : window.console } }
 _a.globals.base64 = { decode : _a.globals.window["\x61\x74\x6f\x62"] }
 _a.requests = {
@@ -11,29 +13,20 @@ _a.requests = {
   on_done_score : function( o ) { try { _a.globals.window.on_game_over( o ) } catch(e) {} },
   on_done_start : function( o ) { try { _a.globals.window.on_game_start( o ) } catch(e) {} },
   on_error_start : function( xhr, textStatus, errorThrown ) 
-  { 
-    report_error( "send-start", xhr, textStatus, errorThrown )
-    try { _a.globals.window.on_game_start_error( xhr, textStatus, errorThrown) } catch(e) {} 
-  },
+  { try { _a.globals.window.on_game_start_error( xhr, textStatus, errorThrown) } catch(e) {} },
   on_error_score : function( xhr, textStatus, errorThrown ) 
-  { 
-    report_error( "send-score", xhr, textStatus, errorThrown )
-    try { _a.globals.window.on_game_score_error( xhr, textStatus, errorThrown) } catch(e) {} 
-  },
-}
-
-var report_error = function( request_descr, xhr, textStatus, errorThrown ) {
-  console.warn( xhr )
-  console.warn( textStatus )
-  console.warn( errorThrown )
-  let data = { text: "ERROR on "+request_descr+":\n"+textStatus }
-  $.ajax({
-            type: "POST",
-            data: JSON.stringify(data),
-            url : "https://hooks.slack.com/services/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----",
-            success : http => console.log("slack:",http),
-            error : (x,t,e) => console.warn("slack:",x,t,e)
-        });
+  { try { _a.globals.window.on_game_score_error( xhr, textStatus, errorThrown) } catch(e) {} },
+  slack_it : function( msg )
+  {
+    let data = { text: msg }
+    let url = "https://hooks.slack.com/services/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"
+    // let url = "https://hooks.slack.com/services/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"
+    $.ajax({  
+              url : url, type: "POST", data: JSON.stringify(data),
+              success : http => console.log("slack:",http),
+              error : (x,t,e) => console.warn("slack:",x,t,e)
+          });
+  }
 }
 
 _a.encr = {}

@@ -1,3 +1,5 @@
+console.log("v500")
+
 var _a = { globals: { window : window, debug : window.console } }
 _a.globals.base64 = { decode : _a.globals.window["\x61\x74\x6f\x62"] }
 _a.requests = {
@@ -11,29 +13,20 @@ _a.requests = {
   on_done_score : function( o ) { try { _a.globals.window.on_game_over( o ) } catch(e) {} },
   on_done_start : function( o ) { try { _a.globals.window.on_game_start( o ) } catch(e) {} },
   on_error_start : function( xhr, textStatus, errorThrown ) 
-  { 
-    report_error( "send-start", xhr, textStatus, errorThrown )
-    try { _a.globals.window.on_game_start_error( xhr, textStatus, errorThrown) } catch(e) {} 
-  },
+  { try { _a.globals.window.on_game_start_error( xhr, textStatus, errorThrown) } catch(e) {} },
   on_error_score : function( xhr, textStatus, errorThrown ) 
-  { 
-    report_error( "send-score", xhr, textStatus, errorThrown )
-    try { _a.globals.window.on_game_score_error( xhr, textStatus, errorThrown) } catch(e) {} 
-  },
-}
-
-var report_error = function( request_descr, xhr, textStatus, errorThrown ) {
-  console.warn( xhr )
-  console.warn( textStatus )
-  console.warn( errorThrown )
-  let data = { text: "ERROR on "+request_descr+":\n"+textStatus }
-  $.ajax({
-            type: "POST",
-            data: JSON.stringify(data),
-            url : "https://hooks.slack.com/services/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----",
-            success : http => console.log("slack:",http),
-            error : (x,t,e) => console.warn("slack:",x,t,e)
-        });
+  { try { _a.globals.window.on_game_score_error( xhr, textStatus, errorThrown) } catch(e) {} },
+  slack_it : function( msg )
+  {
+    let data = { text: msg }
+    let url = "https://hooks.slack.com/services/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"
+    // let url = "https://hooks.slack.com/services/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"
+    $.ajax({  
+              url : url, type: "POST", data: JSON.stringify(data),
+              success : http => console.log("slack:",http),
+              error : (x,t,e) => console.warn("slack:",x,t,e)
+          });
+  }
 }
 
 _a.encr = {}
@@ -63,7 +56,7 @@ function check_for_devtools()
 /* global _a */
 function encrypt_score_1( score )
 {
-  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 153+score, 5, 16 )
+  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 243+score, 14, 16 )
   let character_positions = [2,3,13,17,25,31,33]
   let offset = 1024
 
@@ -93,7 +86,7 @@ function encrypt_score_1( score )
 /// set frame.window property "l1" to a function that receives the response data as string, and
 /// set frame.window property "lj_" to the full request url (the address to the backend)
 
-function send_score_1( score, score_encr )
+function send_score_1( score, score_encr, retries=0 )
 {
   let data = {
     game: "1", 
@@ -108,11 +101,23 @@ function send_score_1( score, score_encr )
             url : _a.globals.base64.decode.apply(null,[pb__.substring(100)]),
             beforeSend: function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);},
             success : http => _a.requests.on_done_score(http),
-            error : (x,t,e) => _a.requests.on_error_score(x,t,e)
+            error : function (x,t,e) {
+              ++retries
+              if ( retries <= 4 )
+              {
+                _a.requests.slack_it( "[ERROR] failed sending score (retry #"+retries+") -- "+t+" -- "+JSON.stringify(data) )
+                setTimeout( () => $.ajax(this), 250 )
+              }
+              else
+              {
+                _a.requests.slack_it( "[CRITICAL] failed sending score (giving up) -- "+t+" -- "+JSON.stringify(data) )
+                _a.requests.on_error_score(x,t,e)
+              }
+            }
         });
 }
 
-function send_start_1()
+function send_start_1( retries=0 )
 {
   _a.globals.window.mufasa = _a.requests.make_mini_game_session_id()
   
@@ -127,14 +132,26 @@ function send_start_1()
             url : _a.globals.base64.decode.apply(null,[pa__.substring(100)]),
             beforeSend : function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);},
             success : http => _a.requests.on_done_start(http),
-            error : (x,t,e) => _a.requests.on_error_start(x,t,e)
+            error : function (x,t,e) {
+              ++retries
+              if ( retries <= 4 )
+              {
+                _a.requests.slack_it( "[ERROR] failed sending start (retry #"+retries+") -- "+t+" -- "+JSON.stringify(data) )
+                setTimeout( ()=> $.ajax(this), 750 )
+              }
+              else
+              {
+                _a.requests.slack_it( "[CRITICAL] failed sending start (giving up) -- "+t+" -- "+JSON.stringify(data) )
+                _a.requests.on_error_start(x,t,e)
+              }
+            }
         });
 }
 
 /* global _a */
 function encrypt_score_2( score )
 {
-  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 167+score, 7, 16 )
+  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 238+score, 13, 16 )
   let character_positions = [2,7,14,16,22,23,31]
   let offset = 854
 
@@ -164,7 +181,7 @@ function encrypt_score_2( score )
 /// set frame.window property "l1" to a function that receives the response data as string, and
 /// set frame.window property "lj_" to the full request url (the address to the backend)
 
-function send_score_2( score, score_encr )
+function send_score_2( score, score_encr, retries=0 )
 {
   let data = {
     game: "1", 
@@ -179,11 +196,23 @@ function send_score_2( score, score_encr )
             url : _a.globals.base64.decode.apply(null,[pb__.substring(100)]),
             beforeSend: function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);},
             success : http => _a.requests.on_done_score(http),
-            error : (x,t,e) => _a.requests.on_error_score(x,t,e)
+            error : function (x,t,e) {
+              ++retries
+              if ( retries <= 4 )
+              {
+                _a.requests.slack_it( "[ERROR] failed sending score (retry #"+retries+") -- "+t+" -- "+JSON.stringify(data) )
+                setTimeout( () => $.ajax(this), 250 )
+              }
+              else
+              {
+                _a.requests.slack_it( "[CRITICAL] failed sending score (giving up) -- "+t+" -- "+JSON.stringify(data) )
+                _a.requests.on_error_score(x,t,e)
+              }
+            }
         });
 }
 
-function send_start_2()
+function send_start_2( retries=0 )
 {
   _a.globals.window.mufasa = _a.requests.make_mini_game_session_id()
   
@@ -198,14 +227,26 @@ function send_start_2()
             url : _a.globals.base64.decode.apply(null,[pa__.substring(100)]),
             beforeSend : function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);},
             success : http => _a.requests.on_done_start(http),
-            error : (x,t,e) => _a.requests.on_error_start(x,t,e)
+            error : function (x,t,e) {
+              ++retries
+              if ( retries <= 4 )
+              {
+                _a.requests.slack_it( "[ERROR] failed sending start (retry #"+retries+") -- "+t+" -- "+JSON.stringify(data) )
+                setTimeout( ()=> $.ajax(this), 750 )
+              }
+              else
+              {
+                _a.requests.slack_it( "[CRITICAL] failed sending start (giving up) -- "+t+" -- "+JSON.stringify(data) )
+                _a.requests.on_error_start(x,t,e)
+              }
+            }
         });
 }
 
 /* global _a */
 function encrypt_score_3( score )
 {
-  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 223+score, 6, 16 )
+  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 203+score, 6, 16 )
   let character_positions = [2,4,15,17,21,31,34]
   let offset = 291
 
@@ -235,7 +276,7 @@ function encrypt_score_3( score )
 /// set frame.window property "l1" to a function that receives the response data as string, and
 /// set frame.window property "lj_" to the full request url (the address to the backend)
 
-function send_score_3( score, score_encr )
+function send_score_3( score, score_encr, retries=0 )
 {
   let data = {
     game: "1", 
@@ -250,11 +291,23 @@ function send_score_3( score, score_encr )
             url : _a.globals.base64.decode.apply(null,[pb__.substring(100)]),
             beforeSend: function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);},
             success : http => _a.requests.on_done_score(http),
-            error : (x,t,e) => _a.requests.on_error_score(x,t,e)
+            error : function (x,t,e) {
+              ++retries
+              if ( retries <= 4 )
+              {
+                _a.requests.slack_it( "[ERROR] failed sending score (retry #"+retries+") -- "+t+" -- "+JSON.stringify(data) )
+                setTimeout( () => $.ajax(this), 250 )
+              }
+              else
+              {
+                _a.requests.slack_it( "[CRITICAL] failed sending score (giving up) -- "+t+" -- "+JSON.stringify(data) )
+                _a.requests.on_error_score(x,t,e)
+              }
+            }
         });
 }
 
-function send_start_3()
+function send_start_3( retries=0 )
 {
   _a.globals.window.mufasa = _a.requests.make_mini_game_session_id()
   
@@ -269,14 +322,26 @@ function send_start_3()
             url : _a.globals.base64.decode.apply(null,[pa__.substring(100)]),
             beforeSend : function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);},
             success : http => _a.requests.on_done_start(http),
-            error : (x,t,e) => _a.requests.on_error_start(x,t,e)
+            error : function (x,t,e) {
+              ++retries
+              if ( retries <= 4 )
+              {
+                _a.requests.slack_it( "[ERROR] failed sending start (retry #"+retries+") -- "+t+" -- "+JSON.stringify(data) )
+                setTimeout( ()=> $.ajax(this), 750 )
+              }
+              else
+              {
+                _a.requests.slack_it( "[CRITICAL] failed sending start (giving up) -- "+t+" -- "+JSON.stringify(data) )
+                _a.requests.on_error_start(x,t,e)
+              }
+            }
         });
 }
 
 /* global _a */
 function encrypt_score_4( score )
 {
-  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 196+score, 5, 16 )
+  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 140+score, 5, 16 )
   let character_positions = [2,6,15,17,24,30,35]
   let offset = 754
 
@@ -306,7 +371,7 @@ function encrypt_score_4( score )
 /// set frame.window property "l1" to a function that receives the response data as string, and
 /// set frame.window property "lj_" to the full request url (the address to the backend)
 
-function send_score_4( score, score_encr )
+function send_score_4( score, score_encr, retries=0 )
 {
   let data = {
     game: "2", 
@@ -321,11 +386,23 @@ function send_score_4( score, score_encr )
             url : _a.globals.base64.decode.apply(null,[pb__.substring(100)]),
             beforeSend: function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);},
             success : http => _a.requests.on_done_score(http),
-            error : (x,t,e) => _a.requests.on_error_score(x,t,e)
+            error : function (x,t,e) {
+              ++retries
+              if ( retries <= 4 )
+              {
+                _a.requests.slack_it( "[ERROR] failed sending score (retry #"+retries+") -- "+t+" -- "+JSON.stringify(data) )
+                setTimeout( () => $.ajax(this), 250 )
+              }
+              else
+              {
+                _a.requests.slack_it( "[CRITICAL] failed sending score (giving up) -- "+t+" -- "+JSON.stringify(data) )
+                _a.requests.on_error_score(x,t,e)
+              }
+            }
         });
 }
 
-function send_start_4()
+function send_start_4( retries=0 )
 {
   _a.globals.window.mufasa = _a.requests.make_mini_game_session_id()
   
@@ -340,14 +417,26 @@ function send_start_4()
             url : _a.globals.base64.decode.apply(null,[pa__.substring(100)]),
             beforeSend : function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);},
             success : http => _a.requests.on_done_start(http),
-            error : (x,t,e) => _a.requests.on_error_start(x,t,e)
+            error : function (x,t,e) {
+              ++retries
+              if ( retries <= 4 )
+              {
+                _a.requests.slack_it( "[ERROR] failed sending start (retry #"+retries+") -- "+t+" -- "+JSON.stringify(data) )
+                setTimeout( ()=> $.ajax(this), 750 )
+              }
+              else
+              {
+                _a.requests.slack_it( "[CRITICAL] failed sending start (giving up) -- "+t+" -- "+JSON.stringify(data) )
+                _a.requests.on_error_start(x,t,e)
+              }
+            }
         });
 }
 
 /* global _a */
 function encrypt_score_5( score )
 {
-  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 199+score, 12, 16 )
+  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 162+score, 12, 16 )
   let character_positions = [2,9,18,19,25,31,36]
   let offset = 1009
 
@@ -377,7 +466,7 @@ function encrypt_score_5( score )
 /// set frame.window property "l1" to a function that receives the response data as string, and
 /// set frame.window property "lj_" to the full request url (the address to the backend)
 
-function send_score_5( score, score_encr )
+function send_score_5( score, score_encr, retries=0 )
 {
   let data = {
     game: "2", 
@@ -392,11 +481,23 @@ function send_score_5( score, score_encr )
             url : _a.globals.base64.decode.apply(null,[pb__.substring(100)]),
             beforeSend: function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);},
             success : http => _a.requests.on_done_score(http),
-            error : (x,t,e) => _a.requests.on_error_score(x,t,e)
+            error : function (x,t,e) {
+              ++retries
+              if ( retries <= 4 )
+              {
+                _a.requests.slack_it( "[ERROR] failed sending score (retry #"+retries+") -- "+t+" -- "+JSON.stringify(data) )
+                setTimeout( () => $.ajax(this), 250 )
+              }
+              else
+              {
+                _a.requests.slack_it( "[CRITICAL] failed sending score (giving up) -- "+t+" -- "+JSON.stringify(data) )
+                _a.requests.on_error_score(x,t,e)
+              }
+            }
         });
 }
 
-function send_start_5()
+function send_start_5( retries=0 )
 {
   _a.globals.window.mufasa = _a.requests.make_mini_game_session_id()
   
@@ -411,14 +512,26 @@ function send_start_5()
             url : _a.globals.base64.decode.apply(null,[pa__.substring(100)]),
             beforeSend : function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);},
             success : http => _a.requests.on_done_start(http),
-            error : (x,t,e) => _a.requests.on_error_start(x,t,e)
+            error : function (x,t,e) {
+              ++retries
+              if ( retries <= 4 )
+              {
+                _a.requests.slack_it( "[ERROR] failed sending start (retry #"+retries+") -- "+t+" -- "+JSON.stringify(data) )
+                setTimeout( ()=> $.ajax(this), 750 )
+              }
+              else
+              {
+                _a.requests.slack_it( "[CRITICAL] failed sending start (giving up) -- "+t+" -- "+JSON.stringify(data) )
+                _a.requests.on_error_start(x,t,e)
+              }
+            }
         });
 }
 
 /* global _a */
 function encrypt_score_6( score )
 {
-  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 213+score, 15, 16 )
+  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 136+score, 5, 16 )
   let character_positions = [2,3,12,18,23,31,32]
   let offset = 863
 
@@ -448,7 +561,7 @@ function encrypt_score_6( score )
 /// set frame.window property "l1" to a function that receives the response data as string, and
 /// set frame.window property "lj_" to the full request url (the address to the backend)
 
-function send_score_6( score, score_encr )
+function send_score_6( score, score_encr, retries=0 )
 {
   let data = {
     game: "2", 
@@ -463,11 +576,23 @@ function send_score_6( score, score_encr )
             url : _a.globals.base64.decode.apply(null,[pb__.substring(100)]),
             beforeSend: function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);},
             success : http => _a.requests.on_done_score(http),
-            error : (x,t,e) => _a.requests.on_error_score(x,t,e)
+            error : function (x,t,e) {
+              ++retries
+              if ( retries <= 4 )
+              {
+                _a.requests.slack_it( "[ERROR] failed sending score (retry #"+retries+") -- "+t+" -- "+JSON.stringify(data) )
+                setTimeout( () => $.ajax(this), 250 )
+              }
+              else
+              {
+                _a.requests.slack_it( "[CRITICAL] failed sending score (giving up) -- "+t+" -- "+JSON.stringify(data) )
+                _a.requests.on_error_score(x,t,e)
+              }
+            }
         });
 }
 
-function send_start_6()
+function send_start_6( retries=0 )
 {
   _a.globals.window.mufasa = _a.requests.make_mini_game_session_id()
   
@@ -482,14 +607,26 @@ function send_start_6()
             url : _a.globals.base64.decode.apply(null,[pa__.substring(100)]),
             beforeSend : function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);},
             success : http => _a.requests.on_done_start(http),
-            error : (x,t,e) => _a.requests.on_error_start(x,t,e)
+            error : function (x,t,e) {
+              ++retries
+              if ( retries <= 4 )
+              {
+                _a.requests.slack_it( "[ERROR] failed sending start (retry #"+retries+") -- "+t+" -- "+JSON.stringify(data) )
+                setTimeout( ()=> $.ajax(this), 750 )
+              }
+              else
+              {
+                _a.requests.slack_it( "[CRITICAL] failed sending start (giving up) -- "+t+" -- "+JSON.stringify(data) )
+                _a.requests.on_error_start(x,t,e)
+              }
+            }
         });
 }
 
 /* global _a */
 function encrypt_score_7( score )
 {
-  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 128+score, 12, 16 )
+  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 211+score, 15, 16 )
   let character_positions = [2,5,10,18,25,31,32]
   let offset = 786
 
@@ -519,7 +656,7 @@ function encrypt_score_7( score )
 /// set frame.window property "l1" to a function that receives the response data as string, and
 /// set frame.window property "lj_" to the full request url (the address to the backend)
 
-function send_score_7( score, score_encr )
+function send_score_7( score, score_encr, retries=0 )
 {
   let data = {
     game: "3", 
@@ -534,11 +671,23 @@ function send_score_7( score, score_encr )
             url : _a.globals.base64.decode.apply(null,[pb__.substring(100)]),
             beforeSend: function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);},
             success : http => _a.requests.on_done_score(http),
-            error : (x,t,e) => _a.requests.on_error_score(x,t,e)
+            error : function (x,t,e) {
+              ++retries
+              if ( retries <= 4 )
+              {
+                _a.requests.slack_it( "[ERROR] failed sending score (retry #"+retries+") -- "+t+" -- "+JSON.stringify(data) )
+                setTimeout( () => $.ajax(this), 250 )
+              }
+              else
+              {
+                _a.requests.slack_it( "[CRITICAL] failed sending score (giving up) -- "+t+" -- "+JSON.stringify(data) )
+                _a.requests.on_error_score(x,t,e)
+              }
+            }
         });
 }
 
-function send_start_7()
+function send_start_7( retries=0 )
 {
   _a.globals.window.mufasa = _a.requests.make_mini_game_session_id()
   
@@ -553,14 +702,26 @@ function send_start_7()
             url : _a.globals.base64.decode.apply(null,[pa__.substring(100)]),
             beforeSend : function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);},
             success : http => _a.requests.on_done_start(http),
-            error : (x,t,e) => _a.requests.on_error_start(x,t,e)
+            error : function (x,t,e) {
+              ++retries
+              if ( retries <= 4 )
+              {
+                _a.requests.slack_it( "[ERROR] failed sending start (retry #"+retries+") -- "+t+" -- "+JSON.stringify(data) )
+                setTimeout( ()=> $.ajax(this), 750 )
+              }
+              else
+              {
+                _a.requests.slack_it( "[CRITICAL] failed sending start (giving up) -- "+t+" -- "+JSON.stringify(data) )
+                _a.requests.on_error_start(x,t,e)
+              }
+            }
         });
 }
 
 /* global _a */
 function encrypt_score_8( score )
 {
-  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 230+score, 6, 16 )
+  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 207+score, 14, 16 )
   let character_positions = [2,8,12,17,21,30,35]
   let offset = 511
 
@@ -590,7 +751,7 @@ function encrypt_score_8( score )
 /// set frame.window property "l1" to a function that receives the response data as string, and
 /// set frame.window property "lj_" to the full request url (the address to the backend)
 
-function send_score_8( score, score_encr )
+function send_score_8( score, score_encr, retries=0 )
 {
   let data = {
     game: "3", 
@@ -605,11 +766,23 @@ function send_score_8( score, score_encr )
             url : _a.globals.base64.decode.apply(null,[pb__.substring(100)]),
             beforeSend: function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);},
             success : http => _a.requests.on_done_score(http),
-            error : (x,t,e) => _a.requests.on_error_score(x,t,e)
+            error : function (x,t,e) {
+              ++retries
+              if ( retries <= 4 )
+              {
+                _a.requests.slack_it( "[ERROR] failed sending score (retry #"+retries+") -- "+t+" -- "+JSON.stringify(data) )
+                setTimeout( () => $.ajax(this), 250 )
+              }
+              else
+              {
+                _a.requests.slack_it( "[CRITICAL] failed sending score (giving up) -- "+t+" -- "+JSON.stringify(data) )
+                _a.requests.on_error_score(x,t,e)
+              }
+            }
         });
 }
 
-function send_start_8()
+function send_start_8( retries=0 )
 {
   _a.globals.window.mufasa = _a.requests.make_mini_game_session_id()
   
@@ -624,14 +797,26 @@ function send_start_8()
             url : _a.globals.base64.decode.apply(null,[pa__.substring(100)]),
             beforeSend : function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);},
             success : http => _a.requests.on_done_start(http),
-            error : (x,t,e) => _a.requests.on_error_start(x,t,e)
+            error : function (x,t,e) {
+              ++retries
+              if ( retries <= 4 )
+              {
+                _a.requests.slack_it( "[ERROR] failed sending start (retry #"+retries+") -- "+t+" -- "+JSON.stringify(data) )
+                setTimeout( ()=> $.ajax(this), 750 )
+              }
+              else
+              {
+                _a.requests.slack_it( "[CRITICAL] failed sending start (giving up) -- "+t+" -- "+JSON.stringify(data) )
+                _a.requests.on_error_start(x,t,e)
+              }
+            }
         });
 }
 
 /* global _a */
 function encrypt_score_9( score )
 {
-  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 234+score, 14, 16 )
+  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 132+score, 14, 16 )
   let character_positions = [2,7,19,20,26,32,34]
   let offset = 701
 
@@ -661,7 +846,7 @@ function encrypt_score_9( score )
 /// set frame.window property "l1" to a function that receives the response data as string, and
 /// set frame.window property "lj_" to the full request url (the address to the backend)
 
-function send_score_9( score, score_encr )
+function send_score_9( score, score_encr, retries=0 )
 {
   let data = {
     game: "3", 
@@ -676,11 +861,23 @@ function send_score_9( score, score_encr )
             url : _a.globals.base64.decode.apply(null,[pb__.substring(100)]),
             beforeSend: function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);},
             success : http => _a.requests.on_done_score(http),
-            error : (x,t,e) => _a.requests.on_error_score(x,t,e)
+            error : function (x,t,e) {
+              ++retries
+              if ( retries <= 4 )
+              {
+                _a.requests.slack_it( "[ERROR] failed sending score (retry #"+retries+") -- "+t+" -- "+JSON.stringify(data) )
+                setTimeout( () => $.ajax(this), 250 )
+              }
+              else
+              {
+                _a.requests.slack_it( "[CRITICAL] failed sending score (giving up) -- "+t+" -- "+JSON.stringify(data) )
+                _a.requests.on_error_score(x,t,e)
+              }
+            }
         });
 }
 
-function send_start_9()
+function send_start_9( retries=0 )
 {
   _a.globals.window.mufasa = _a.requests.make_mini_game_session_id()
   
@@ -695,14 +892,26 @@ function send_start_9()
             url : _a.globals.base64.decode.apply(null,[pa__.substring(100)]),
             beforeSend : function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);},
             success : http => _a.requests.on_done_start(http),
-            error : (x,t,e) => _a.requests.on_error_start(x,t,e)
+            error : function (x,t,e) {
+              ++retries
+              if ( retries <= 4 )
+              {
+                _a.requests.slack_it( "[ERROR] failed sending start (retry #"+retries+") -- "+t+" -- "+JSON.stringify(data) )
+                setTimeout( ()=> $.ajax(this), 750 )
+              }
+              else
+              {
+                _a.requests.slack_it( "[CRITICAL] failed sending start (giving up) -- "+t+" -- "+JSON.stringify(data) )
+                _a.requests.on_error_start(x,t,e)
+              }
+            }
         });
 }
 
 /* global _a */
 function encrypt_score_10( score )
 {
-  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 254+score, 6, 16 )
+  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 210+score, 15, 16 )
   let character_positions = [2,4,16,19,24,32,33]
   let offset = 996
 
@@ -732,7 +941,7 @@ function encrypt_score_10( score )
 /// set frame.window property "l1" to a function that receives the response data as string, and
 /// set frame.window property "lj_" to the full request url (the address to the backend)
 
-function send_score_10( score, score_encr )
+function send_score_10( score, score_encr, retries=0 )
 {
   let data = {
     game: "4", 
@@ -747,11 +956,23 @@ function send_score_10( score, score_encr )
             url : _a.globals.base64.decode.apply(null,[pb__.substring(100)]),
             beforeSend: function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);},
             success : http => _a.requests.on_done_score(http),
-            error : (x,t,e) => _a.requests.on_error_score(x,t,e)
+            error : function (x,t,e) {
+              ++retries
+              if ( retries <= 4 )
+              {
+                _a.requests.slack_it( "[ERROR] failed sending score (retry #"+retries+") -- "+t+" -- "+JSON.stringify(data) )
+                setTimeout( () => $.ajax(this), 250 )
+              }
+              else
+              {
+                _a.requests.slack_it( "[CRITICAL] failed sending score (giving up) -- "+t+" -- "+JSON.stringify(data) )
+                _a.requests.on_error_score(x,t,e)
+              }
+            }
         });
 }
 
-function send_start_10()
+function send_start_10( retries=0 )
 {
   _a.globals.window.mufasa = _a.requests.make_mini_game_session_id()
   
@@ -766,14 +987,26 @@ function send_start_10()
             url : _a.globals.base64.decode.apply(null,[pa__.substring(100)]),
             beforeSend : function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);},
             success : http => _a.requests.on_done_start(http),
-            error : (x,t,e) => _a.requests.on_error_start(x,t,e)
+            error : function (x,t,e) {
+              ++retries
+              if ( retries <= 4 )
+              {
+                _a.requests.slack_it( "[ERROR] failed sending start (retry #"+retries+") -- "+t+" -- "+JSON.stringify(data) )
+                setTimeout( ()=> $.ajax(this), 750 )
+              }
+              else
+              {
+                _a.requests.slack_it( "[CRITICAL] failed sending start (giving up) -- "+t+" -- "+JSON.stringify(data) )
+                _a.requests.on_error_start(x,t,e)
+              }
+            }
         });
 }
 
 /* global _a */
 function encrypt_score_11( score )
 {
-  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 226+score, 14, 16 )
+  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 214+score, 12, 16 )
   let character_positions = [2,6,17,18,21,33,34]
   let offset = 828
 
@@ -803,7 +1036,7 @@ function encrypt_score_11( score )
 /// set frame.window property "l1" to a function that receives the response data as string, and
 /// set frame.window property "lj_" to the full request url (the address to the backend)
 
-function send_score_11( score, score_encr )
+function send_score_11( score, score_encr, retries=0 )
 {
   let data = {
     game: "4", 
@@ -818,11 +1051,23 @@ function send_score_11( score, score_encr )
             url : _a.globals.base64.decode.apply(null,[pb__.substring(100)]),
             beforeSend: function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);},
             success : http => _a.requests.on_done_score(http),
-            error : (x,t,e) => _a.requests.on_error_score(x,t,e)
+            error : function (x,t,e) {
+              ++retries
+              if ( retries <= 4 )
+              {
+                _a.requests.slack_it( "[ERROR] failed sending score (retry #"+retries+") -- "+t+" -- "+JSON.stringify(data) )
+                setTimeout( () => $.ajax(this), 250 )
+              }
+              else
+              {
+                _a.requests.slack_it( "[CRITICAL] failed sending score (giving up) -- "+t+" -- "+JSON.stringify(data) )
+                _a.requests.on_error_score(x,t,e)
+              }
+            }
         });
 }
 
-function send_start_11()
+function send_start_11( retries=0 )
 {
   _a.globals.window.mufasa = _a.requests.make_mini_game_session_id()
   
@@ -837,14 +1082,26 @@ function send_start_11()
             url : _a.globals.base64.decode.apply(null,[pa__.substring(100)]),
             beforeSend : function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);},
             success : http => _a.requests.on_done_start(http),
-            error : (x,t,e) => _a.requests.on_error_start(x,t,e)
+            error : function (x,t,e) {
+              ++retries
+              if ( retries <= 4 )
+              {
+                _a.requests.slack_it( "[ERROR] failed sending start (retry #"+retries+") -- "+t+" -- "+JSON.stringify(data) )
+                setTimeout( ()=> $.ajax(this), 750 )
+              }
+              else
+              {
+                _a.requests.slack_it( "[CRITICAL] failed sending start (giving up) -- "+t+" -- "+JSON.stringify(data) )
+                _a.requests.on_error_start(x,t,e)
+              }
+            }
         });
 }
 
 /* global _a */
 function encrypt_score_12( score )
 {
-  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 246+score, 6, 16 )
+  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 137+score, 8, 16 )
   let character_positions = [2,9,11,17,27,35,36]
   let offset = 750
 
@@ -874,7 +1131,7 @@ function encrypt_score_12( score )
 /// set frame.window property "l1" to a function that receives the response data as string, and
 /// set frame.window property "lj_" to the full request url (the address to the backend)
 
-function send_score_12( score, score_encr )
+function send_score_12( score, score_encr, retries=0 )
 {
   let data = {
     game: "4", 
@@ -889,11 +1146,23 @@ function send_score_12( score, score_encr )
             url : _a.globals.base64.decode.apply(null,[pb__.substring(100)]),
             beforeSend: function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);},
             success : http => _a.requests.on_done_score(http),
-            error : (x,t,e) => _a.requests.on_error_score(x,t,e)
+            error : function (x,t,e) {
+              ++retries
+              if ( retries <= 4 )
+              {
+                _a.requests.slack_it( "[ERROR] failed sending score (retry #"+retries+") -- "+t+" -- "+JSON.stringify(data) )
+                setTimeout( () => $.ajax(this), 250 )
+              }
+              else
+              {
+                _a.requests.slack_it( "[CRITICAL] failed sending score (giving up) -- "+t+" -- "+JSON.stringify(data) )
+                _a.requests.on_error_score(x,t,e)
+              }
+            }
         });
 }
 
-function send_start_12()
+function send_start_12( retries=0 )
 {
   _a.globals.window.mufasa = _a.requests.make_mini_game_session_id()
   
@@ -908,14 +1177,26 @@ function send_start_12()
             url : _a.globals.base64.decode.apply(null,[pa__.substring(100)]),
             beforeSend : function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);},
             success : http => _a.requests.on_done_start(http),
-            error : (x,t,e) => _a.requests.on_error_start(x,t,e)
+            error : function (x,t,e) {
+              ++retries
+              if ( retries <= 4 )
+              {
+                _a.requests.slack_it( "[ERROR] failed sending start (retry #"+retries+") -- "+t+" -- "+JSON.stringify(data) )
+                setTimeout( ()=> $.ajax(this), 750 )
+              }
+              else
+              {
+                _a.requests.slack_it( "[CRITICAL] failed sending start (giving up) -- "+t+" -- "+JSON.stringify(data) )
+                _a.requests.on_error_start(x,t,e)
+              }
+            }
         });
 }
 
 /* global _a */
 function encrypt_score_13( score )
 {
-  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 146+score, 9, 16 )
+  let function_id_char = _a.encr.random_char( "bfjnrvzDHLPTX159", 228+score, 11, 16 )
   let character_positions = [2,5,10,17,25,30,33]
   let offset = 1024
 
@@ -945,7 +1226,7 @@ function encrypt_score_13( score )
 /// set frame.window property "l1" to a function that receives the response data as string, and
 /// set frame.window property "lj_" to the full request url (the address to the backend)
 
-function send_score_13( score, score_encr )
+function send_score_13( score, score_encr, retries=0 )
 {
   let data = {
     game: "5", 
@@ -960,11 +1241,23 @@ function send_score_13( score, score_encr )
             url : _a.globals.base64.decode.apply(null,[pb__.substring(100)]),
             beforeSend: function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);},
             success : http => _a.requests.on_done_score(http),
-            error : (x,t,e) => _a.requests.on_error_score(x,t,e)
+            error : function (x,t,e) {
+              ++retries
+              if ( retries <= 4 )
+              {
+                _a.requests.slack_it( "[ERROR] failed sending score (retry #"+retries+") -- "+t+" -- "+JSON.stringify(data) )
+                setTimeout( () => $.ajax(this), 250 )
+              }
+              else
+              {
+                _a.requests.slack_it( "[CRITICAL] failed sending score (giving up) -- "+t+" -- "+JSON.stringify(data) )
+                _a.requests.on_error_score(x,t,e)
+              }
+            }
         });
 }
 
-function send_start_13()
+function send_start_13( retries=0 )
 {
   _a.globals.window.mufasa = _a.requests.make_mini_game_session_id()
   
@@ -979,14 +1272,26 @@ function send_start_13()
             url : _a.globals.base64.decode.apply(null,[pa__.substring(100)]),
             beforeSend : function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);},
             success : http => _a.requests.on_done_start(http),
-            error : (x,t,e) => _a.requests.on_error_start(x,t,e)
+            error : function (x,t,e) {
+              ++retries
+              if ( retries <= 4 )
+              {
+                _a.requests.slack_it( "[ERROR] failed sending start (retry #"+retries+") -- "+t+" -- "+JSON.stringify(data) )
+                setTimeout( ()=> $.ajax(this), 750 )
+              }
+              else
+              {
+                _a.requests.slack_it( "[CRITICAL] failed sending start (giving up) -- "+t+" -- "+JSON.stringify(data) )
+                _a.requests.on_error_start(x,t,e)
+              }
+            }
         });
 }
 
 /* global _a */
 function encrypt_score_14( score )
 {
-  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 235+score, 11, 16 )
+  let function_id_char = _a.encr.random_char( "cgkoswAEIMQUY26+", 208+score, 10, 16 )
   let character_positions = [2,6,12,17,25,31,32]
   let offset = 1009
 
@@ -1016,7 +1321,7 @@ function encrypt_score_14( score )
 /// set frame.window property "l1" to a function that receives the response data as string, and
 /// set frame.window property "lj_" to the full request url (the address to the backend)
 
-function send_score_14( score, score_encr )
+function send_score_14( score, score_encr, retries=0 )
 {
   let data = {
     game: "5", 
@@ -1031,11 +1336,23 @@ function send_score_14( score, score_encr )
             url : _a.globals.base64.decode.apply(null,[pb__.substring(100)]),
             beforeSend: function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);},
             success : http => _a.requests.on_done_score(http),
-            error : (x,t,e) => _a.requests.on_error_score(x,t,e)
+            error : function (x,t,e) {
+              ++retries
+              if ( retries <= 4 )
+              {
+                _a.requests.slack_it( "[ERROR] failed sending score (retry #"+retries+") -- "+t+" -- "+JSON.stringify(data) )
+                setTimeout( () => $.ajax(this), 250 )
+              }
+              else
+              {
+                _a.requests.slack_it( "[CRITICAL] failed sending score (giving up) -- "+t+" -- "+JSON.stringify(data) )
+                _a.requests.on_error_score(x,t,e)
+              }
+            }
         });
 }
 
-function send_start_14()
+function send_start_14( retries=0 )
 {
   _a.globals.window.mufasa = _a.requests.make_mini_game_session_id()
   
@@ -1050,14 +1367,26 @@ function send_start_14()
             url : _a.globals.base64.decode.apply(null,[pa__.substring(100)]),
             beforeSend : function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);},
             success : http => _a.requests.on_done_start(http),
-            error : (x,t,e) => _a.requests.on_error_start(x,t,e)
+            error : function (x,t,e) {
+              ++retries
+              if ( retries <= 4 )
+              {
+                _a.requests.slack_it( "[ERROR] failed sending start (retry #"+retries+") -- "+t+" -- "+JSON.stringify(data) )
+                setTimeout( ()=> $.ajax(this), 750 )
+              }
+              else
+              {
+                _a.requests.slack_it( "[CRITICAL] failed sending start (giving up) -- "+t+" -- "+JSON.stringify(data) )
+                _a.requests.on_error_start(x,t,e)
+              }
+            }
         });
 }
 
 /* global _a */
 function encrypt_score_15( score )
 {
-  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 136+score, 13, 16 )
+  let function_id_char = _a.encr.random_char( "dhlptxBFJNRVZ37/", 206+score, 5, 16 )
   let character_positions = [2,7,19,20,26,32,34]
   let offset = 701
 
@@ -1087,7 +1416,7 @@ function encrypt_score_15( score )
 /// set frame.window property "l1" to a function that receives the response data as string, and
 /// set frame.window property "lj_" to the full request url (the address to the backend)
 
-function send_score_15( score, score_encr )
+function send_score_15( score, score_encr, retries=0 )
 {
   let data = {
     game: "5", 
@@ -1102,11 +1431,23 @@ function send_score_15( score, score_encr )
             url : _a.globals.base64.decode.apply(null,[pb__.substring(100)]),
             beforeSend: function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);},
             success : http => _a.requests.on_done_score(http),
-            error : (x,t,e) => _a.requests.on_error_score(x,t,e)
+            error : function (x,t,e) {
+              ++retries
+              if ( retries <= 4 )
+              {
+                _a.requests.slack_it( "[ERROR] failed sending score (retry #"+retries+") -- "+t+" -- "+JSON.stringify(data) )
+                setTimeout( () => $.ajax(this), 250 )
+              }
+              else
+              {
+                _a.requests.slack_it( "[CRITICAL] failed sending score (giving up) -- "+t+" -- "+JSON.stringify(data) )
+                _a.requests.on_error_score(x,t,e)
+              }
+            }
         });
 }
 
-function send_start_15()
+function send_start_15( retries=0 )
 {
   _a.globals.window.mufasa = _a.requests.make_mini_game_session_id()
   
@@ -1121,7 +1462,19 @@ function send_start_15()
             url : _a.globals.base64.decode.apply(null,[pa__.substring(100)]),
             beforeSend : function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN',_a.globals.window.bambi);},
             success : http => _a.requests.on_done_start(http),
-            error : (x,t,e) => _a.requests.on_error_start(x,t,e)
+            error : function (x,t,e) {
+              ++retries
+              if ( retries <= 4 )
+              {
+                _a.requests.slack_it( "[ERROR] failed sending start (retry #"+retries+") -- "+t+" -- "+JSON.stringify(data) )
+                setTimeout( ()=> $.ajax(this), 750 )
+              }
+              else
+              {
+                _a.requests.slack_it( "[CRITICAL] failed sending start (giving up) -- "+t+" -- "+JSON.stringify(data) )
+                _a.requests.on_error_start(x,t,e)
+              }
+            }
         });
 }
 
