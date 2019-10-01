@@ -97,6 +97,7 @@ function csrf_token()
 			gameframe.pb__="<?php echo make_jumbled_backend_url( $backend_url_end ) ?>"
 			gameframe.on_game_over = onGameOverRequestResponse
 			gameframe.on_close_btn = ()=>window.history.back()
+			gameframe._a.slack.webhook_url = "https://hooks.slack.com/services/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"
 		}
 		function onGameOverRequestResponse()
 		{

@@ -13,8 +13,15 @@ function error($o) { fwrite(STDERR,"\e[01;91m[ERROR] $o\e[0m\n"); }
 
 header('Access-Control-Allow-Origin: *');
 header("Content-Type: application/json");
+header("Access-Control-Allow-Headers: X-CSRF-Token");
 
 $score_arguments = (array)json_decode( file_get_contents( 'php://input' ) );
-info("START: ".var_export($score_arguments,true));
+$score_arguments = $_POST;
+if ( !$score_arguments )
+{
+  warn("empty data");
+  die('{"error":"empty data"}');
+}
+debug("START: ".var_export($score_arguments,true));
 
 echo "{\"success\":true}";

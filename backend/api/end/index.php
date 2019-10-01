@@ -14,19 +14,28 @@ function error($o) { fwrite(STDERR,"\e[01;91m[ERROR] $o\e[0m\n"); }
 
 header('Access-Control-Allow-Origin: *');
 header("Content-Type: application/json");
+header('Access-Control-Allow-Headers: X-CSRF-Token');
 
 $score_arguments = (array)json_decode( file_get_contents( 'php://input' ) );
-debug("incame request with data: ".var_export($score_arguments,true));
+$score_arguments = $_POST;
+
+if ( !$score_arguments )
+{
+  warn("empty data");
+  die('{"error":"empty data"}');
+}
+
+debug("END: ".var_export($score_arguments,true));
 
 try
-{ 
+{
   $db = new DatabaseMiddleGuy(); 
   // $db = new DatabaseMiddleGuy_POSTGRE(); 
   info("Connected to database");
 }
 catch( Exception $e ) 
 {
-  error($e); 
+  //error($e); 
   $db = new DatabaseMiddleGuy_FAKE(); 
 }
 
